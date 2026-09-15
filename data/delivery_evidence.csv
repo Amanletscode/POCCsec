@@ -1,0 +1,1288 @@
+resource_id,project_name,project_type,domain,role,skills_used,duration_months,project_end,outcome_score
+EMP-1001,Claims reporting transformation,Analytics / Consulting,Healthcare,Consultant,SQL|Claims Data|Healthcare Data|RAG,4,2024-07-31,4.5
+EMP-1001,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Consultant,Healthcare Data|SQL|Python|Claims Data|GenAI,12,2025-04-16,3.7
+EMP-1001,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Consultant,SQL|GenAI|Python|Healthcare Data,8,2024-10-24,4.0
+EMP-1002,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Consultant,Python|EHR Data,3,2024-12-17,4.8
+EMP-1002,EHR insight platform,Analytics / Consulting,Healthcare,Consultant,Healthcare Data|Data Visualization|SQL|Python|Power BI,12,2024-06-05,4.2
+EMP-1002,Price elasticity assessment,Analytics / Consulting,Patient Services,Consultant,SQL|Power BI,6,2024-02-17,3.7
+EMP-1003,Claims reporting transformation,Analytics / Consulting,Healthcare,Senior Consultant,Healthcare Data|RAG|Machine Learning|Python,11,2022-10-17,4.4
+EMP-1003,EHR insight platform,Analytics / Consulting,Healthcare,Senior Consultant,Healthcare Data|RAG|GenAI|SQL|Python,10,2024-01-03,3.9
+EMP-1003,GenAI insight accelerator,Analytics / Consulting,Technology,Senior Consultant,SQL|Healthcare Data|Machine Learning|GenAI,3,2022-12-20,4.3
+EMP-1004,Data quality remediation,Analytics / Consulting,Market Analytics,Consultant,Price Elasticity|SQL,11,2025-01-18,3.6
+EMP-1004,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Consultant,Market Mix Modeling|Python,5,2026-06-26,4.3
+EMP-1004,Patient analytics modernization,Analytics / Consulting,Market Analytics,Consultant,SQL|Segmentation|Python|Market Mix Modeling,4,2025-03-19,3.9
+EMP-1004,European commercial analytics,Analytics / Consulting,Pricing & Promotion,Consultant,Price Elasticity|Pricing Strategy|Promo Optimization,4,2024-07-25,4.7
+EMP-1004,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Consultant,Segmentation|Price Elasticity|Pricing Strategy|Market Mix Modeling,5,2025-10-01,4.0
+EMP-1004,European commercial analytics,Analytics / Consulting,Pricing & Promotion,Consultant,Market Mix Modeling|Promo Optimization|Python|Pricing Strategy|Segmentation,3,2025-10-23,4.1
+EMP-1005,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Principal,Price Elasticity|Python|Segmentation,2,2023-12-21,3.9
+EMP-1005,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Principal,Price Elasticity|SQL,7,2025-02-26,4.2
+EMP-1005,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Principal,Segmentation|Market Mix Modeling|SQL,2,2025-02-10,4.3
+EMP-1006,European commercial analytics,Analytics / Consulting,Pricing & Promotion,Engagement Manager,Market Mix Modeling|Price Elasticity|Commercial Analytics|Forecasting|SQL,11,2023-05-05,4.8
+EMP-1006,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Engagement Manager,SQL|Python|Price Elasticity,6,2025-12-29,3.9
+EMP-1006,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Engagement Manager,Python|Pricing Strategy|Commercial Analytics|Forecasting|SQL,4,2024-04-21,4.9
+EMP-1007,Claims reporting transformation,Analytics / Consulting,Healthcare,Engagement Manager,Azure|SQL|Python,3,2023-03-15,3.8
+EMP-1007,RWE study enablement,Analytics / Consulting,Public Sector,Engagement Manager,Python|Power BI|Data Visualization|SQL|Excel,8,2026-01-22,3.8
+EMP-1007,MMX European pricing study,Analytics / Consulting,Public Sector,Engagement Manager,SQL|Azure|Power BI|Python|Data Visualization,9,2022-09-02,4.4
+EMP-1007,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Engagement Manager,Azure|SQL|Excel|Power BI,7,2025-10-06,4.5
+EMP-1007,EHR insight platform,Analytics / Consulting,Healthcare,Engagement Manager,Python|Azure|SQL,8,2024-06-09,4.5
+EMP-1007,Commercial dashboard rollout,Analytics / Consulting,Public Sector,Engagement Manager,Excel|SQL|Data Visualization,2,2023-02-06,4.8
+EMP-1008,Patient analytics modernization,Analytics / Consulting,Market Analytics,Analytics Consultant,Power BI|Commercial Analytics|Clustering,8,2024-02-05,4.0
+EMP-1008,Commercial dashboard rollout,Analytics / Consulting,Market Analytics,Analytics Consultant,Power BI|Commercial Analytics|Segmentation,3,2023-01-31,4.6
+EMP-1008,GenAI insight accelerator,Analytics / Consulting,Market Analytics,Analytics Consultant,Power BI|Clustering|Python|SQL,6,2022-12-05,3.8
+EMP-1008,Data quality remediation,Analytics / Consulting,Market Analytics,Analytics Consultant,Python|Power BI|SQL,7,2022-10-15,4.0
+EMP-1008,Safety signal analytics,Analytics / Consulting,Market Analytics,Analytics Consultant,Tableau|SQL|Commercial Analytics|Python,12,2022-11-21,4.4
+EMP-1008,RWE study enablement,Analytics / Consulting,Market Analytics,Analytics Consultant,Tableau|Commercial Analytics|Python|Power BI,4,2025-03-27,4.4
+EMP-1009,Patient analytics modernization,Analytics / Consulting,Healthcare,Principal,EHR Data|Power BI|Claims Data|R|SQL,7,2026-04-11,3.8
+EMP-1009,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Principal,Power BI|Claims Data|Healthcare Data,12,2025-08-29,4.3
+EMP-1009,EHR insight platform,Analytics / Consulting,Healthcare,Principal,Healthcare Data|R,12,2023-06-13,4.2
+EMP-1009,Claims reporting transformation,Analytics / Consulting,Healthcare,Principal,Power BI|Python,9,2023-01-23,4.3
+EMP-1009,Patient analytics modernization,Analytics / Consulting,Healthcare,Principal,Power BI|R|EHR Data,3,2023-10-10,3.8
+EMP-1009,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Principal,Python|EHR Data|Claims Data,5,2025-03-25,4.2
+EMP-1010,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Analytics Consultant,Price Elasticity|Pricing Strategy,5,2022-11-24,4.4
+EMP-1010,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Analytics Consultant,SQL|Price Elasticity|Pricing Strategy|Segmentation|Python,10,2022-11-30,4.6
+EMP-1010,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Analytics Consultant,Pricing Strategy|Python,10,2022-09-24,4.4
+EMP-1011,MMX European pricing study,Analytics / Consulting,Pharmacovigilance,Engagement Manager,Python|SAS|Statistical Modeling|Clinical Trial Data,6,2026-03-05,3.7
+EMP-1011,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Engagement Manager,Statistical Modeling|Python|Clinical Trial Data|Pharmacovigilance,7,2023-10-06,3.6
+EMP-1011,Patient analytics modernization,Analytics / Consulting,Pharmacovigilance,Engagement Manager,Python|Statistical Modeling|Clinical Trial Data|SAS,12,2023-06-02,3.6
+EMP-1011,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Engagement Manager,Clinical Trial Data|Python,7,2023-11-04,4.3
+EMP-1011,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Engagement Manager,Clinical Trial Data|SQL,4,2026-06-09,4.5
+EMP-1011,Patient analytics modernization,Analytics / Consulting,Pharmacovigilance,Engagement Manager,SAS|Python|Clinical Trial Data|Pharmacovigilance,5,2026-06-11,4.7
+EMP-1012,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Engagement Manager,Statistical Modeling|Causal Inference|Python|Real World Evidence,6,2024-11-16,4.7
+EMP-1012,RWE study enablement,Analytics / Consulting,Real World Evidence,Engagement Manager,SQL|EHR Data|Real World Evidence|Causal Inference,8,2025-05-18,4.1
+EMP-1012,RWE study enablement,Analytics / Consulting,Real World Evidence,Engagement Manager,Claims Data|EHR Data|Statistical Modeling|Causal Inference|Python,2,2023-10-25,4.9
+EMP-1012,RWE study enablement,Analytics / Consulting,Real World Evidence,Engagement Manager,SQL|Causal Inference|Python,7,2023-03-04,4.0
+EMP-1012,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Engagement Manager,Real World Evidence|EHR Data|Statistical Modeling|SQL,3,2024-07-28,4.2
+EMP-1013,GenAI insight accelerator,Analytics / Consulting,Pharmacovigilance,Principal,Clinical Trial Data|Statistical Modeling|SQL|Python,4,2025-04-16,3.9
+EMP-1013,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Principal,SAS|SQL|Pharmacovigilance|Clinical Trial Data|Statistical Modeling,10,2022-09-19,4.0
+EMP-1013,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Principal,Pharmacovigilance|Clinical Trial Data|SAS|Python|SQL,10,2024-11-04,4.9
+EMP-1013,Data quality remediation,Analytics / Consulting,Pharmacovigilance,Principal,SAS|Pharmacovigilance,8,2022-09-10,4.1
+EMP-1013,RWE study enablement,Analytics / Consulting,Pharmacovigilance,Principal,SQL|Pharmacovigilance|SAS|Statistical Modeling|Python,9,2024-08-10,3.7
+EMP-1013,Data quality remediation,Analytics / Consulting,Pharmacovigilance,Principal,Statistical Modeling|SAS|Pharmacovigilance|SQL,8,2026-05-18,4.7
+EMP-1014,Safety signal analytics,Analytics / Consulting,Clinical Analytics,Principal,R|Python|SAS|Clinical Trial Data|Statistical Modeling,3,2025-08-30,3.9
+EMP-1014,MMX European pricing study,Analytics / Consulting,Clinical Analytics,Principal,R|SAS|Data Visualization|Python,3,2025-07-27,4.4
+EMP-1014,Patient analytics modernization,Analytics / Consulting,Clinical Analytics,Principal,SQL|Statistical Modeling|Python|Data Visualization|Clinical Trial Data,4,2024-05-26,4.4
+EMP-1015,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Data Analyst,SQL|Pharmacovigilance|Statistical Modeling|Clinical Trial Data,12,2023-04-11,4.3
+EMP-1015,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Data Analyst,SAS|Pharmacovigilance|SQL|Python|Clinical Trial Data,7,2023-09-13,4.9
+EMP-1015,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Data Analyst,SQL|Python|SAS,6,2023-10-06,4.8
+EMP-1015,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Data Analyst,Clinical Trial Data|SQL|Pharmacovigilance|Statistical Modeling|Python,7,2022-09-16,4.5
+EMP-1015,Forecast automation,Analytics / Consulting,Pharmacovigilance,Data Analyst,Python|Statistical Modeling|Clinical Trial Data|SQL|Pharmacovigilance,6,2026-07-21,4.3
+EMP-1015,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Data Analyst,Python|Clinical Trial Data|Pharmacovigilance|Statistical Modeling,4,2024-07-24,4.6
+EMP-1016,Price elasticity assessment,Analytics / Consulting,Market Analytics,Senior Consultant,SQL|Tableau|Clustering,3,2024-06-30,3.6
+EMP-1016,Patient analytics modernization,Analytics / Consulting,Market Analytics,Senior Consultant,Python|Clustering,7,2022-09-09,3.9
+EMP-1016,Omnichannel measurement,Analytics / Consulting,Market Analytics,Senior Consultant,Power BI|Commercial Analytics|Clustering,2,2025-04-21,3.8
+EMP-1017,Clinical analytics platform,Analytics / Consulting,Life Sciences,Principal,SQL|Python|Pharmacovigilance|SAS|Data Visualization,4,2025-07-31,4.6
+EMP-1017,MMX European pricing study,Analytics / Consulting,Insurance,Principal,Python|Pharmacovigilance|SAS|SQL,3,2024-07-18,4.8
+EMP-1017,RWE study enablement,Analytics / Consulting,Insurance,Principal,Data Visualization|R|Python|SQL|Clinical Trial Data,5,2024-05-24,4.0
+EMP-1017,Clinical analytics platform,Analytics / Consulting,Insurance,Principal,Clinical Trial Data|SQL|R|SAS,6,2024-08-28,3.8
+EMP-1017,Clinical analytics platform,Analytics / Consulting,Life Sciences,Principal,R|SQL|Data Visualization|SAS,5,2023-12-01,4.9
+EMP-1018,Safety signal analytics,Analytics / Consulting,Life Sciences,Consultant,R|Data Visualization,11,2023-06-02,3.8
+EMP-1018,Safety signal analytics,Analytics / Consulting,Life Sciences,Consultant,Python|Pharmacovigilance,2,2025-06-28,4.4
+EMP-1018,Trial data modernization,Analytics / Consulting,Life Sciences,Consultant,SAS|Pharmacovigilance|SQL|Python|Data Visualization,4,2024-11-21,4.0
+EMP-1018,Safety signal analytics,Analytics / Consulting,Life Sciences,Consultant,Python|Pharmacovigilance|SQL,9,2025-10-24,4.7
+EMP-1019,Patient analytics modernization,Analytics / Consulting,Insurance,Consultant,R|Python,4,2024-07-07,4.5
+EMP-1019,Clinical analytics platform,Analytics / Consulting,Life Sciences,Consultant,Data Visualization|Pharmacovigilance|Python|R,4,2024-04-15,4.7
+EMP-1019,Patient analytics modernization,Analytics / Consulting,Insurance,Consultant,SQL|SAS|Python,5,2026-04-02,4.1
+EMP-1019,Price elasticity assessment,Analytics / Consulting,Insurance,Consultant,Python|Pharmacovigilance,4,2024-05-22,4.8
+EMP-1019,GenAI insight accelerator,Analytics / Consulting,Insurance,Consultant,Clinical Trial Data|Pharmacovigilance|SQL|SAS,10,2022-11-08,3.6
+EMP-1019,Trial data modernization,Analytics / Consulting,Life Sciences,Consultant,Clinical Trial Data|Python,3,2026-06-09,4.3
+EMP-1020,Safety signal analytics,Analytics / Consulting,Market Analytics,Senior Consultant,SQL|Segmentation|Power BI|Python|Commercial Analytics,4,2026-03-13,3.9
+EMP-1020,Claims reporting transformation,Analytics / Consulting,Market Analytics,Senior Consultant,Python|Tableau|Segmentation|Clustering,11,2025-12-26,3.6
+EMP-1021,Forecast automation,Analytics / Consulting,Public Sector,Consultant,Data Visualization|MLOps|Python|Excel,7,2024-05-23,4.5
+EMP-1021,Forecast automation,Analytics / Consulting,Public Sector,Consultant,Python|SQL|MLOps|Excel|Data Visualization,10,2023-11-17,4.3
+EMP-1021,Price elasticity assessment,Analytics / Consulting,Public Sector,Consultant,SQL|Data Visualization,9,2022-10-15,4.2
+EMP-1022,Trial data modernization,Analytics / Consulting,Life Sciences,Principal,R|SQL,3,2026-07-07,4.2
+EMP-1022,Trial data modernization,Analytics / Consulting,Life Sciences,Principal,SQL|Clinical Trial Data|Pharmacovigilance,12,2024-01-16,4.6
+EMP-1022,Trial data modernization,Analytics / Consulting,Life Sciences,Principal,SQL|Pharmacovigilance|R|Data Visualization,5,2025-02-02,3.7
+EMP-1023,Data quality remediation,Analytics / Consulting,Insurance,Data Analyst,Claims Data|Predictive Modeling|Forecasting|SQL|Excel,4,2026-05-14,4.5
+EMP-1023,Commercial dashboard rollout,Analytics / Consulting,Insurance,Data Analyst,Python|Claims Data|Predictive Modeling,9,2025-11-29,3.6
+EMP-1023,Price elasticity assessment,Analytics / Consulting,Insurance,Data Analyst,Predictive Modeling|SQL|Python|Forecasting,6,2026-02-10,4.2
+EMP-1023,Patient analytics modernization,Analytics / Consulting,Insurance,Data Analyst,Forecasting|Excel|SQL,6,2022-10-07,3.9
+EMP-1023,Claims reporting transformation,Analytics / Consulting,Insurance,Data Analyst,Excel|Forecasting,3,2025-12-16,4.7
+EMP-1024,Patient analytics modernization,Analytics / Consulting,Insurance,Data Analyst,Predictive Modeling|Claims Data|Forecasting,10,2022-10-20,4.9
+EMP-1024,Commercial dashboard rollout,Analytics / Consulting,Insurance,Data Analyst,Claims Data|SQL|Python|Predictive Modeling,5,2024-06-10,4.1
+EMP-1024,Omnichannel measurement,Analytics / Consulting,Insurance,Data Analyst,Python|Predictive Modeling|Claims Data,6,2025-01-20,4.6
+EMP-1024,Commercial dashboard rollout,Analytics / Consulting,Insurance,Data Analyst,Claims Data|Excel|Python,8,2025-03-05,3.8
+EMP-1024,Price elasticity assessment,Analytics / Consulting,Insurance,Data Analyst,SQL|Python|Excel,3,2026-01-06,3.8
+EMP-1025,Omnichannel measurement,Analytics / Consulting,Clinical Analytics,Data Analyst,R|Python|Clinical Trial Data|SAS|Data Visualization,4,2023-01-24,4.2
+EMP-1025,Patient analytics modernization,Analytics / Consulting,Clinical Analytics,Data Analyst,SAS|Python|SQL,10,2023-06-22,4.3
+EMP-1025,Safety signal analytics,Analytics / Consulting,Clinical Analytics,Data Analyst,SAS|R,5,2026-02-21,3.8
+EMP-1026,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Data Analyst,Promo Optimization|SQL|Pricing Strategy|Price Elasticity|Python,7,2022-09-27,3.6
+EMP-1026,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Data Analyst,Pricing Strategy|Market Mix Modeling,5,2026-03-27,4.0
+EMP-1026,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Data Analyst,Price Elasticity|Segmentation,12,2026-04-30,4.9
+EMP-1026,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Data Analyst,SQL|Promo Optimization|Python|Price Elasticity|Segmentation,8,2023-07-09,4.4
+EMP-1027,Data quality remediation,Analytics / Consulting,Patient Services,Consultant,Data Visualization|Patient Journey Analytics|Python|Customer Analytics|Power BI,9,2023-05-14,3.9
+EMP-1027,Patient analytics modernization,Analytics / Consulting,Patient Services,Consultant,Power BI|Python|Patient Journey Analytics,3,2026-02-02,3.6
+EMP-1027,Safety signal analytics,Analytics / Consulting,Patient Services,Consultant,Patient Journey Analytics|SQL|Power BI|Customer Analytics|Data Visualization,4,2023-12-10,4.4
+EMP-1028,Patient analytics modernization,Analytics / Consulting,Insurance,Data Analyst,Excel|Predictive Modeling|Python|SQL,4,2023-12-28,4.7
+EMP-1028,Commercial dashboard rollout,Analytics / Consulting,Financial Services,Data Analyst,Excel|Forecasting|Python|Predictive Modeling,5,2023-05-13,4.6
+EMP-1028,Patient analytics modernization,Analytics / Consulting,Insurance,Data Analyst,Forecasting|Python,12,2026-06-23,4.3
+EMP-1028,Commercial dashboard rollout,Analytics / Consulting,Insurance,Data Analyst,Excel|Forecasting,7,2023-06-05,4.8
+EMP-1028,GenAI insight accelerator,Analytics / Consulting,Financial Services,Data Analyst,Python|SQL|Predictive Modeling|Forecasting,6,2025-10-02,4.4
+EMP-1028,MMX European pricing study,Analytics / Consulting,Insurance,Data Analyst,Claims Data|Excel|Python|Forecasting,5,2023-12-24,4.4
+EMP-1029,Commercial dashboard rollout,Analytics / Consulting,Pharmacovigilance,Consultant,SAS|Pharmacovigilance|Python,9,2026-06-04,4.3
+EMP-1029,GenAI insight accelerator,Analytics / Consulting,Pharmacovigilance,Consultant,Clinical Trial Data|Statistical Modeling|SAS|Python|Pharmacovigilance,7,2024-04-03,3.9
+EMP-1029,Data quality remediation,Analytics / Consulting,Pharmacovigilance,Consultant,Clinical Trial Data|Statistical Modeling|Pharmacovigilance|SQL|SAS,10,2023-11-29,3.7
+EMP-1029,MMX European pricing study,Analytics / Consulting,Pharmacovigilance,Consultant,Statistical Modeling|Pharmacovigilance|SQL|SAS|Python,12,2025-03-12,4.4
+EMP-1029,Data quality remediation,Analytics / Consulting,Pharmacovigilance,Consultant,Pharmacovigilance|Clinical Trial Data|SQL|Statistical Modeling|Python,4,2023-01-27,3.7
+EMP-1030,Trial data modernization,Analytics / Consulting,Life Sciences,Data Analyst,Python|R|Data Visualization,11,2024-05-27,4.4
+EMP-1030,Clinical analytics platform,Analytics / Consulting,Life Sciences,Data Analyst,SQL|Python,4,2025-06-13,4.4
+EMP-1030,Safety signal analytics,Analytics / Consulting,Life Sciences,Data Analyst,Python|Pharmacovigilance,8,2026-05-22,4.6
+EMP-1030,Clinical analytics platform,Analytics / Consulting,Life Sciences,Data Analyst,Python|Clinical Trial Data|R|Data Visualization|SAS,8,2024-10-08,4.4
+EMP-1030,Trial data modernization,Analytics / Consulting,Life Sciences,Data Analyst,Data Visualization|Python|SAS,10,2025-03-06,3.9
+EMP-1030,Safety signal analytics,Analytics / Consulting,Life Sciences,Data Analyst,SAS|Clinical Trial Data|Pharmacovigilance|Data Visualization|R,5,2023-12-12,3.7
+EMP-1031,Data platform modernization,Analytics / Consulting,Technology,Engagement Manager,SQL|AWS|Azure|Machine Learning,12,2023-08-23,4.9
+EMP-1031,Patient analytics modernization,Analytics / Consulting,Public Sector,Engagement Manager,GenAI|GCP|Agentic AI|Python|AWS,4,2026-04-16,3.7
+EMP-1031,Clinical analytics platform,Analytics / Consulting,Public Sector,Engagement Manager,SQL|GCP|AWS|Agentic AI|Machine Learning,9,2024-03-21,4.3
+EMP-1031,LLM evaluation framework,Analytics / Consulting,Technology,Engagement Manager,SQL|GCP|GenAI,12,2025-08-09,4.7
+EMP-1032,Safety signal analytics,Analytics / Consulting,Life Sciences,Engagement Manager,SAS|Data Visualization|SQL|Clinical Trial Data|Pharmacovigilance,7,2024-12-16,4.4
+EMP-1032,Clinical analytics platform,Analytics / Consulting,Life Sciences,Engagement Manager,Clinical Trial Data|SAS|Pharmacovigilance|Data Visualization,4,2024-08-21,4.8
+EMP-1032,Clinical analytics platform,Analytics / Consulting,Life Sciences,Engagement Manager,Pharmacovigilance|SQL|Clinical Trial Data|SAS|R,4,2025-05-25,3.7
+EMP-1033,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Principal,Agentic AI|GenAI|Machine Learning,5,2026-04-27,4.8
+EMP-1033,European commercial analytics,Analytics / Consulting,Commercial Analytics,Principal,Python|Data Engineering|Agentic AI|Machine Learning,5,2023-09-03,4.6
+EMP-1033,European commercial analytics,Analytics / Consulting,Commercial Analytics,Principal,GCP|Data Engineering|GenAI|AWS|Machine Learning,12,2025-07-04,4.5
+EMP-1033,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Principal,GenAI|Machine Learning|Data Engineering|Azure,5,2023-09-23,4.5
+EMP-1033,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Principal,Azure|AWS|GenAI|GCP|Machine Learning,10,2023-03-22,4.8
+EMP-1033,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Principal,AWS|Agentic AI|Data Engineering|Machine Learning|GenAI,7,2025-09-10,4.6
+EMP-1034,GenAI insight accelerator,Analytics / Consulting,Manufacturing Analytics,Senior Principal,Power BI|SQL,2,2022-09-17,4.0
+EMP-1034,Forecast automation,Analytics / Consulting,Manufacturing Analytics,Senior Principal,SQL|Python|Data Engineering,11,2023-09-19,4.7
+EMP-1034,RWE study enablement,Analytics / Consulting,Manufacturing Analytics,Senior Principal,SQL|Supply Chain Analytics|Forecasting|Data Engineering,8,2026-02-03,4.5
+EMP-1034,GenAI insight accelerator,Analytics / Consulting,Manufacturing Analytics,Senior Principal,Python|Supply Chain Analytics,2,2025-04-17,4.5
+EMP-1035,MMX European pricing study,Analytics / Consulting,Financial Services,Engagement Manager,Forecasting|Power BI,12,2025-07-24,3.9
+EMP-1035,Commercial dashboard rollout,Analytics / Consulting,Financial Services,Engagement Manager,Python|Predictive Modeling|SQL|Power BI,11,2023-07-21,4.9
+EMP-1035,Forecast automation,Analytics / Consulting,Financial Services,Engagement Manager,Python|Predictive Modeling|SQL|Forecasting|Power BI,6,2023-08-24,4.0
+EMP-1035,Data quality remediation,Analytics / Consulting,Financial Services,Engagement Manager,SQL|Forecasting,11,2024-03-22,4.4
+EMP-1035,MMX European pricing study,Analytics / Consulting,Financial Services,Engagement Manager,Power BI|Financial Analytics|Predictive Modeling|SQL,4,2023-08-05,4.1
+EMP-1035,Clinical analytics platform,Analytics / Consulting,Financial Services,Engagement Manager,Financial Analytics|Python|Power BI|Predictive Modeling,7,2026-06-02,4.0
+EMP-1036,Forecast automation,Analytics / Consulting,Financial Services,Consultant,Forecasting|SQL|Predictive Modeling|Power BI,2,2024-10-15,4.5
+EMP-1036,Trial data modernization,Analytics / Consulting,Life Sciences,Consultant,Power BI|Python,5,2025-09-13,4.4
+EMP-1036,Clinical analytics platform,Analytics / Consulting,Life Sciences,Consultant,Financial Analytics|Forecasting,11,2025-02-28,3.9
+EMP-1037,Data platform modernization,Analytics / Consulting,Technology,Senior Consultant,Machine Learning|Agentic AI|GCP|GenAI,11,2026-06-21,4.8
+EMP-1037,GenAI insight accelerator,Analytics / Consulting,Technology,Senior Consultant,GenAI|AWS,3,2024-10-29,3.8
+EMP-1038,MMX European pricing study,Analytics / Consulting,Public Sector,Consultant,Excel|Power BI|Python,9,2026-04-30,4.2
+EMP-1038,Commercial dashboard rollout,Analytics / Consulting,Public Sector,Consultant,SQL|Financial Analytics|Power BI|Excel|Data Visualization,7,2024-06-29,4.0
+EMP-1038,Clinical analytics platform,Analytics / Consulting,Public Sector,Consultant,Python|Data Visualization|Excel,4,2025-02-04,3.9
+EMP-1038,Safety signal analytics,Analytics / Consulting,Public Sector,Consultant,Excel|Python|Power BI|Financial Analytics|SQL,2,2024-07-27,4.1
+EMP-1038,Claims reporting transformation,Analytics / Consulting,Public Sector,Consultant,Python|Excel|Data Visualization,2,2026-05-05,4.5
+EMP-1039,Omnichannel measurement,Analytics / Consulting,Insurance,Analytics Consultant,Predictive Modeling|Python|Forecasting|Excel|Claims Data,7,2025-12-10,3.9
+EMP-1039,Clinical analytics platform,Analytics / Consulting,Insurance,Analytics Consultant,SQL|Predictive Modeling|Excel,3,2025-08-17,3.8
+EMP-1039,Omnichannel measurement,Analytics / Consulting,Insurance,Analytics Consultant,Python|Forecasting|Claims Data,8,2023-04-16,3.8
+EMP-1039,Forecast automation,Analytics / Consulting,Insurance,Analytics Consultant,Predictive Modeling|Python|SQL|Forecasting|Claims Data,9,2025-12-17,4.5
+EMP-1040,RWE study enablement,Analytics / Consulting,Real World Evidence,Principal,Claims Data|Python,12,2022-09-25,4.6
+EMP-1040,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Principal,EHR Data|Real World Evidence|Claims Data|SQL|Causal Inference,12,2026-04-03,4.0
+EMP-1040,Observational research analytics,Analytics / Consulting,Real World Evidence,Principal,Statistical Modeling|Claims Data|EHR Data|SQL|Real World Evidence,11,2023-11-05,4.1
+EMP-1040,RWE study enablement,Analytics / Consulting,Real World Evidence,Principal,Claims Data|Causal Inference|Python|Real World Evidence|EHR Data,7,2023-07-01,4.0
+EMP-1041,MMX European pricing study,Analytics / Consulting,Financial Services,Engagement Manager,Power BI|Forecasting|SQL,5,2025-11-03,4.5
+EMP-1041,MMX European pricing study,Analytics / Consulting,Financial Services,Engagement Manager,Financial Analytics|Predictive Modeling|Python|Power BI,11,2023-08-27,4.0
+EMP-1041,MMX European pricing study,Analytics / Consulting,Financial Services,Engagement Manager,Python|Financial Analytics,8,2026-06-18,3.8
+EMP-1041,Patient analytics modernization,Analytics / Consulting,Financial Services,Engagement Manager,Financial Analytics|SQL,9,2026-03-24,4.3
+EMP-1041,Patient analytics modernization,Analytics / Consulting,Financial Services,Engagement Manager,SQL|Financial Analytics|Predictive Modeling,3,2026-07-01,4.9
+EMP-1042,Trial data modernization,Analytics / Consulting,Life Sciences,Engagement Manager,Real World Evidence|SQL|Statistical Modeling|Causal Inference|EHR Data,11,2022-10-06,4.8
+EMP-1042,Trial data modernization,Analytics / Consulting,Life Sciences,Engagement Manager,Causal Inference|Python|Claims Data,9,2024-03-31,3.9
+EMP-1042,Safety signal analytics,Analytics / Consulting,Life Sciences,Engagement Manager,Real World Evidence|Python|EHR Data,4,2025-04-25,4.2
+EMP-1042,Safety signal analytics,Analytics / Consulting,Life Sciences,Engagement Manager,Real World Evidence|Claims Data|Causal Inference,5,2023-06-26,3.7
+EMP-1042,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Engagement Manager,Claims Data|Python|EHR Data,5,2023-11-10,3.8
+EMP-1043,Patient analytics modernization,Analytics / Consulting,Insurance,Principal,Forecasting|Predictive Modeling|Python|SQL,7,2024-05-18,4.8
+EMP-1043,Price elasticity assessment,Analytics / Consulting,Pharmacovigilance,Principal,Excel|Forecasting|Predictive Modeling|Claims Data,6,2025-12-08,3.8
+EMP-1043,GenAI insight accelerator,Analytics / Consulting,Pharmacovigilance,Principal,Predictive Modeling|SQL|Excel|Claims Data,6,2026-03-27,4.0
+EMP-1044,RWE study enablement,Analytics / Consulting,Public Sector,Senior Principal,Python|SQL|Commercial Analytics|Power BI|Data Visualization,10,2022-09-07,4.6
+EMP-1044,Forecast automation,Analytics / Consulting,Public Sector,Senior Principal,Data Visualization|Excel|Commercial Analytics|Power BI,7,2022-11-10,4.7
+EMP-1044,Safety signal analytics,Analytics / Consulting,Public Sector,Senior Principal,Power BI|Python,8,2024-10-09,4.6
+EMP-1045,RWE study enablement,Analytics / Consulting,Real World Evidence,Senior Consultant,Statistical Modeling|Causal Inference,3,2025-04-09,3.7
+EMP-1045,RWE study enablement,Analytics / Consulting,Real World Evidence,Senior Consultant,Python|Statistical Modeling,11,2025-07-19,4.8
+EMP-1046,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Analytics Consultant,Price Elasticity|Segmentation|SQL,11,2022-08-07,4.2
+EMP-1046,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Analytics Consultant,Segmentation|Price Elasticity|Promo Optimization|Python|Market Mix Modeling,12,2022-10-09,4.4
+EMP-1046,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Analytics Consultant,Segmentation|Price Elasticity|Market Mix Modeling|Pricing Strategy,10,2023-08-14,4.1
+EMP-1046,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Analytics Consultant,Promo Optimization|Python|Market Mix Modeling,4,2026-05-20,3.8
+EMP-1046,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Analytics Consultant,Pricing Strategy|SQL|Price Elasticity|Market Mix Modeling|Segmentation,6,2023-08-07,4.4
+EMP-1046,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Analytics Consultant,Segmentation|Python,8,2025-12-09,4.2
+EMP-1047,Safety signal analytics,Analytics / Consulting,Life Sciences,Analytics Consultant,Pharmacovigilance|R|Python|Clinical Trial Data|Data Visualization,8,2024-01-26,3.9
+EMP-1047,Trial data modernization,Analytics / Consulting,Life Sciences,Analytics Consultant,SAS|Python|SQL|Clinical Trial Data,11,2024-02-05,4.6
+EMP-1047,Safety signal analytics,Analytics / Consulting,Life Sciences,Analytics Consultant,Pharmacovigilance|R|SAS|Data Visualization,11,2025-02-23,4.0
+EMP-1047,Safety signal analytics,Analytics / Consulting,Life Sciences,Analytics Consultant,Data Visualization|Python|Pharmacovigilance|SAS,8,2023-10-07,4.4
+EMP-1047,Clinical analytics platform,Analytics / Consulting,Life Sciences,Analytics Consultant,SAS|R|Clinical Trial Data|Pharmacovigilance,8,2024-06-19,3.7
+EMP-1047,Clinical analytics platform,Analytics / Consulting,Life Sciences,Analytics Consultant,SQL|SAS|R,5,2023-05-17,3.9
+EMP-1048,Patient analytics modernization,Analytics / Consulting,Insurance,Engagement Manager,SQL|Claims Data,7,2026-04-20,3.9
+EMP-1048,GenAI insight accelerator,Analytics / Consulting,Insurance,Engagement Manager,SQL|Predictive Modeling|Claims Data,7,2025-12-02,4.4
+EMP-1048,MMX European pricing study,Analytics / Consulting,Insurance,Engagement Manager,Excel|Predictive Modeling,4,2025-09-26,4.5
+EMP-1049,GenAI insight accelerator,Analytics / Consulting,Technology,Senior Consultant,SQL|Python|Power BI|Data Visualization|Customer Analytics,8,2026-02-05,4.3
+EMP-1049,Claims reporting transformation,Analytics / Consulting,Patient Services,Senior Consultant,Customer Analytics|Data Visualization|Python,6,2024-06-15,4.3
+EMP-1049,Clinical analytics platform,Analytics / Consulting,Patient Services,Senior Consultant,Power BI|Customer Analytics|Patient Journey Analytics|SQL|Data Visualization,12,2022-09-13,4.5
+EMP-1049,Safety signal analytics,Analytics / Consulting,Patient Services,Senior Consultant,SQL|Customer Analytics|Power BI|Python|Data Visualization,9,2023-03-23,4.5
+EMP-1049,Data platform modernization,Analytics / Consulting,Technology,Senior Consultant,SQL|Data Visualization,6,2025-10-27,4.5
+EMP-1050,Forecast automation,Analytics / Consulting,Financial Services,Senior Consultant,Financial Analytics|SQL|Predictive Modeling|Python,3,2025-05-10,4.0
+EMP-1050,Clinical analytics platform,Analytics / Consulting,Financial Services,Senior Consultant,Forecasting|SQL|Predictive Modeling|Financial Analytics|Python,11,2023-09-27,3.7
+EMP-1050,GenAI insight accelerator,Analytics / Consulting,Financial Services,Senior Consultant,Forecasting|Predictive Modeling|Financial Analytics,6,2025-11-11,4.8
+EMP-1050,Clinical analytics platform,Analytics / Consulting,Financial Services,Senior Consultant,Forecasting|SQL|Predictive Modeling,8,2022-11-11,3.9
+EMP-1050,Price elasticity assessment,Analytics / Consulting,Financial Services,Senior Consultant,SQL|Financial Analytics|Forecasting,7,2025-01-18,4.0
+EMP-1050,Safety signal analytics,Analytics / Consulting,Financial Services,Senior Consultant,Financial Analytics|Python|Predictive Modeling,10,2026-07-01,3.9
+EMP-1051,Data platform modernization,Analytics / Consulting,Technology,Senior Principal,GCP|AWS,4,2025-02-27,3.7
+EMP-1051,Data platform modernization,Analytics / Consulting,Technology,Senior Principal,Python|AWS,8,2026-04-04,4.9
+EMP-1051,Data platform modernization,Analytics / Consulting,Technology,Senior Principal,GCP|Machine Learning|Data Engineering,12,2024-01-08,4.3
+EMP-1051,Data platform modernization,Analytics / Consulting,Technology,Senior Principal,GCP|AWS,4,2025-06-21,4.4
+EMP-1051,Agentic analytics pilot,Analytics / Consulting,Technology,Senior Principal,Agentic AI|Azure|GCP|AWS,10,2025-07-19,4.0
+EMP-1052,Price elasticity assessment,Analytics / Consulting,Manufacturing Analytics,Engagement Manager,Forecasting|Supply Chain Analytics|SQL|Data Engineering,7,2022-11-10,4.7
+EMP-1052,Price elasticity assessment,Analytics / Consulting,Manufacturing Analytics,Engagement Manager,Data Engineering|Power BI|Supply Chain Analytics|Python|SQL,6,2022-10-15,4.0
+EMP-1052,Data quality remediation,Analytics / Consulting,Manufacturing Analytics,Engagement Manager,Python|Forecasting|Supply Chain Analytics|SQL|Power BI,3,2025-04-14,4.0
+EMP-1052,Omnichannel measurement,Analytics / Consulting,Manufacturing Analytics,Engagement Manager,SQL|Power BI|Supply Chain Analytics,11,2023-02-07,4.6
+EMP-1052,Claims reporting transformation,Analytics / Consulting,Manufacturing Analytics,Engagement Manager,Data Engineering|Forecasting|Power BI|Supply Chain Analytics|Python,12,2023-06-20,3.6
+EMP-1052,Forecast automation,Analytics / Consulting,Manufacturing Analytics,Engagement Manager,Supply Chain Analytics|SQL|Forecasting|Data Engineering|Python,8,2023-08-30,4.3
+EMP-1053,Agentic analytics pilot,Analytics / Consulting,Technology,Engagement Manager,AWS|Agentic AI,2,2023-05-03,4.7
+EMP-1053,LLM evaluation framework,Analytics / Consulting,Technology,Engagement Manager,GenAI|Data Engineering|GCP|Agentic AI,9,2022-08-22,4.2
+EMP-1053,LLM evaluation framework,Analytics / Consulting,Technology,Engagement Manager,SQL|Agentic AI,9,2024-06-28,4.3
+EMP-1053,Agentic analytics pilot,Analytics / Consulting,Technology,Engagement Manager,Machine Learning|GenAI|SQL,2,2025-03-18,3.8
+EMP-1054,GenAI insight accelerator,Analytics / Consulting,Market Analytics,Data Analyst,Power BI|Tableau|Clustering,8,2025-03-29,4.6
+EMP-1054,RWE study enablement,Analytics / Consulting,Market Analytics,Data Analyst,Python|Tableau|Power BI,5,2026-01-25,3.9
+EMP-1054,Patient analytics modernization,Analytics / Consulting,Market Analytics,Data Analyst,Power BI|Tableau|Python|SQL|Clustering,11,2025-01-04,4.8
+EMP-1055,Omnichannel measurement,Analytics / Consulting,Financial Services,Consultant,Power BI|Excel|Data Visualization|Python,6,2024-06-24,3.8
+EMP-1055,Price elasticity assessment,Analytics / Consulting,Financial Services,Consultant,Data Visualization|Alteryx|Python|Power BI,3,2025-07-08,4.5
+EMP-1056,Claims reporting transformation,Analytics / Consulting,Healthcare,Senior Consultant,Power BI|Healthcare Data|Python|Claims Data|EHR Data,7,2024-05-23,4.0
+EMP-1056,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Senior Consultant,SQL|EHR Data|R,12,2023-08-15,4.8
+EMP-1056,EHR insight platform,Analytics / Consulting,Healthcare,Senior Consultant,Claims Data|Python|Healthcare Data|Power BI|EHR Data,3,2022-09-03,4.3
+EMP-1056,Claims reporting transformation,Analytics / Consulting,Healthcare,Senior Consultant,R|Power BI|SQL|Healthcare Data,7,2025-09-14,4.4
+EMP-1056,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Senior Consultant,R|Power BI|Python,2,2025-06-06,3.8
+EMP-1057,Trial data modernization,Analytics / Consulting,Life Sciences,Data Analyst,Pharmacovigilance|Python|Clinical Trial Data|SQL|SAS,2,2025-07-26,3.6
+EMP-1057,Trial data modernization,Analytics / Consulting,Life Sciences,Data Analyst,R|Data Visualization,2,2025-07-18,3.6
+EMP-1057,Trial data modernization,Analytics / Consulting,Life Sciences,Data Analyst,SQL|Python|R|Pharmacovigilance|Clinical Trial Data,8,2025-01-20,4.9
+EMP-1057,Safety signal analytics,Analytics / Consulting,Life Sciences,Data Analyst,SAS|Clinical Trial Data|R,4,2025-03-17,4.5
+EMP-1058,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Consultant,SQL|Promo Optimization|Market Mix Modeling|Segmentation,4,2023-03-08,4.0
+EMP-1058,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Consultant,Python|Segmentation,3,2023-03-02,4.2
+EMP-1058,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Consultant,Segmentation|SQL,4,2025-11-18,4.3
+EMP-1058,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Consultant,SQL|Price Elasticity|Python|Market Mix Modeling,11,2023-07-29,3.9
+EMP-1058,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Consultant,Pricing Strategy|Market Mix Modeling|Python|Price Elasticity|Segmentation,5,2026-01-23,4.1
+EMP-1058,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Consultant,Price Elasticity|Pricing Strategy|Segmentation,4,2024-04-14,4.4
+EMP-1059,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Engagement Manager,Clinical Trial Data|Pharmacovigilance|SQL|Statistical Modeling,7,2022-11-09,4.6
+EMP-1059,Patient analytics modernization,Analytics / Consulting,Pharmacovigilance,Engagement Manager,Pharmacovigilance|Clinical Trial Data,11,2025-02-25,3.7
+EMP-1060,Claims reporting transformation,Analytics / Consulting,Healthcare,Engagement Manager,SQL|Python|Power BI|Healthcare Data|Claims Data,8,2024-05-22,4.9
+EMP-1060,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Engagement Manager,Power BI|Python,10,2023-11-16,4.3
+EMP-1061,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Principal,Commercial Analytics|Python|Tableau|Forecasting,8,2025-11-30,4.6
+EMP-1061,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Principal,Power BI|Commercial Analytics|Segmentation|Tableau,8,2023-04-12,3.8
+EMP-1062,Commercial dashboard rollout,Analytics / Consulting,Market Analytics,Principal,Python|Commercial Analytics|Segmentation|Power BI,10,2026-04-20,4.2
+EMP-1062,Patient analytics modernization,Analytics / Consulting,Market Analytics,Principal,SQL|Clustering|Commercial Analytics|Tableau,11,2025-04-28,3.7
+EMP-1063,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Consultant,Python|Market Mix Modeling,2,2023-03-12,4.8
+EMP-1063,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Consultant,Market Mix Modeling|Segmentation|Python|Pricing Strategy|Price Elasticity,3,2025-01-06,4.7
+EMP-1064,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Engagement Manager,Tableau|Power BI|Commercial Analytics,6,2024-02-22,4.0
+EMP-1064,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Engagement Manager,Tableau|Python|Power BI,10,2024-09-01,4.4
+EMP-1064,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Engagement Manager,Segmentation|Tableau|Forecasting,10,2025-12-02,3.7
+EMP-1064,European commercial analytics,Analytics / Consulting,Commercial Analytics,Engagement Manager,Forecasting|Tableau,12,2022-09-21,4.1
+EMP-1064,European commercial analytics,Analytics / Consulting,Commercial Analytics,Engagement Manager,SQL|Tableau|Segmentation,2,2022-11-29,4.1
+EMP-1065,Commercial dashboard rollout,Analytics / Consulting,Market Analytics,Senior Consultant,Price Elasticity|Python|Segmentation|Market Mix Modeling|Promo Optimization,8,2026-01-29,4.4
+EMP-1065,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Senior Consultant,Promo Optimization|Pricing Strategy|SQL,8,2026-07-10,4.5
+EMP-1065,MMX European pricing study,Analytics / Consulting,Market Analytics,Senior Consultant,Price Elasticity|Pricing Strategy|Python,12,2023-12-06,4.2
+EMP-1065,RWE study enablement,Analytics / Consulting,Market Analytics,Senior Consultant,Market Mix Modeling|Promo Optimization|Price Elasticity|Python,4,2025-09-20,4.5
+EMP-1065,RWE study enablement,Analytics / Consulting,Market Analytics,Senior Consultant,SQL|Price Elasticity|Python|Segmentation|Promo Optimization,12,2024-08-28,4.0
+EMP-1065,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Senior Consultant,Pricing Strategy|Segmentation|SQL|Price Elasticity,12,2025-04-04,4.5
+EMP-1066,RWE study enablement,Analytics / Consulting,Insurance,Senior Principal,SQL|Python|Claims Data|Predictive Modeling|Excel,6,2025-05-18,4.5
+EMP-1066,MMX European pricing study,Analytics / Consulting,Insurance,Senior Principal,SQL|Python|Predictive Modeling|Forecasting|Excel,12,2026-01-29,4.2
+EMP-1066,GenAI insight accelerator,Analytics / Consulting,Insurance,Senior Principal,Claims Data|Predictive Modeling|Forecasting|Python|SQL,11,2026-02-22,4.9
+EMP-1066,Patient analytics modernization,Analytics / Consulting,Insurance,Senior Principal,Predictive Modeling|Excel|Forecasting,7,2025-02-19,4.0
+EMP-1066,MMX European pricing study,Analytics / Consulting,Insurance,Senior Principal,Python|SQL|Predictive Modeling|Claims Data|Excel,7,2024-05-29,3.9
+EMP-1066,MMX European pricing study,Analytics / Consulting,Insurance,Senior Principal,Predictive Modeling|Excel|SQL|Python,9,2025-12-20,3.8
+EMP-1067,Data quality remediation,Analytics / Consulting,Patient Services,Analytics Consultant,Python|Data Visualization|Customer Analytics|SQL|Patient Journey Analytics,9,2025-10-23,4.1
+EMP-1067,MMX European pricing study,Analytics / Consulting,Patient Services,Analytics Consultant,Patient Journey Analytics|Customer Analytics|SQL|Python,7,2023-05-15,3.9
+EMP-1067,Forecast automation,Analytics / Consulting,Patient Services,Analytics Consultant,Power BI|Data Visualization|SQL|Python|Customer Analytics,4,2025-01-08,4.7
+EMP-1067,Safety signal analytics,Analytics / Consulting,Patient Services,Analytics Consultant,Power BI|Customer Analytics|Python,9,2022-09-22,4.1
+EMP-1067,Omnichannel measurement,Analytics / Consulting,Patient Services,Analytics Consultant,Python|Data Visualization,5,2024-06-01,4.1
+EMP-1067,Forecast automation,Analytics / Consulting,Patient Services,Analytics Consultant,SQL|Data Visualization,10,2024-07-23,4.9
+EMP-1068,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Principal,Commercial Analytics|Python,8,2023-03-06,4.5
+EMP-1068,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Principal,SQL|Segmentation|Power BI|Tableau|Python,2,2024-05-31,4.1
+EMP-1068,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Principal,Python|Power BI,9,2024-06-22,3.6
+EMP-1068,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Principal,Forecasting|Commercial Analytics|Segmentation|Python,7,2023-07-20,4.1
+EMP-1068,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Principal,Segmentation|Python,3,2024-11-06,4.1
+EMP-1069,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Data Analyst,Market Mix Modeling|Price Elasticity|Segmentation|Pricing Strategy|SQL,12,2023-09-17,4.2
+EMP-1069,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Data Analyst,SQL|Python|Promo Optimization,11,2025-08-27,4.2
+EMP-1069,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Data Analyst,Promo Optimization|Segmentation,3,2023-09-15,4.5
+EMP-1070,Claims reporting transformation,Analytics / Consulting,Clinical Analytics,Analytics Consultant,SQL|R,10,2024-12-07,4.8
+EMP-1070,MMX European pricing study,Analytics / Consulting,Clinical Analytics,Analytics Consultant,Python|Statistical Modeling|Data Visualization,2,2025-12-14,3.8
+EMP-1070,Omnichannel measurement,Analytics / Consulting,Clinical Analytics,Analytics Consultant,Python|Statistical Modeling|Data Visualization|Clinical Trial Data,8,2023-11-05,4.3
+EMP-1071,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Analytics Consultant,SQL|Commercial Analytics|Python|Power BI,2,2025-10-10,4.3
+EMP-1071,Patient analytics modernization,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,SQL|Power BI|Forecasting|Segmentation|Python,6,2026-04-07,4.4
+EMP-1072,Forecast automation,Analytics / Consulting,Pharmacovigilance,Senior Principal,SAS|Python,9,2023-03-24,3.7
+EMP-1072,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Senior Principal,Statistical Modeling|SQL|Python|Pharmacovigilance|SAS,5,2023-06-27,4.1
+EMP-1072,MMX European pricing study,Analytics / Consulting,Pharmacovigilance,Senior Principal,Python|SAS,8,2025-01-26,4.3
+EMP-1072,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Senior Principal,Pharmacovigilance|Python,10,2025-02-06,4.0
+EMP-1073,Price elasticity assessment,Analytics / Consulting,Pharmacovigilance,Senior Principal,Statistical Modeling|Clinical Trial Data|SQL|Pharmacovigilance|SAS,2,2024-10-29,3.9
+EMP-1073,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Senior Principal,SAS|SQL|Pharmacovigilance|Python|Clinical Trial Data,4,2023-04-15,4.7
+EMP-1073,Safety signal analytics,Analytics / Consulting,Pharmacovigilance,Senior Principal,Clinical Trial Data|Statistical Modeling|Python,6,2024-09-29,3.8
+EMP-1073,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Senior Principal,Statistical Modeling|Python,8,2024-01-25,4.6
+EMP-1073,RWE study enablement,Analytics / Consulting,Pharmacovigilance,Senior Principal,Python|Clinical Trial Data|SAS|Statistical Modeling,9,2025-11-17,4.8
+EMP-1073,RWE study enablement,Analytics / Consulting,Pharmacovigilance,Senior Principal,Pharmacovigilance|Clinical Trial Data|Python,8,2023-01-17,4.6
+EMP-1074,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Data Analyst,Clinical Trial Data|SAS|SQL|Pharmacovigilance|Python,5,2025-04-01,4.9
+EMP-1074,Forecast automation,Analytics / Consulting,Pharmacovigilance,Data Analyst,SQL|Python|Pharmacovigilance|Clinical Trial Data,7,2026-04-13,4.1
+EMP-1074,Price elasticity assessment,Analytics / Consulting,Pharmacovigilance,Data Analyst,Statistical Modeling|Python|Pharmacovigilance|SQL,2,2025-05-28,3.9
+EMP-1074,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Data Analyst,Pharmacovigilance|Python,3,2025-08-22,4.5
+EMP-1075,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Data Analyst,Python|Power BI|Segmentation|Forecasting,8,2022-10-19,4.5
+EMP-1075,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Data Analyst,Power BI|Segmentation|Commercial Analytics|Python,4,2022-10-09,4.7
+EMP-1075,Trial data modernization,Analytics / Consulting,Life Sciences,Data Analyst,Python|Segmentation,12,2023-02-21,4.8
+EMP-1075,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Data Analyst,Python|Power BI,6,2026-06-24,4.1
+EMP-1076,Claims reporting transformation,Analytics / Consulting,Healthcare,Analytics Consultant,EHR Data|Claims Data|R|Python,11,2024-05-19,4.0
+EMP-1076,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Analytics Consultant,EHR Data|Claims Data|Power BI,2,2022-08-26,4.7
+EMP-1076,Patient analytics modernization,Analytics / Consulting,Healthcare,Analytics Consultant,Power BI|EHR Data,4,2022-09-22,3.9
+EMP-1076,EHR insight platform,Analytics / Consulting,Healthcare,Analytics Consultant,EHR Data|R,9,2024-06-01,4.2
+EMP-1076,Patient analytics modernization,Analytics / Consulting,Healthcare,Analytics Consultant,Healthcare Data|Claims Data,7,2024-06-10,4.2
+EMP-1076,Patient analytics modernization,Analytics / Consulting,Healthcare,Analytics Consultant,Power BI|EHR Data|Healthcare Data|R|SQL,3,2024-04-09,3.7
+EMP-1077,Omnichannel measurement,Analytics / Consulting,Market Analytics,Analytics Consultant,Power BI|Segmentation|Commercial Analytics|Python,11,2023-01-07,4.2
+EMP-1077,Data quality remediation,Analytics / Consulting,Market Analytics,Analytics Consultant,Tableau|Clustering|Commercial Analytics|SQL,10,2024-05-10,3.7
+EMP-1078,LLM evaluation framework,Analytics / Consulting,Technology,Senior Principal,Power BI|Supply Chain Analytics|Data Engineering|Python|SQL,2,2024-11-02,4.0
+EMP-1078,Agentic analytics pilot,Analytics / Consulting,Technology,Senior Principal,Supply Chain Analytics|Power BI|Data Engineering|Forecasting,6,2024-07-12,3.6
+EMP-1078,RWE study enablement,Analytics / Consulting,Manufacturing Analytics,Senior Principal,Forecasting|Power BI|Data Engineering|Python|Supply Chain Analytics,7,2026-02-18,4.1
+EMP-1078,Omnichannel measurement,Analytics / Consulting,Manufacturing Analytics,Senior Principal,Forecasting|Data Engineering|Supply Chain Analytics,12,2026-05-24,4.1
+EMP-1079,Safety signal analytics,Analytics / Consulting,Public Sector,Senior Consultant,Excel|SQL|Data Visualization|Power BI|Python,8,2026-05-23,4.0
+EMP-1079,Omnichannel measurement,Analytics / Consulting,Public Sector,Senior Consultant,SQL|Excel|Python|Healthcare Data|Data Visualization,2,2024-07-17,4.3
+EMP-1079,RWE study enablement,Analytics / Consulting,Public Sector,Senior Consultant,SQL|Data Visualization,4,2023-09-14,4.7
+EMP-1079,Patient analytics modernization,Analytics / Consulting,Public Sector,Senior Consultant,Excel|Power BI|Data Visualization|Healthcare Data,10,2022-10-15,4.1
+EMP-1079,Price elasticity assessment,Analytics / Consulting,Public Sector,Senior Consultant,SQL|Data Visualization|Healthcare Data,5,2025-03-24,4.0
+EMP-1079,Price elasticity assessment,Analytics / Consulting,Public Sector,Senior Consultant,Healthcare Data|Python|SQL|Data Visualization,8,2024-10-25,4.7
+EMP-1080,Safety signal analytics,Analytics / Consulting,Manufacturing Analytics,Principal,SQL|Data Engineering|Python|Forecasting,8,2022-10-24,4.6
+EMP-1080,MMX European pricing study,Analytics / Consulting,Manufacturing Analytics,Principal,Python|Forecasting,7,2025-11-26,4.7
+EMP-1080,Safety signal analytics,Analytics / Consulting,Manufacturing Analytics,Principal,Supply Chain Analytics|Python,12,2025-03-23,3.7
+EMP-1081,Trial data modernization,Analytics / Consulting,Life Sciences,Senior Principal,R|Pharmacovigilance,6,2025-02-12,3.7
+EMP-1081,Trial data modernization,Analytics / Consulting,Life Sciences,Senior Principal,Python|R|SQL|Data Visualization,7,2023-09-17,3.9
+EMP-1082,Claims reporting transformation,Analytics / Consulting,Insurance,Engagement Manager,SQL|Python|Predictive Modeling,6,2023-09-11,4.9
+EMP-1082,RWE study enablement,Analytics / Consulting,Insurance,Engagement Manager,Forecasting|SQL|Predictive Modeling|Python,7,2026-06-08,4.5
+EMP-1083,Data platform modernization,Analytics / Consulting,Technology,Consultant,Data Engineering|GenAI,3,2024-06-24,4.5
+EMP-1083,GenAI insight accelerator,Analytics / Consulting,Technology,Consultant,Python|Agentic AI|Data Engineering|SQL|GenAI,11,2024-03-31,4.1
+EMP-1084,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Senior Principal,Python|Pharmacovigilance|SAS,11,2025-05-20,4.6
+EMP-1084,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Senior Principal,SAS|Pharmacovigilance,10,2023-02-04,4.4
+EMP-1084,Patient analytics modernization,Analytics / Consulting,Pharmacovigilance,Senior Principal,Pharmacovigilance|SAS|SQL,12,2023-05-10,4.4
+EMP-1084,Safety signal analytics,Analytics / Consulting,Pharmacovigilance,Senior Principal,Pharmacovigilance|Clinical Trial Data|Statistical Modeling,2,2023-02-19,4.3
+EMP-1084,GenAI insight accelerator,Analytics / Consulting,Pharmacovigilance,Senior Principal,SAS|SQL|Python|Clinical Trial Data,10,2024-04-05,4.0
+EMP-1084,RWE study enablement,Analytics / Consulting,Pharmacovigilance,Senior Principal,Pharmacovigilance|Clinical Trial Data|SAS,2,2025-04-28,4.0
+EMP-1085,GenAI insight accelerator,Analytics / Consulting,Market Analytics,Data Analyst,Python|Segmentation|Power BI,12,2023-12-02,4.4
+EMP-1085,Claims reporting transformation,Analytics / Consulting,Market Analytics,Data Analyst,Power BI|Commercial Analytics|Tableau|Python,6,2026-07-02,4.3
+EMP-1085,RWE study enablement,Analytics / Consulting,Market Analytics,Data Analyst,Clustering|Python|SQL,3,2025-10-27,3.8
+EMP-1085,Claims reporting transformation,Analytics / Consulting,Market Analytics,Data Analyst,Python|Power BI|Commercial Analytics|Tableau,2,2025-10-10,3.9
+EMP-1085,Price elasticity assessment,Analytics / Consulting,Market Analytics,Data Analyst,Segmentation|SQL,3,2022-08-18,4.6
+EMP-1086,Forecast automation,Analytics / Consulting,Financial Services,Principal,Python|Forecasting|Predictive Modeling|Financial Analytics|Power BI,2,2026-02-23,4.2
+EMP-1086,Claims reporting transformation,Analytics / Consulting,Financial Services,Principal,Predictive Modeling|Python|Financial Analytics|Forecasting|Power BI,7,2023-03-28,4.6
+EMP-1087,RWE study enablement,Analytics / Consulting,Real World Evidence,Senior Principal,R|Statistical Modeling|Python|SQL|Clinical Trial Data,7,2026-05-03,4.4
+EMP-1087,Observational research analytics,Analytics / Consulting,Real World Evidence,Senior Principal,Python|Data Visualization,12,2023-04-25,4.9
+EMP-1087,Omnichannel measurement,Analytics / Consulting,Clinical Analytics,Senior Principal,R|Statistical Modeling,9,2025-09-03,4.2
+EMP-1088,Patient analytics modernization,Analytics / Consulting,Healthcare,Senior Consultant,R|Claims Data|Healthcare Data|SQL|Python,10,2023-05-27,4.6
+EMP-1088,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Senior Consultant,R|Power BI|EHR Data,10,2023-02-15,4.0
+EMP-1088,EHR insight platform,Analytics / Consulting,Healthcare,Senior Consultant,Healthcare Data|Claims Data|Power BI|Python,10,2025-08-15,4.8
+EMP-1089,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Engagement Manager,Python|Segmentation|Tableau,3,2025-07-12,3.7
+EMP-1089,Safety signal analytics,Analytics / Consulting,Pharmacovigilance,Engagement Manager,Tableau|Python|SQL|Segmentation,11,2025-07-07,3.7
+EMP-1089,Forecast automation,Analytics / Consulting,Pharmacovigilance,Engagement Manager,Python|Segmentation|Power BI|Clustering,9,2025-06-29,4.2
+EMP-1089,RWE study enablement,Analytics / Consulting,Market Analytics,Engagement Manager,Python|Power BI|Tableau|Commercial Analytics,4,2025-01-21,4.2
+EMP-1089,Commercial dashboard rollout,Analytics / Consulting,Market Analytics,Engagement Manager,Python|SQL,12,2024-02-20,4.5
+EMP-1089,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Engagement Manager,Commercial Analytics|Power BI|Segmentation|Clustering|Python,7,2025-01-27,4.5
+EMP-1090,European commercial analytics,Analytics / Consulting,Commercial Analytics,Consultant,Python|Commercial Analytics|Segmentation,2,2026-04-15,4.6
+EMP-1090,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Consultant,Commercial Analytics|Forecasting,7,2025-11-04,3.7
+EMP-1090,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Consultant,Power BI|Segmentation|Commercial Analytics|Python|SQL,2,2026-05-09,3.7
+EMP-1091,Omnichannel measurement,Analytics / Consulting,Market Analytics,Analytics Consultant,Power BI|Commercial Analytics|Clustering,4,2025-09-28,4.7
+EMP-1091,Forecast automation,Analytics / Consulting,Market Analytics,Analytics Consultant,SQL|Tableau,8,2025-03-29,4.5
+EMP-1091,RWE study enablement,Analytics / Consulting,Market Analytics,Analytics Consultant,Commercial Analytics|Clustering|Segmentation|SQL,5,2026-01-21,4.5
+EMP-1091,Forecast automation,Analytics / Consulting,Market Analytics,Analytics Consultant,Power BI|Commercial Analytics,7,2024-10-22,4.5
+EMP-1091,Clinical analytics platform,Analytics / Consulting,Market Analytics,Analytics Consultant,Python|Tableau|Segmentation|Commercial Analytics|SQL,8,2023-10-14,3.9
+EMP-1091,RWE study enablement,Analytics / Consulting,Market Analytics,Analytics Consultant,Commercial Analytics|Segmentation|Clustering|SQL,3,2022-11-30,4.0
+EMP-1092,European commercial analytics,Analytics / Consulting,Commercial Analytics,Senior Principal,Tableau|Forecasting|Power BI|SQL,3,2025-03-27,3.6
+EMP-1092,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Senior Principal,Power BI|Tableau|Commercial Analytics|Forecasting,8,2023-01-24,3.9
+EMP-1092,European commercial analytics,Analytics / Consulting,Commercial Analytics,Senior Principal,SQL|Commercial Analytics|Tableau|Power BI,8,2023-08-21,4.0
+EMP-1092,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Senior Principal,Commercial Analytics|Power BI,5,2024-12-13,4.2
+EMP-1093,MMX European pricing study,Analytics / Consulting,Financial Services,Senior Principal,Financial Analytics|Forecasting|Power BI|Python,2,2026-02-08,4.8
+EMP-1093,Trial data modernization,Analytics / Consulting,Life Sciences,Senior Principal,Predictive Modeling|Financial Analytics,6,2023-02-06,3.6
+EMP-1093,Clinical analytics platform,Analytics / Consulting,Life Sciences,Senior Principal,Financial Analytics|Predictive Modeling|Power BI,12,2022-10-22,4.4
+EMP-1093,Patient analytics modernization,Analytics / Consulting,Financial Services,Senior Principal,Predictive Modeling|Power BI,12,2025-08-29,3.7
+EMP-1094,Agentic analytics pilot,Analytics / Consulting,Technology,Senior Principal,Data Engineering|Python|Agentic AI,12,2023-12-01,3.7
+EMP-1094,Agentic analytics pilot,Analytics / Consulting,Technology,Senior Principal,Machine Learning|GenAI,11,2023-09-05,4.1
+EMP-1094,GenAI insight accelerator,Analytics / Consulting,Technology,Senior Principal,GCP|Data Engineering,12,2023-10-28,4.4
+EMP-1094,GenAI insight accelerator,Analytics / Consulting,Technology,Senior Principal,AWS|Machine Learning,8,2024-06-10,4.7
+EMP-1095,Commercial dashboard rollout,Analytics / Consulting,Financial Services,Senior Consultant,SQL|Forecasting|Python|Power BI|Predictive Modeling,10,2023-06-08,4.5
+EMP-1095,Omnichannel measurement,Analytics / Consulting,Financial Services,Senior Consultant,Forecasting|Python|Power BI|SQL,3,2023-10-22,4.3
+EMP-1096,Omnichannel measurement,Analytics / Consulting,Clinical Analytics,Principal,Statistical Modeling|SQL|Python|Data Visualization|Clinical Trial Data,11,2025-10-21,4.2
+EMP-1096,Patient analytics modernization,Analytics / Consulting,Clinical Analytics,Principal,R|SQL|Statistical Modeling,8,2026-01-10,4.1
+EMP-1096,Data quality remediation,Analytics / Consulting,Clinical Analytics,Principal,SQL|Data Visualization|Clinical Trial Data,6,2023-05-22,4.5
+EMP-1096,Safety signal analytics,Analytics / Consulting,Clinical Analytics,Principal,Clinical Trial Data|Statistical Modeling|Python|Data Visualization,11,2024-10-17,4.5
+EMP-1096,GenAI insight accelerator,Analytics / Consulting,Clinical Analytics,Principal,SQL|R|Clinical Trial Data,2,2023-01-15,4.6
+EMP-1097,GenAI insight accelerator,Analytics / Consulting,Technology,Principal,AWS|GenAI|Data Engineering,9,2023-02-20,3.7
+EMP-1097,GenAI insight accelerator,Analytics / Consulting,Technology,Principal,Python|AWS|Data Engineering|SQL,11,2025-01-16,4.2
+EMP-1097,GenAI insight accelerator,Analytics / Consulting,Technology,Principal,Data Engineering|GenAI,12,2024-09-20,4.7
+EMP-1097,GenAI insight accelerator,Analytics / Consulting,Technology,Principal,Machine Learning|Agentic AI|SQL|Azure,7,2023-01-28,4.1
+EMP-1097,Data platform modernization,Analytics / Consulting,Technology,Principal,GCP|Agentic AI|Python,12,2023-05-08,4.4
+EMP-1097,Agentic analytics pilot,Analytics / Consulting,Technology,Principal,Machine Learning|GCP|GenAI,11,2023-07-03,3.9
+EMP-1098,MMX European pricing study,Analytics / Consulting,Financial Services,Analytics Consultant,Predictive Modeling|SQL,5,2022-12-12,4.2
+EMP-1098,Clinical analytics platform,Analytics / Consulting,Financial Services,Analytics Consultant,Predictive Modeling|Financial Analytics,6,2025-10-13,4.9
+EMP-1098,Clinical analytics platform,Analytics / Consulting,Financial Services,Analytics Consultant,Financial Analytics|Python|Forecasting,12,2022-12-14,4.2
+EMP-1098,Claims reporting transformation,Analytics / Consulting,Financial Services,Analytics Consultant,Predictive Modeling|Financial Analytics|SQL|Python,7,2025-03-05,4.1
+EMP-1098,Clinical analytics platform,Analytics / Consulting,Financial Services,Analytics Consultant,Python|Financial Analytics|Forecasting|Predictive Modeling|SQL,10,2024-11-18,4.1
+EMP-1098,Claims reporting transformation,Analytics / Consulting,Financial Services,Analytics Consultant,Predictive Modeling|SQL|Python|Financial Analytics|Power BI,11,2023-01-18,3.8
+EMP-1099,Patient analytics modernization,Analytics / Consulting,Clinical Analytics,Analytics Consultant,SQL|Supply Chain Analytics|Data Engineering,5,2025-01-22,4.2
+EMP-1099,MMX European pricing study,Analytics / Consulting,Clinical Analytics,Analytics Consultant,Forecasting|Supply Chain Analytics,11,2025-10-24,3.8
+EMP-1099,Omnichannel measurement,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Data Engineering|Python|SQL,3,2025-08-03,4.0
+EMP-1099,Price elasticity assessment,Analytics / Consulting,Clinical Analytics,Analytics Consultant,Data Engineering|SQL|Power BI|Python,9,2026-05-20,3.9
+EMP-1099,RWE study enablement,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Python|Supply Chain Analytics|Power BI|SQL|Data Engineering,3,2024-10-23,3.7
+EMP-1099,RWE study enablement,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Power BI|SQL,2,2023-08-21,4.8
+EMP-1100,Price elasticity assessment,Analytics / Consulting,Market Analytics,Principal,Clustering|Commercial Analytics,8,2024-06-07,4.4
+EMP-1100,RWE study enablement,Analytics / Consulting,Market Analytics,Principal,Power BI|Commercial Analytics|Clustering,7,2026-02-07,4.3
+EMP-1100,RWE study enablement,Analytics / Consulting,Market Analytics,Principal,Segmentation|Tableau,4,2024-12-22,3.7
+EMP-1101,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Senior Consultant,Python|SQL|Market Mix Modeling,4,2025-07-20,4.3
+EMP-1101,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Senior Consultant,SQL|Segmentation|Price Elasticity|Promo Optimization,8,2022-07-29,3.6
+EMP-1102,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Consultant,Python|Power BI|SQL|Tableau,4,2023-06-02,3.6
+EMP-1102,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Consultant,Python|SQL|Commercial Analytics|Segmentation,11,2024-10-19,4.6
+EMP-1102,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Consultant,SQL|Commercial Analytics|Python,9,2024-10-02,4.8
+EMP-1102,European commercial analytics,Analytics / Consulting,Commercial Analytics,Consultant,SQL|Segmentation|Python|Forecasting,7,2025-07-04,4.2
+EMP-1102,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Consultant,Commercial Analytics|Segmentation|Tableau|SQL|Forecasting,2,2022-09-07,4.3
+EMP-1103,Clinical analytics platform,Analytics / Consulting,Life Sciences,Senior Consultant,Python|Pharmacovigilance|Data Visualization|R,12,2024-11-21,4.6
+EMP-1103,Safety signal analytics,Analytics / Consulting,Life Sciences,Senior Consultant,Clinical Trial Data|Data Visualization,8,2024-08-09,3.8
+EMP-1103,Clinical analytics platform,Analytics / Consulting,Life Sciences,Senior Consultant,R|Python|SAS,6,2023-05-03,4.3
+EMP-1104,Data quality remediation,Analytics / Consulting,Financial Services,Principal,Predictive Modeling|Power BI|SQL,4,2026-04-22,4.7
+EMP-1104,Commercial dashboard rollout,Analytics / Consulting,Financial Services,Principal,Predictive Modeling|Power BI|SQL|Financial Analytics|Forecasting,2,2022-09-12,4.0
+EMP-1104,GenAI insight accelerator,Analytics / Consulting,Financial Services,Principal,Financial Analytics|Power BI|Predictive Modeling,2,2026-07-15,3.7
+EMP-1104,MMX European pricing study,Analytics / Consulting,Financial Services,Principal,SQL|Financial Analytics|Power BI|Predictive Modeling,11,2022-07-26,3.8
+EMP-1104,Claims reporting transformation,Analytics / Consulting,Financial Services,Principal,Financial Analytics|SQL,6,2024-04-28,3.9
+EMP-1105,GenAI insight accelerator,Analytics / Consulting,Public Sector,Senior Consultant,Power BI|SQL|Python,10,2026-05-31,4.2
+EMP-1105,Data quality remediation,Analytics / Consulting,Public Sector,Senior Consultant,Power BI|Data Visualization|Excel|Python,9,2026-02-08,4.1
+EMP-1105,Price elasticity assessment,Analytics / Consulting,Public Sector,Senior Consultant,Python|Excel|Power BI|Agentic AI,7,2024-10-06,4.4
+EMP-1106,RWE study enablement,Analytics / Consulting,Real World Evidence,Consultant,Python|SQL,3,2024-06-25,4.7
+EMP-1106,Patient analytics modernization,Analytics / Consulting,Healthcare,Consultant,R|Python,8,2023-03-20,4.5
+EMP-1106,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Consultant,R|Python|Power BI|Claims Data,8,2025-12-17,4.7
+EMP-1106,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Consultant,Healthcare Data|Python|R|EHR Data|Power BI,5,2023-11-07,3.6
+EMP-1107,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Principal,Python|Power BI,6,2024-02-24,4.3
+EMP-1107,European commercial analytics,Analytics / Consulting,Commercial Analytics,Principal,Forecasting|Power BI,2,2024-09-25,4.6
+EMP-1107,Forecast automation,Analytics / Consulting,Financial Services,Principal,Forecasting|Commercial Analytics|SQL,5,2026-02-20,4.1
+EMP-1108,Safety signal analytics,Analytics / Consulting,Patient Services,Data Analyst,SQL|Data Visualization|Customer Analytics|Python|Power BI,7,2023-08-01,3.8
+EMP-1108,Patient analytics modernization,Analytics / Consulting,Patient Services,Data Analyst,SQL|Python,3,2026-06-13,4.5
+EMP-1108,Data quality remediation,Analytics / Consulting,Patient Services,Data Analyst,Patient Journey Analytics|Data Visualization|SQL,12,2026-01-27,4.4
+EMP-1108,Commercial dashboard rollout,Analytics / Consulting,Patient Services,Data Analyst,SQL|Data Visualization|Python,8,2022-09-19,3.9
+EMP-1109,Clinical analytics platform,Analytics / Consulting,Life Sciences,Principal,R|Clinical Trial Data|SAS|Pharmacovigilance,6,2026-04-02,3.8
+EMP-1109,Clinical analytics platform,Analytics / Consulting,Life Sciences,Principal,R|Data Visualization|Pharmacovigilance|Clinical Trial Data,9,2023-11-21,4.3
+EMP-1109,Trial data modernization,Analytics / Consulting,Life Sciences,Principal,Data Visualization|Clinical Trial Data,9,2024-09-01,4.4
+EMP-1109,Safety signal analytics,Analytics / Consulting,Life Sciences,Principal,SQL|SAS|Pharmacovigilance|Data Visualization,4,2023-08-21,3.6
+EMP-1109,Trial data modernization,Analytics / Consulting,Life Sciences,Principal,Clinical Trial Data|Pharmacovigilance,8,2024-07-10,4.8
+EMP-1109,Clinical analytics platform,Analytics / Consulting,Life Sciences,Principal,SQL|Python|Clinical Trial Data|SAS|Pharmacovigilance,4,2025-08-11,4.4
+EMP-1110,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Senior Consultant,Power BI|SQL|Commercial Analytics|Segmentation,9,2023-08-22,4.2
+EMP-1110,European commercial analytics,Analytics / Consulting,Commercial Analytics,Senior Consultant,Commercial Analytics|Python|Forecasting,8,2022-11-15,3.8
+EMP-1110,European commercial analytics,Analytics / Consulting,Commercial Analytics,Senior Consultant,Segmentation|Commercial Analytics|Python|Forecasting|Tableau,7,2023-01-25,4.7
+EMP-1110,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Senior Consultant,Segmentation|Power BI|Python|Commercial Analytics|Forecasting,5,2024-08-21,4.8
+EMP-1111,Commercial dashboard rollout,Analytics / Consulting,Patient Services,Data Analyst,SAS|Statistical Modeling|Data Visualization|Python,5,2024-04-17,4.3
+EMP-1111,RWE study enablement,Analytics / Consulting,Patient Services,Data Analyst,SQL|Statistical Modeling,9,2022-10-28,3.7
+EMP-1111,Omnichannel measurement,Analytics / Consulting,Patient Services,Data Analyst,SQL|Statistical Modeling|Python|Clinical Trial Data,3,2023-05-10,4.0
+EMP-1112,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Principal,Price Elasticity|Promo Optimization|Python|Market Mix Modeling,12,2026-06-23,4.1
+EMP-1112,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Principal,SQL|Pricing Strategy|Market Mix Modeling|Segmentation,12,2022-10-25,4.3
+EMP-1112,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Principal,Price Elasticity|SQL|Pricing Strategy,11,2024-09-25,4.5
+EMP-1112,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Principal,Promo Optimization|Python|Segmentation|Pricing Strategy,12,2026-04-04,3.8
+EMP-1112,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Principal,Segmentation|Market Mix Modeling|Promo Optimization,4,2023-05-18,4.1
+EMP-1112,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Principal,Python|Price Elasticity|Promo Optimization|Segmentation,4,2025-07-14,4.2
+EMP-1113,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Principal,SQL|Pricing Strategy|Market Mix Modeling|Promo Optimization,12,2024-12-29,4.4
+EMP-1113,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Principal,Promo Optimization|SQL|Market Mix Modeling|Price Elasticity,2,2026-06-14,4.4
+EMP-1113,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Principal,Pricing Strategy|Price Elasticity,3,2024-01-01,4.6
+EMP-1113,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Principal,Segmentation|Python|SQL,11,2026-02-28,4.2
+EMP-1113,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Principal,Market Mix Modeling|Segmentation|Promo Optimization|SQL|Python,8,2023-02-26,4.6
+EMP-1114,Clinical analytics platform,Analytics / Consulting,Life Sciences,Principal,Clinical Trial Data|Data Visualization|Pharmacovigilance,4,2023-10-30,4.1
+EMP-1114,Safety signal analytics,Analytics / Consulting,Life Sciences,Principal,Pharmacovigilance|SAS|Clinical Trial Data|Data Visualization,4,2023-12-19,4.4
+EMP-1114,Trial data modernization,Analytics / Consulting,Life Sciences,Principal,Python|Pharmacovigilance,3,2024-05-12,3.9
+EMP-1114,Clinical analytics platform,Analytics / Consulting,Life Sciences,Principal,SAS|Clinical Trial Data|SQL|Pharmacovigilance|Python,2,2023-02-24,4.7
+EMP-1115,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Engagement Manager,Commercial Analytics|Python,10,2022-10-15,4.2
+EMP-1115,Forecast automation,Analytics / Consulting,Manufacturing Analytics,Engagement Manager,Segmentation|Forecasting|Commercial Analytics|SQL|Tableau,3,2024-05-27,4.0
+EMP-1116,Patient analytics modernization,Analytics / Consulting,Patient Services,Senior Principal,Customer Analytics|Python|Data Visualization,8,2023-06-26,4.3
+EMP-1116,Data quality remediation,Analytics / Consulting,Patient Services,Senior Principal,Data Visualization|SQL|Customer Analytics|Python,5,2025-12-15,4.7
+EMP-1116,GenAI insight accelerator,Analytics / Consulting,Patient Services,Senior Principal,Data Visualization|Power BI,7,2025-10-23,4.4
+EMP-1116,GenAI insight accelerator,Analytics / Consulting,Patient Services,Senior Principal,Data Visualization|Patient Journey Analytics,12,2022-10-03,4.0
+EMP-1116,Data quality remediation,Analytics / Consulting,Patient Services,Senior Principal,Python|Power BI|Patient Journey Analytics|SQL|Data Visualization,3,2023-12-22,3.7
+EMP-1117,Data quality remediation,Analytics / Consulting,Patient Services,Principal,Patient Journey Analytics|Power BI|Python|Customer Analytics|SQL,2,2022-11-25,4.5
+EMP-1117,Omnichannel measurement,Analytics / Consulting,Patient Services,Principal,Customer Analytics|Patient Journey Analytics|Python|SQL|Power BI,8,2023-01-14,4.4
+EMP-1117,Forecast automation,Analytics / Consulting,Patient Services,Principal,SQL|Patient Journey Analytics|Power BI,10,2025-09-05,4.7
+EMP-1118,Safety signal analytics,Analytics / Consulting,Pharmacovigilance,Consultant,Data Visualization|SQL|Clinical Trial Data,6,2022-11-29,4.7
+EMP-1118,Trial data modernization,Analytics / Consulting,Life Sciences,Consultant,Pharmacovigilance|Data Visualization,9,2026-02-13,4.0
+EMP-1118,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Consultant,R|SAS|Clinical Trial Data|SQL|Pharmacovigilance,11,2026-04-03,4.3
+EMP-1118,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Consultant,SAS|Python,12,2025-08-21,3.9
+EMP-1119,Price elasticity assessment,Analytics / Consulting,Patient Services,Principal,Power BI|Data Visualization|Patient Journey Analytics|Python,9,2025-01-01,4.7
+EMP-1119,Clinical analytics platform,Analytics / Consulting,Patient Services,Principal,Power BI|Patient Journey Analytics|Customer Analytics,10,2024-01-19,4.3
+EMP-1119,Omnichannel measurement,Analytics / Consulting,Patient Services,Principal,Customer Analytics|Python,8,2023-06-23,3.8
+EMP-1119,Claims reporting transformation,Analytics / Consulting,Patient Services,Principal,Patient Journey Analytics|Power BI|Data Visualization,2,2023-08-01,3.6
+EMP-1120,Safety signal analytics,Analytics / Consulting,Patient Services,Principal,Patient Journey Analytics|Python|Power BI|Data Visualization,9,2023-08-31,3.8
+EMP-1120,Patient analytics modernization,Analytics / Consulting,Clinical Analytics,Principal,Patient Journey Analytics|Customer Analytics,11,2023-05-16,4.0
+EMP-1120,Safety signal analytics,Analytics / Consulting,Clinical Analytics,Principal,Patient Journey Analytics|Power BI|SQL|Python,9,2024-07-27,4.7
+EMP-1120,MMX European pricing study,Analytics / Consulting,Patient Services,Principal,Patient Journey Analytics|SQL|Power BI,12,2024-05-11,3.8
+EMP-1121,MMX European pricing study,Analytics / Consulting,Clinical Analytics,Senior Principal,Excel|Forecasting,5,2024-10-31,3.6
+EMP-1121,RWE study enablement,Analytics / Consulting,Insurance,Senior Principal,Python|Claims Data,12,2026-03-16,4.8
+EMP-1121,Clinical analytics platform,Analytics / Consulting,Insurance,Senior Principal,Predictive Modeling|Python|Claims Data|SQL,4,2024-12-06,4.4
+EMP-1121,MMX European pricing study,Analytics / Consulting,Clinical Analytics,Senior Principal,SQL|Python,9,2024-05-21,4.7
+EMP-1121,Clinical analytics platform,Analytics / Consulting,Insurance,Senior Principal,Excel|SQL|Claims Data|Python,9,2023-10-20,4.9
+EMP-1122,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Senior Consultant,Commercial Analytics|SQL|Segmentation|Python,6,2023-12-20,4.6
+EMP-1122,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Senior Consultant,Tableau|Segmentation|Python|Forecasting|Power BI,9,2024-07-15,4.8
+EMP-1122,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Senior Consultant,SQL|Tableau|Forecasting|Python,8,2024-07-12,4.4
+EMP-1122,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Senior Consultant,Segmentation|SQL|Forecasting|Commercial Analytics,12,2025-03-21,4.2
+EMP-1122,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Senior Consultant,Python|SQL|Segmentation,2,2022-09-21,4.1
+EMP-1122,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Senior Consultant,Forecasting|Commercial Analytics,2,2024-07-26,4.0
+EMP-1123,Claims reporting transformation,Analytics / Consulting,Manufacturing Analytics,Principal,Supply Chain Analytics|SQL,7,2023-12-30,4.5
+EMP-1123,Price elasticity assessment,Analytics / Consulting,Manufacturing Analytics,Principal,Power BI|SQL|Forecasting,6,2025-04-07,4.8
+EMP-1123,Claims reporting transformation,Analytics / Consulting,Manufacturing Analytics,Principal,SQL|Power BI|Supply Chain Analytics|Forecasting,3,2022-11-11,4.2
+EMP-1123,Patient analytics modernization,Analytics / Consulting,Manufacturing Analytics,Principal,Data Engineering|Power BI,5,2023-06-11,4.7
+EMP-1123,Omnichannel measurement,Analytics / Consulting,Manufacturing Analytics,Principal,Data Engineering|SQL|Power BI,5,2022-12-09,3.6
+EMP-1123,Forecast automation,Analytics / Consulting,Manufacturing Analytics,Principal,Power BI|Forecasting,12,2026-05-29,4.4
+EMP-1124,Price elasticity assessment,Analytics / Consulting,Clinical Analytics,Consultant,SQL|Python|Clinical Trial Data|Data Visualization|R,7,2023-02-09,3.8
+EMP-1124,Data quality remediation,Analytics / Consulting,Clinical Analytics,Consultant,Python|SAS,4,2025-10-06,4.8
+EMP-1124,Commercial dashboard rollout,Analytics / Consulting,Clinical Analytics,Consultant,R|Data Visualization,3,2023-01-29,4.5
+EMP-1124,Omnichannel measurement,Analytics / Consulting,Clinical Analytics,Consultant,SQL|Clinical Trial Data|R,9,2022-08-01,4.0
+EMP-1125,Commercial dashboard rollout,Analytics / Consulting,Patient Services,Analytics Consultant,Power BI|Forecasting|Python|Predictive Modeling|Financial Analytics,7,2023-06-07,4.8
+EMP-1125,Omnichannel measurement,Analytics / Consulting,Financial Services,Analytics Consultant,Python|Predictive Modeling|Financial Analytics,12,2026-05-25,4.7
+EMP-1125,GenAI insight accelerator,Analytics / Consulting,Patient Services,Analytics Consultant,Financial Analytics|Power BI,2,2026-02-04,3.6
+EMP-1125,Clinical analytics platform,Analytics / Consulting,Patient Services,Analytics Consultant,Python|Predictive Modeling|SQL|Financial Analytics|Power BI,8,2025-02-26,4.6
+EMP-1125,Commercial dashboard rollout,Analytics / Consulting,Patient Services,Analytics Consultant,Power BI|Predictive Modeling|Financial Analytics,11,2026-04-01,4.6
+EMP-1126,Price elasticity assessment,Analytics / Consulting,Public Sector,Data Analyst,Data Visualization|Power BI|SQL|Excel,2,2026-02-02,4.7
+EMP-1126,RWE study enablement,Analytics / Consulting,Public Sector,Data Analyst,Python|Excel|EHR Data|SQL|Power BI,2,2025-10-13,4.0
+EMP-1126,Omnichannel measurement,Analytics / Consulting,Manufacturing Analytics,Data Analyst,SQL|Data Visualization|EHR Data,2,2023-08-28,4.1
+EMP-1126,Claims reporting transformation,Analytics / Consulting,Public Sector,Data Analyst,Python|Power BI|EHR Data,3,2023-12-23,4.0
+EMP-1127,MMX European pricing study,Analytics / Consulting,Manufacturing Analytics,Principal,Power BI|SQL|Forecasting|Supply Chain Analytics|Data Engineering,8,2024-12-17,4.5
+EMP-1127,Commercial dashboard rollout,Analytics / Consulting,Manufacturing Analytics,Principal,Supply Chain Analytics|Data Engineering|Python|Forecasting,7,2023-11-17,3.6
+EMP-1127,Commercial dashboard rollout,Analytics / Consulting,Manufacturing Analytics,Principal,SQL|Data Engineering|Power BI,12,2023-08-16,4.6
+EMP-1128,GenAI insight accelerator,Analytics / Consulting,Technology,Engagement Manager,Azure|Agentic AI|Data Engineering|Python,12,2024-01-02,4.2
+EMP-1128,Data platform modernization,Analytics / Consulting,Technology,Engagement Manager,Machine Learning|Azure,4,2025-06-23,3.7
+EMP-1128,GenAI insight accelerator,Analytics / Consulting,Technology,Engagement Manager,SQL|Azure,2,2022-12-14,4.5
+EMP-1128,LLM evaluation framework,Analytics / Consulting,Technology,Engagement Manager,Agentic AI|Data Engineering|Machine Learning|GenAI,11,2026-03-16,4.2
+EMP-1129,Claims reporting transformation,Analytics / Consulting,Insurance,Senior Consultant,Excel|Forecasting|Python|Claims Data|Predictive Modeling,2,2026-01-16,4.4
+EMP-1129,Clinical analytics platform,Analytics / Consulting,Insurance,Senior Consultant,SQL|Predictive Modeling|Claims Data|Excel|Python,9,2026-02-11,4.0
+EMP-1129,MMX European pricing study,Analytics / Consulting,Insurance,Senior Consultant,SQL|Forecasting|Claims Data|Excel|Python,6,2025-06-26,4.4
+EMP-1129,MMX European pricing study,Analytics / Consulting,Insurance,Senior Consultant,Predictive Modeling|SQL,9,2023-12-03,4.3
+EMP-1129,Data quality remediation,Analytics / Consulting,Insurance,Senior Consultant,Claims Data|Excel|Forecasting|Python|Predictive Modeling,8,2023-03-16,3.7
+EMP-1129,Price elasticity assessment,Analytics / Consulting,Insurance,Senior Consultant,Excel|SQL|Forecasting|Python,9,2024-06-26,4.9
+EMP-1130,Claims reporting transformation,Analytics / Consulting,Financial Services,Senior Consultant,Predictive Modeling|Python|Power BI|Financial Analytics|Forecasting,3,2024-03-12,4.0
+EMP-1130,Claims reporting transformation,Analytics / Consulting,Financial Services,Senior Consultant,Python|Financial Analytics,10,2024-10-16,4.0
+EMP-1131,Price elasticity assessment,Analytics / Consulting,Market Analytics,Senior Principal,Segmentation|Commercial Analytics,7,2026-04-15,4.6
+EMP-1131,Omnichannel measurement,Analytics / Consulting,Market Analytics,Senior Principal,SQL|Tableau|Python|Clustering,7,2023-08-21,4.1
+EMP-1131,Safety signal analytics,Analytics / Consulting,Market Analytics,Senior Principal,Segmentation|Commercial Analytics|Power BI,3,2022-08-03,3.6
+EMP-1131,Patient analytics modernization,Analytics / Consulting,Patient Services,Senior Principal,SQL|Segmentation|Tableau,11,2024-09-17,3.8
+EMP-1132,RWE study enablement,Analytics / Consulting,Public Sector,Analytics Consultant,Excel|Data Visualization,11,2023-05-21,4.0
+EMP-1132,Safety signal analytics,Analytics / Consulting,Public Sector,Analytics Consultant,Forecasting|Power BI,10,2025-07-25,3.7
+EMP-1133,RWE study enablement,Analytics / Consulting,Real World Evidence,Engagement Manager,EHR Data|Causal Inference|Statistical Modeling|SQL,7,2023-07-11,4.5
+EMP-1133,Observational research analytics,Analytics / Consulting,Real World Evidence,Engagement Manager,SQL|Claims Data|Python,4,2022-11-07,3.8
+EMP-1133,Observational research analytics,Analytics / Consulting,Real World Evidence,Engagement Manager,EHR Data|Claims Data|SQL|Real World Evidence,7,2022-11-20,4.7
+EMP-1133,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Engagement Manager,Causal Inference|Real World Evidence|Python|Claims Data,2,2024-09-03,4.2
+EMP-1133,RWE study enablement,Analytics / Consulting,Real World Evidence,Engagement Manager,Causal Inference|Statistical Modeling|SQL|Claims Data|Python,8,2024-07-03,4.7
+EMP-1134,Claims reporting transformation,Analytics / Consulting,Healthcare,Senior Consultant,SQL|Power BI|Healthcare Data|Python,10,2025-07-19,4.3
+EMP-1134,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Senior Consultant,Python|EHR Data|Power BI|Healthcare Data|R,12,2022-08-18,4.2
+EMP-1135,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Consultant,SQL|Pricing Strategy|Python,7,2024-07-23,4.2
+EMP-1135,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Consultant,Pricing Strategy|Segmentation,11,2023-12-29,4.4
+EMP-1135,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Consultant,Pricing Strategy|Python|Price Elasticity|Promo Optimization,4,2025-01-23,4.2
+EMP-1136,Claims reporting transformation,Analytics / Consulting,Public Sector,Senior Consultant,Promo Optimization|Data Visualization|Python|Excel,12,2026-02-11,4.5
+EMP-1136,RWE study enablement,Analytics / Consulting,Public Sector,Senior Consultant,SQL|Power BI|Excel|Python|Promo Optimization,3,2026-06-22,4.5
+EMP-1136,Data quality remediation,Analytics / Consulting,Public Sector,Senior Consultant,Power BI|Excel,9,2023-12-13,4.4
+EMP-1136,MMX European pricing study,Analytics / Consulting,Financial Services,Senior Consultant,Data Visualization|Power BI|Promo Optimization,4,2025-10-07,3.7
+EMP-1136,Clinical analytics platform,Analytics / Consulting,Public Sector,Senior Consultant,SQL|Data Visualization|Python|Power BI|Excel,3,2023-04-06,4.6
+EMP-1136,GenAI insight accelerator,Analytics / Consulting,Public Sector,Senior Consultant,Python|SQL|Data Visualization,7,2022-09-17,3.9
+EMP-1137,Clinical analytics platform,Analytics / Consulting,Manufacturing Analytics,Principal,SQL|Python|Supply Chain Analytics,8,2024-01-30,4.0
+EMP-1137,MMX European pricing study,Analytics / Consulting,Manufacturing Analytics,Principal,SQL|Data Engineering|Forecasting,5,2025-07-10,4.0
+EMP-1137,Omnichannel measurement,Analytics / Consulting,Manufacturing Analytics,Principal,Power BI|SQL|Supply Chain Analytics|Python,9,2025-10-30,3.7
+EMP-1138,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Consultant,Python|Commercial Analytics|Forecasting|Power BI|SQL,10,2023-07-25,4.7
+EMP-1138,Forecast automation,Analytics / Consulting,Manufacturing Analytics,Consultant,Forecasting|Tableau|Power BI,3,2025-01-23,4.1
+EMP-1138,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Consultant,Tableau|Segmentation|Forecasting,7,2022-11-05,4.1
+EMP-1138,Patient analytics modernization,Analytics / Consulting,Manufacturing Analytics,Consultant,Python|Power BI,4,2023-11-04,4.8
+EMP-1139,Omnichannel measurement,Analytics / Consulting,Insurance,Data Analyst,SQL|Python|Forecasting|Predictive Modeling|Claims Data,6,2023-08-08,4.4
+EMP-1139,Commercial dashboard rollout,Analytics / Consulting,Insurance,Data Analyst,Forecasting|Predictive Modeling|SQL,8,2026-01-01,4.2
+EMP-1139,Patient analytics modernization,Analytics / Consulting,Insurance,Data Analyst,Excel|Claims Data,12,2025-03-02,4.4
+EMP-1139,Claims reporting transformation,Analytics / Consulting,Insurance,Data Analyst,SQL|Excel|Predictive Modeling|Claims Data,6,2023-04-27,4.2
+EMP-1139,MMX European pricing study,Analytics / Consulting,Insurance,Data Analyst,Forecasting|Predictive Modeling|Claims Data|Excel,12,2024-11-19,4.7
+EMP-1140,Claims reporting transformation,Analytics / Consulting,Manufacturing Analytics,Data Analyst,Supply Chain Analytics|Data Engineering|Python|Power BI,10,2023-12-17,4.0
+EMP-1140,Omnichannel measurement,Analytics / Consulting,Manufacturing Analytics,Data Analyst,Power BI|SQL|Forecasting,3,2022-07-26,3.9
+EMP-1140,Patient analytics modernization,Analytics / Consulting,Manufacturing Analytics,Data Analyst,Power BI|Data Engineering|Python|Forecasting,4,2023-02-25,4.4
+EMP-1140,RWE study enablement,Analytics / Consulting,Manufacturing Analytics,Data Analyst,Forecasting|Power BI|SQL,10,2024-05-23,4.4
+EMP-1141,Forecast automation,Analytics / Consulting,Clinical Analytics,Data Analyst,SAS|Data Visualization,3,2023-07-01,4.0
+EMP-1141,RWE study enablement,Analytics / Consulting,Clinical Analytics,Data Analyst,SQL|Clinical Trial Data|Data Visualization|R,10,2026-04-11,4.2
+EMP-1141,Omnichannel measurement,Analytics / Consulting,Clinical Analytics,Data Analyst,Data Visualization|R|Statistical Modeling|SQL|SAS,4,2024-04-30,4.8
+EMP-1142,Forecast automation,Analytics / Consulting,Public Sector,Principal,SQL|Excel|Power BI|Data Visualization,2,2026-07-01,4.9
+EMP-1142,Price elasticity assessment,Analytics / Consulting,Public Sector,Principal,Data Visualization|Power BI|Python|ETL|Excel,7,2025-07-17,4.8
+EMP-1143,Price elasticity assessment,Analytics / Consulting,Public Sector,Senior Consultant,Power BI|SQL|Python|Excel,2,2023-04-30,4.7
+EMP-1143,Data quality remediation,Analytics / Consulting,Public Sector,Senior Consultant,SQL|Data Visualization|Python|Power BI,10,2024-06-02,4.8
+EMP-1143,Commercial dashboard rollout,Analytics / Consulting,Public Sector,Senior Consultant,SQL|Python|Power BI,4,2022-09-01,4.6
+EMP-1143,RWE study enablement,Analytics / Consulting,Public Sector,Senior Consultant,Claims Data|Python|SQL|Excel,11,2023-09-29,4.5
+EMP-1143,Commercial dashboard rollout,Analytics / Consulting,Public Sector,Senior Consultant,Excel|Python|Claims Data|Power BI,12,2026-06-28,4.1
+EMP-1144,Commercial dashboard rollout,Analytics / Consulting,Manufacturing Analytics,Data Analyst,Excel|SQL,5,2022-10-02,3.6
+EMP-1144,Safety signal analytics,Analytics / Consulting,Manufacturing Analytics,Data Analyst,Python|SQL|Excel,12,2025-06-10,4.2
+EMP-1144,Forecast automation,Analytics / Consulting,Insurance,Data Analyst,Python|Forecasting|Claims Data|Excel,9,2025-01-29,4.2
+EMP-1144,Safety signal analytics,Analytics / Consulting,Insurance,Data Analyst,SQL|Python,2,2026-01-06,4.7
+EMP-1144,GenAI insight accelerator,Analytics / Consulting,Insurance,Data Analyst,Python|SQL|Excel|Claims Data,10,2025-11-21,4.4
+EMP-1145,Data quality remediation,Analytics / Consulting,Public Sector,Engagement Manager,Python|Data Visualization|Excel,4,2022-07-24,3.8
+EMP-1145,RWE study enablement,Analytics / Consulting,Public Sector,Engagement Manager,Excel|Power BI|SQL|Python,11,2025-11-14,4.1
+EMP-1145,Clinical analytics platform,Analytics / Consulting,Public Sector,Engagement Manager,GenAI|Power BI|Python|Excel|Data Visualization,8,2025-02-09,4.1
+EMP-1145,Forecast automation,Analytics / Consulting,Public Sector,Engagement Manager,Power BI|SQL|Python|GenAI|Data Visualization,9,2023-05-04,4.7
+EMP-1145,Price elasticity assessment,Analytics / Consulting,Public Sector,Engagement Manager,GenAI|Excel|Python|Data Visualization|SQL,7,2022-09-16,3.6
+EMP-1146,Omnichannel measurement,Analytics / Consulting,Clinical Analytics,Analytics Consultant,R|Python|Clinical Trial Data|Data Visualization|SQL,12,2026-05-10,4.3
+EMP-1146,Clinical analytics platform,Analytics / Consulting,Clinical Analytics,Analytics Consultant,Python|SAS|Statistical Modeling|Data Visualization,10,2024-06-23,4.4
+EMP-1146,Data quality remediation,Analytics / Consulting,Clinical Analytics,Analytics Consultant,R|Clinical Trial Data|Statistical Modeling|SQL,9,2026-03-14,4.4
+EMP-1146,Price elasticity assessment,Analytics / Consulting,Clinical Analytics,Analytics Consultant,Clinical Trial Data|Statistical Modeling|Data Visualization|R|SQL,6,2026-03-15,4.3
+EMP-1146,Claims reporting transformation,Analytics / Consulting,Clinical Analytics,Analytics Consultant,SQL|Statistical Modeling|Clinical Trial Data|Python,12,2026-01-28,4.1
+EMP-1146,Claims reporting transformation,Analytics / Consulting,Clinical Analytics,Analytics Consultant,Clinical Trial Data|Python,9,2025-05-17,4.5
+EMP-1147,Price elasticity assessment,Analytics / Consulting,Manufacturing Analytics,Senior Principal,Forecasting|Python|Power BI|Supply Chain Analytics,11,2024-04-28,4.5
+EMP-1147,GenAI insight accelerator,Analytics / Consulting,Manufacturing Analytics,Senior Principal,Power BI|Supply Chain Analytics|Forecasting,3,2026-06-10,4.0
+EMP-1147,Claims reporting transformation,Analytics / Consulting,Manufacturing Analytics,Senior Principal,Python|Forecasting|Data Engineering|Supply Chain Analytics|Power BI,3,2024-02-14,4.4
+EMP-1147,Patient analytics modernization,Analytics / Consulting,Manufacturing Analytics,Senior Principal,Power BI|Forecasting,8,2023-03-27,4.0
+EMP-1147,Forecast automation,Analytics / Consulting,Manufacturing Analytics,Senior Principal,Power BI|Forecasting|Data Engineering,3,2026-06-20,3.7
+EMP-1148,MMX European pricing study,Analytics / Consulting,Clinical Analytics,Consultant,R|Python|SAS|Data Visualization|Clinical Trial Data,4,2023-10-28,4.6
+EMP-1148,Omnichannel measurement,Analytics / Consulting,Clinical Analytics,Consultant,Clinical Trial Data|SAS|Python|R,11,2025-11-21,3.6
+EMP-1148,Forecast automation,Analytics / Consulting,Clinical Analytics,Consultant,SAS|Data Visualization,4,2023-01-16,4.5
+EMP-1148,GenAI insight accelerator,Analytics / Consulting,Clinical Analytics,Consultant,SQL|Python|Data Visualization|Clinical Trial Data|R,8,2023-07-11,4.8
+EMP-1148,Clinical analytics platform,Analytics / Consulting,Clinical Analytics,Consultant,Python|SAS|R|SQL|Clinical Trial Data,10,2025-09-19,4.6
+EMP-1149,Claims reporting transformation,Analytics / Consulting,Public Sector,Consultant,Power BI|Python,5,2025-10-17,4.6
+EMP-1149,Safety signal analytics,Analytics / Consulting,Public Sector,Consultant,Power BI|Python|Excel|SQL|RAG,12,2024-05-11,4.8
+EMP-1149,RWE study enablement,Analytics / Consulting,Public Sector,Consultant,Power BI|Data Visualization|RAG|Python,10,2026-02-24,4.4
+EMP-1149,Forecast automation,Analytics / Consulting,Public Sector,Consultant,Data Visualization|Excel,4,2024-12-21,4.6
+EMP-1150,EHR insight platform,Analytics / Consulting,Healthcare,Senior Principal,Claims Data|EHR Data,8,2024-01-15,3.8
+EMP-1150,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Senior Principal,SQL|Healthcare Data|Claims Data|Power BI,11,2025-06-02,3.8
+EMP-1150,Claims reporting transformation,Analytics / Consulting,Healthcare,Senior Principal,Claims Data|SQL,3,2023-10-18,4.6
+EMP-1150,Patient analytics modernization,Analytics / Consulting,Healthcare,Senior Principal,Healthcare Data|R|Power BI|Claims Data,11,2023-07-31,4.2
+EMP-1151,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Principal,Power BI|Segmentation|Commercial Analytics|SQL|Tableau,7,2024-02-09,4.8
+EMP-1151,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Principal,Tableau|Power BI,5,2025-06-11,4.4
+EMP-1151,European commercial analytics,Analytics / Consulting,Commercial Analytics,Principal,Segmentation|Power BI|Forecasting|Commercial Analytics,6,2023-09-06,4.2
+EMP-1151,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Principal,Power BI|Tableau,10,2026-04-02,4.0
+EMP-1151,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Principal,Python|Tableau|Forecasting|Commercial Analytics,6,2022-12-07,4.3
+EMP-1151,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Principal,Tableau|SQL|Power BI|Python,10,2026-03-02,4.5
+EMP-1152,Commercial dashboard rollout,Analytics / Consulting,Insurance,Principal,Forecasting|Predictive Modeling|Python|Financial Analytics|Power BI,12,2024-06-21,4.4
+EMP-1152,Claims reporting transformation,Analytics / Consulting,Financial Services,Principal,Predictive Modeling|SQL,8,2023-12-21,4.8
+EMP-1152,Price elasticity assessment,Analytics / Consulting,Financial Services,Principal,Power BI|SQL,5,2023-07-09,4.8
+EMP-1152,Clinical analytics platform,Analytics / Consulting,Insurance,Principal,Python|Predictive Modeling|Financial Analytics|SQL|Power BI,11,2026-04-19,4.9
+EMP-1153,Price elasticity assessment,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,SQL|Data Engineering,10,2024-06-18,3.8
+EMP-1153,Clinical analytics platform,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,Power BI|SQL|Supply Chain Analytics|Python|Data Engineering,9,2023-01-21,4.4
+EMP-1153,Commercial dashboard rollout,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,Forecasting|Python,12,2026-01-01,4.3
+EMP-1153,Price elasticity assessment,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,Supply Chain Analytics|Data Engineering|Power BI,11,2024-09-03,4.9
+EMP-1153,RWE study enablement,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,Data Engineering|Python|Forecasting,10,2024-09-10,4.1
+EMP-1153,GenAI insight accelerator,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,Supply Chain Analytics|Data Engineering|Forecasting|SQL|Python,4,2023-05-17,4.1
+EMP-1154,Agentic analytics pilot,Analytics / Consulting,Technology,Senior Consultant,AWS|Data Engineering|Azure|Machine Learning|Python,7,2024-11-13,3.8
+EMP-1154,GenAI insight accelerator,Analytics / Consulting,Technology,Senior Consultant,AWS|Data Engineering|Machine Learning|GenAI,4,2023-01-03,4.0
+EMP-1154,Agentic analytics pilot,Analytics / Consulting,Technology,Senior Consultant,GenAI|Machine Learning|Data Engineering,2,2023-12-22,4.1
+EMP-1154,Agentic analytics pilot,Analytics / Consulting,Technology,Senior Consultant,GenAI|Agentic AI|Azure,8,2022-12-19,3.7
+EMP-1154,Data platform modernization,Analytics / Consulting,Technology,Senior Consultant,GenAI|AWS|Machine Learning|Azure|Data Engineering,5,2023-04-26,4.4
+EMP-1154,LLM evaluation framework,Analytics / Consulting,Technology,Senior Consultant,Python|AWS|Data Engineering,9,2024-03-10,4.0
+EMP-1155,Data quality remediation,Analytics / Consulting,Public Sector,Senior Consultant,SQL|Power BI|Excel,9,2022-07-27,3.6
+EMP-1155,Safety signal analytics,Analytics / Consulting,Public Sector,Senior Consultant,Power BI|Python|SQL,11,2024-08-14,4.8
+EMP-1155,Data quality remediation,Analytics / Consulting,Public Sector,Senior Consultant,AI Governance|Data Visualization|Power BI|Excel,8,2025-10-28,4.1
+EMP-1156,Clinical analytics platform,Analytics / Consulting,Life Sciences,Data Analyst,SAS|R|Clinical Trial Data|Python|SQL,9,2025-07-06,4.2
+EMP-1156,Safety signal analytics,Analytics / Consulting,Life Sciences,Data Analyst,Clinical Trial Data|SAS|Python|Pharmacovigilance|R,2,2023-02-20,4.6
+EMP-1157,Data platform modernization,Analytics / Consulting,Technology,Principal,Agentic AI|Data Engineering,10,2024-10-14,4.6
+EMP-1157,Data platform modernization,Analytics / Consulting,Technology,Principal,Data Engineering|Agentic AI|Machine Learning|SQL|GCP,12,2024-04-25,4.9
+EMP-1157,GenAI insight accelerator,Analytics / Consulting,Technology,Principal,GCP|Machine Learning|Agentic AI,10,2024-07-13,4.0
+EMP-1157,Data platform modernization,Analytics / Consulting,Technology,Principal,Machine Learning|Azure|Agentic AI|GenAI|GCP,4,2026-07-06,4.9
+EMP-1157,Agentic analytics pilot,Analytics / Consulting,Technology,Principal,GenAI|Data Engineering|Agentic AI,8,2023-10-18,3.7
+EMP-1157,LLM evaluation framework,Analytics / Consulting,Technology,Principal,SQL|GCP,6,2026-03-26,4.6
+EMP-1158,Clinical analytics platform,Analytics / Consulting,Financial Services,Senior Principal,Financial Analytics|Python|Forecasting|SQL|Predictive Modeling,5,2025-09-18,3.9
+EMP-1158,GenAI insight accelerator,Analytics / Consulting,Financial Services,Senior Principal,SQL|Power BI|Forecasting|Financial Analytics,12,2026-01-31,4.2
+EMP-1159,Patient analytics modernization,Analytics / Consulting,Insurance,Senior Principal,Claims Data|Predictive Modeling|SQL|Forecasting,9,2025-03-21,3.8
+EMP-1159,GenAI insight accelerator,Analytics / Consulting,Insurance,Senior Principal,Forecasting|SQL|Predictive Modeling,2,2023-06-06,4.4
+EMP-1159,RWE study enablement,Analytics / Consulting,Insurance,Senior Principal,Forecasting|Predictive Modeling|Claims Data,10,2024-12-07,3.9
+EMP-1159,Omnichannel measurement,Analytics / Consulting,Insurance,Senior Principal,Forecasting|Python|SQL|Claims Data,2,2023-06-13,3.9
+EMP-1160,Omnichannel measurement,Analytics / Consulting,Patient Services,Principal,Data Visualization|Patient Journey Analytics|SQL,9,2023-06-29,3.9
+EMP-1160,GenAI insight accelerator,Analytics / Consulting,Patient Services,Principal,Patient Journey Analytics|Customer Analytics|Python,2,2026-06-29,4.6
+EMP-1160,Price elasticity assessment,Analytics / Consulting,Patient Services,Principal,Customer Analytics|Patient Journey Analytics|SQL|Data Visualization|Power BI,9,2024-04-05,4.3
+EMP-1160,Patient analytics modernization,Analytics / Consulting,Patient Services,Principal,Power BI|Python|Data Visualization|SQL|Patient Journey Analytics,9,2025-05-19,4.3
+EMP-1161,Data platform modernization,Analytics / Consulting,Technology,Senior Principal,Machine Learning|Azure|GCP|Python,3,2025-08-29,4.2
+EMP-1161,LLM evaluation framework,Analytics / Consulting,Technology,Senior Principal,Python|Data Engineering,6,2025-05-04,4.7
+EMP-1161,LLM evaluation framework,Analytics / Consulting,Technology,Senior Principal,Machine Learning|Agentic AI|GCP|Python|Data Engineering,6,2024-01-02,4.8
+EMP-1161,LLM evaluation framework,Analytics / Consulting,Technology,Senior Principal,AWS|Data Engineering|GCP|Python|Azure,2,2024-06-19,4.7
+EMP-1161,LLM evaluation framework,Analytics / Consulting,Technology,Senior Principal,Python|AWS|Machine Learning,3,2023-05-10,3.9
+EMP-1161,LLM evaluation framework,Analytics / Consulting,Technology,Senior Principal,Data Engineering|Machine Learning|Agentic AI|AWS,8,2026-07-06,4.5
+EMP-1162,Commercial dashboard rollout,Analytics / Consulting,Public Sector,Data Analyst,Python|Pharmacovigilance|SAS|Clinical Trial Data,8,2023-12-23,3.9
+EMP-1162,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Data Analyst,SQL|Statistical Modeling|Pharmacovigilance|SAS|Clinical Trial Data,7,2026-05-11,4.4
+EMP-1162,Price elasticity assessment,Analytics / Consulting,Public Sector,Data Analyst,Pharmacovigilance|Python,7,2024-01-10,4.6
+EMP-1163,Forecast automation,Analytics / Consulting,Public Sector,Data Analyst,NLP|SQL|Data Visualization|Power BI,6,2024-08-19,4.6
+EMP-1163,Forecast automation,Analytics / Consulting,Public Sector,Data Analyst,SQL|Python,12,2024-07-06,4.8
+EMP-1163,EHR insight platform,Analytics / Consulting,Healthcare,Data Analyst,Power BI|Excel|SQL|Data Visualization|NLP,3,2025-03-19,4.5
+EMP-1163,Clinical analytics platform,Analytics / Consulting,Public Sector,Data Analyst,NLP|Data Visualization|SQL|Python,7,2022-10-18,3.8
+EMP-1163,MMX European pricing study,Analytics / Consulting,Public Sector,Data Analyst,Excel|NLP|Power BI|SQL|Data Visualization,3,2023-03-27,4.1
+EMP-1164,Claims reporting transformation,Analytics / Consulting,Clinical Analytics,Engagement Manager,Data Visualization|SAS,9,2024-02-21,4.7
+EMP-1164,RWE study enablement,Analytics / Consulting,Clinical Analytics,Engagement Manager,Python|Statistical Modeling|Clinical Trial Data|SAS|SQL,3,2023-08-31,3.8
+EMP-1165,GenAI insight accelerator,Analytics / Consulting,Patient Services,Senior Principal,SQL|Power BI|Data Visualization|Customer Analytics|Patient Journey Analytics,4,2023-07-24,4.7
+EMP-1165,Claims reporting transformation,Analytics / Consulting,Patient Services,Senior Principal,Data Visualization|SQL|Power BI,6,2024-11-16,4.3
+EMP-1165,Data quality remediation,Analytics / Consulting,Patient Services,Senior Principal,Patient Journey Analytics|Python|Power BI,7,2024-03-05,4.7
+EMP-1165,RWE study enablement,Analytics / Consulting,Patient Services,Senior Principal,Customer Analytics|Python|Power BI|Patient Journey Analytics|SQL,4,2023-07-04,4.4
+EMP-1165,Clinical analytics platform,Analytics / Consulting,Patient Services,Senior Principal,Python|SQL|Patient Journey Analytics|Data Visualization,9,2025-10-09,4.5
+EMP-1165,Claims reporting transformation,Analytics / Consulting,Patient Services,Senior Principal,Python|Data Visualization|Customer Analytics,4,2023-11-08,4.1
+EMP-1166,GenAI insight accelerator,Analytics / Consulting,Clinical Analytics,Senior Consultant,Data Visualization|R|Statistical Modeling|Clinical Trial Data|Python,9,2023-07-03,4.6
+EMP-1166,Data quality remediation,Analytics / Consulting,Clinical Analytics,Senior Consultant,R|Data Visualization,8,2026-06-16,4.5
+EMP-1166,Safety signal analytics,Analytics / Consulting,Clinical Analytics,Senior Consultant,SQL|Statistical Modeling,4,2024-10-19,4.2
+EMP-1166,RWE study enablement,Analytics / Consulting,Clinical Analytics,Senior Consultant,Python|Data Visualization|SAS,5,2025-09-25,4.1
+EMP-1166,Data quality remediation,Analytics / Consulting,Clinical Analytics,Senior Consultant,SAS|Clinical Trial Data,10,2022-08-18,4.6
+EMP-1166,Patient analytics modernization,Analytics / Consulting,Clinical Analytics,Senior Consultant,Data Visualization|SQL|SAS|Clinical Trial Data,10,2026-05-28,4.5
+EMP-1167,LLM evaluation framework,Analytics / Consulting,Technology,Engagement Manager,SQL|Python|Azure,10,2023-10-08,4.5
+EMP-1167,Data platform modernization,Analytics / Consulting,Technology,Engagement Manager,Data Engineering|AWS|SQL|Agentic AI,12,2022-08-01,4.0
+EMP-1167,Agentic analytics pilot,Analytics / Consulting,Technology,Engagement Manager,Agentic AI|AWS|GCP,6,2024-06-16,4.6
+EMP-1167,Data platform modernization,Analytics / Consulting,Technology,Engagement Manager,GenAI|AWS|Machine Learning|Azure,9,2026-05-10,3.7
+EMP-1167,LLM evaluation framework,Analytics / Consulting,Technology,Engagement Manager,Python|Machine Learning,11,2023-11-04,4.5
+EMP-1167,Data platform modernization,Analytics / Consulting,Technology,Engagement Manager,Agentic AI|Azure|Data Engineering|GCP|Machine Learning,2,2024-10-05,3.6
+EMP-1168,RWE study enablement,Analytics / Consulting,Real World Evidence,Principal,Real World Evidence|Statistical Modeling|SQL|Claims Data|Causal Inference,9,2024-04-02,4.7
+EMP-1168,Observational research analytics,Analytics / Consulting,Real World Evidence,Principal,Causal Inference|EHR Data|Real World Evidence,5,2024-07-25,3.7
+EMP-1168,Observational research analytics,Analytics / Consulting,Real World Evidence,Principal,Causal Inference|Statistical Modeling|Claims Data|SQL,8,2026-04-03,4.7
+EMP-1168,RWE study enablement,Analytics / Consulting,Real World Evidence,Principal,Python|SQL,10,2024-11-19,4.7
+EMP-1168,RWE study enablement,Analytics / Consulting,Real World Evidence,Principal,Python|Claims Data|Causal Inference|SQL,2,2025-05-30,4.3
+EMP-1169,Price elasticity assessment,Analytics / Consulting,Public Sector,Analytics Consultant,Python|SQL|Power BI,4,2025-02-10,4.6
+EMP-1169,GenAI insight accelerator,Analytics / Consulting,Public Sector,Analytics Consultant,Excel|Data Visualization,8,2023-05-02,4.5
+EMP-1170,Safety signal analytics,Analytics / Consulting,Pharmacovigilance,Senior Principal,SAS|Clinical Trial Data|Python|Statistical Modeling|Pharmacovigilance,11,2024-08-16,3.8
+EMP-1170,RWE study enablement,Analytics / Consulting,Financial Services,Senior Principal,Python|Pharmacovigilance|Statistical Modeling,8,2023-08-08,4.3
+EMP-1170,Commercial dashboard rollout,Analytics / Consulting,Pharmacovigilance,Senior Principal,Clinical Trial Data|SAS|Statistical Modeling,3,2024-02-03,4.8
+EMP-1170,Omnichannel measurement,Analytics / Consulting,Financial Services,Senior Principal,SAS|Statistical Modeling,3,2025-09-08,4.8
+EMP-1171,Data platform modernization,Analytics / Consulting,Technology,Engagement Manager,GenAI|Agentic AI|GCP,5,2024-08-08,4.7
+EMP-1171,Data platform modernization,Analytics / Consulting,Technology,Engagement Manager,Data Engineering|Agentic AI,4,2024-12-05,4.7
+EMP-1171,Agentic analytics pilot,Analytics / Consulting,Technology,Engagement Manager,GenAI|Data Engineering,10,2023-12-05,4.4
+EMP-1171,Agentic analytics pilot,Analytics / Consulting,Technology,Engagement Manager,Data Engineering|Machine Learning|AWS,2,2023-04-26,4.1
+EMP-1171,GenAI insight accelerator,Analytics / Consulting,Technology,Engagement Manager,Agentic AI|Data Engineering,3,2023-10-22,4.6
+EMP-1171,Data platform modernization,Analytics / Consulting,Technology,Engagement Manager,Python|GCP,2,2026-02-04,3.7
+EMP-1172,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Data Analyst,Data Visualization|SQL|Clinical Trial Data|Pharmacovigilance,12,2026-03-06,3.9
+EMP-1172,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Data Analyst,Pharmacovigilance|R,7,2025-12-21,3.8
+EMP-1173,Claims reporting transformation,Analytics / Consulting,Healthcare,Data Analyst,Power BI|Claims Data,2,2025-08-07,4.9
+EMP-1173,Patient analytics modernization,Analytics / Consulting,Healthcare,Data Analyst,Healthcare Data|Claims Data,5,2022-12-25,4.1
+EMP-1173,Patient analytics modernization,Analytics / Consulting,Healthcare,Data Analyst,EHR Data|R|Healthcare Data|Power BI,11,2025-11-15,4.5
+EMP-1173,EHR insight platform,Analytics / Consulting,Healthcare,Data Analyst,Claims Data|SQL|R|Python|Healthcare Data,2,2025-02-06,4.5
+EMP-1174,Patient analytics modernization,Analytics / Consulting,Pharmacovigilance,Principal,Statistical Modeling|SQL|Clinical Trial Data|SAS,8,2024-02-16,4.7
+EMP-1174,Safety signal analytics,Analytics / Consulting,Manufacturing Analytics,Principal,Python|SQL|Pharmacovigilance|Statistical Modeling,9,2024-07-09,4.3
+EMP-1174,MMX European pricing study,Analytics / Consulting,Pharmacovigilance,Principal,SQL|Clinical Trial Data|Python,3,2024-09-01,3.9
+EMP-1175,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Principal,SQL|Market Mix Modeling|Promo Optimization,6,2023-02-11,4.3
+EMP-1175,Claims reporting transformation,Analytics / Consulting,Healthcare,Principal,SQL|Segmentation|Python|Pricing Strategy,10,2022-12-29,4.2
+EMP-1175,Claims reporting transformation,Analytics / Consulting,Healthcare,Principal,Market Mix Modeling|Pricing Strategy,9,2025-02-02,4.0
+EMP-1176,Price elasticity assessment,Analytics / Consulting,Public Sector,Principal,MLOps|Python|SQL|Power BI|Excel,5,2023-06-12,3.7
+EMP-1176,Claims reporting transformation,Analytics / Consulting,Public Sector,Principal,SQL|MLOps|Power BI|Data Visualization,11,2022-10-09,4.5
+EMP-1176,GenAI insight accelerator,Analytics / Consulting,Public Sector,Principal,Python|SQL,11,2023-06-14,4.8
+EMP-1177,RWE study enablement,Analytics / Consulting,Real World Evidence,Consultant,Statistical Modeling|SQL,9,2024-12-02,3.8
+EMP-1177,Observational research analytics,Analytics / Consulting,Real World Evidence,Consultant,EHR Data|Claims Data|Real World Evidence|Python,6,2024-04-28,4.9
+EMP-1177,Observational research analytics,Analytics / Consulting,Real World Evidence,Consultant,Claims Data|Causal Inference,10,2023-03-10,4.5
+EMP-1177,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Consultant,Statistical Modeling|Causal Inference,10,2026-03-17,4.2
+EMP-1178,Observational research analytics,Analytics / Consulting,Real World Evidence,Engagement Manager,EHR Data|Claims Data|SQL|Real World Evidence|Causal Inference,7,2025-09-22,4.3
+EMP-1178,RWE study enablement,Analytics / Consulting,Real World Evidence,Engagement Manager,Causal Inference|EHR Data|Python|SQL,5,2024-06-30,3.6
+EMP-1178,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Engagement Manager,SQL|Statistical Modeling,7,2022-11-04,4.7
+EMP-1179,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Engagement Manager,Python|Pricing Strategy|SQL|Market Mix Modeling,9,2023-03-26,4.8
+EMP-1179,RWE study enablement,Analytics / Consulting,Real World Evidence,Engagement Manager,SQL|Segmentation|Pricing Strategy|Price Elasticity,7,2024-09-17,3.8
+EMP-1179,RWE study enablement,Analytics / Consulting,Real World Evidence,Engagement Manager,Pricing Strategy|Price Elasticity|SQL,8,2024-02-17,4.9
+EMP-1180,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Senior Consultant,SAS|SQL|Pharmacovigilance|Python|Statistical Modeling,8,2022-07-24,4.7
+EMP-1180,Safety signal analytics,Analytics / Consulting,Pharmacovigilance,Senior Consultant,SAS|Python,4,2025-11-03,3.9
+EMP-1180,Price elasticity assessment,Analytics / Consulting,Pharmacovigilance,Senior Consultant,SAS|SQL,5,2022-11-26,3.7
+EMP-1180,Forecast automation,Analytics / Consulting,Pharmacovigilance,Senior Consultant,Statistical Modeling|SAS|Clinical Trial Data,7,2024-08-02,3.7
+EMP-1180,MMX European pricing study,Analytics / Consulting,Pharmacovigilance,Senior Consultant,SAS|SQL|Python|Statistical Modeling|Pharmacovigilance,7,2025-08-01,4.7
+EMP-1181,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Data Analyst,Statistical Modeling|Claims Data|EHR Data,2,2025-12-17,4.6
+EMP-1181,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Data Analyst,Causal Inference|Claims Data|Real World Evidence|EHR Data|Python,6,2023-09-25,4.5
+EMP-1182,Claims reporting transformation,Analytics / Consulting,Financial Services,Senior Consultant,Financial Analytics|Forecasting|Python|Predictive Modeling|Power BI,8,2025-01-28,4.3
+EMP-1182,Claims reporting transformation,Analytics / Consulting,Financial Services,Senior Consultant,Power BI|Python|Predictive Modeling|SQL|Forecasting,8,2023-02-16,4.1
+EMP-1182,Omnichannel measurement,Analytics / Consulting,Financial Services,Senior Consultant,SQL|Python,10,2024-11-13,3.9
+EMP-1183,Claims reporting transformation,Analytics / Consulting,Healthcare,Senior Consultant,Claims Data|Python|Power BI,10,2026-03-26,4.4
+EMP-1183,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Senior Consultant,Python|Healthcare Data|EHR Data|R,12,2023-11-12,4.4
+EMP-1183,EHR insight platform,Analytics / Consulting,Healthcare,Senior Consultant,Power BI|Healthcare Data,5,2025-07-16,4.7
+EMP-1183,Patient analytics modernization,Analytics / Consulting,Healthcare,Senior Consultant,R|Python,7,2026-05-10,4.6
+EMP-1184,EHR insight platform,Analytics / Consulting,Healthcare,Analytics Consultant,Supply Chain Analytics|SQL|Power BI,9,2025-08-12,4.6
+EMP-1184,Claims reporting transformation,Analytics / Consulting,Healthcare,Analytics Consultant,Python|Forecasting|Supply Chain Analytics,10,2024-06-08,4.3
+EMP-1185,Claims reporting transformation,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,Python|Data Engineering|Supply Chain Analytics|Forecasting|SQL,4,2023-08-26,4.0
+EMP-1185,RWE study enablement,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,Data Engineering|Supply Chain Analytics|Power BI|SQL,8,2023-04-22,4.3
+EMP-1186,RWE study enablement,Analytics / Consulting,Real World Evidence,Senior Principal,Claims Data|SQL|Real World Evidence|Statistical Modeling,2,2024-04-25,4.1
+EMP-1186,RWE study enablement,Analytics / Consulting,Real World Evidence,Senior Principal,SQL|Causal Inference,4,2023-11-26,3.8
+EMP-1186,RWE study enablement,Analytics / Consulting,Real World Evidence,Senior Principal,Causal Inference|Python|Real World Evidence,5,2025-12-20,4.4
+EMP-1186,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Senior Principal,SQL|Real World Evidence|Causal Inference|Python|EHR Data,10,2022-11-05,4.6
+EMP-1186,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Senior Principal,Claims Data|Real World Evidence,7,2026-05-14,4.5
+EMP-1187,GenAI insight accelerator,Analytics / Consulting,Public Sector,Principal,Python|Market Mix Modeling,12,2026-06-09,4.9
+EMP-1187,Price elasticity assessment,Analytics / Consulting,Public Sector,Principal,SQL|Market Mix Modeling|Python,4,2023-07-24,4.8
+EMP-1188,GenAI insight accelerator,Analytics / Consulting,Public Sector,Analytics Consultant,Power BI|Data Visualization|SQL|Python|Causal Inference,3,2024-09-20,3.9
+EMP-1188,RWE study enablement,Analytics / Consulting,Public Sector,Analytics Consultant,Power BI|Data Visualization|SQL,11,2024-07-12,3.6
+EMP-1188,Omnichannel measurement,Analytics / Consulting,Public Sector,Analytics Consultant,Excel|Data Visualization,12,2025-06-11,4.0
+EMP-1189,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Analytics Consultant,Healthcare Data|R|Claims Data|SQL,12,2022-08-24,4.1
+EMP-1189,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Analytics Consultant,Claims Data|Power BI,10,2026-03-04,3.6
+EMP-1189,Claims reporting transformation,Analytics / Consulting,Healthcare,Analytics Consultant,Claims Data|Healthcare Data,10,2024-02-23,4.7
+EMP-1189,EHR insight platform,Analytics / Consulting,Healthcare,Analytics Consultant,R|Healthcare Data,8,2024-02-26,4.7
+EMP-1190,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Senior Principal,Clinical Trial Data|SQL|SAS|Pharmacovigilance,4,2023-12-09,4.8
+EMP-1190,Claims reporting transformation,Analytics / Consulting,Healthcare,Senior Principal,SAS|Python,8,2024-12-02,4.4
+EMP-1190,Claims reporting transformation,Analytics / Consulting,Healthcare,Senior Principal,Statistical Modeling|Clinical Trial Data|Pharmacovigilance,4,2025-01-24,3.7
+EMP-1190,Patient analytics modernization,Analytics / Consulting,Pharmacovigilance,Senior Principal,Python|Statistical Modeling|Pharmacovigilance|Clinical Trial Data,3,2025-09-30,3.9
+EMP-1191,GenAI insight accelerator,Analytics / Consulting,Market Analytics,Engagement Manager,Commercial Analytics|Python|Tableau,10,2023-02-06,4.1
+EMP-1191,Patient analytics modernization,Analytics / Consulting,Market Analytics,Engagement Manager,Power BI|Python|Clustering,3,2024-08-11,4.2
+EMP-1191,Safety signal analytics,Analytics / Consulting,Market Analytics,Engagement Manager,Clustering|Python,9,2024-09-27,4.3
+EMP-1192,Data quality remediation,Analytics / Consulting,Public Sector,Consultant,SQL|Data Visualization,12,2023-04-25,4.8
+EMP-1192,Clinical analytics platform,Analytics / Consulting,Public Sector,Consultant,Excel|SQL|Data Visualization|Power BI|Python,7,2026-03-24,4.5
+EMP-1192,Forecast automation,Analytics / Consulting,Public Sector,Consultant,Excel|Python|SQL,7,2025-04-17,4.4
+EMP-1192,Patient analytics modernization,Analytics / Consulting,Public Sector,Consultant,Snowflake|Data Visualization|Excel|Power BI|SQL,4,2023-08-14,3.9
+EMP-1193,Commercial dashboard rollout,Analytics / Consulting,Pharmacovigilance,Analytics Consultant,Statistical Modeling|Python|SAS,11,2022-10-06,4.3
+EMP-1193,Safety signal analytics,Analytics / Consulting,Insurance,Analytics Consultant,Python|Clinical Trial Data|SAS|Pharmacovigilance|Statistical Modeling,12,2022-08-04,4.1
+EMP-1193,Data quality remediation,Analytics / Consulting,Insurance,Analytics Consultant,Clinical Trial Data|Statistical Modeling|Python,6,2024-12-24,4.3
+EMP-1194,Observational research analytics,Analytics / Consulting,Real World Evidence,Data Analyst,Python|EHR Data|Statistical Modeling|Causal Inference,11,2024-08-07,4.3
+EMP-1194,Observational research analytics,Analytics / Consulting,Real World Evidence,Data Analyst,Python|Statistical Modeling|SQL|Real World Evidence,4,2025-01-24,4.3
+EMP-1194,Observational research analytics,Analytics / Consulting,Real World Evidence,Data Analyst,Real World Evidence|Claims Data|Causal Inference|SQL|Statistical Modeling,11,2026-03-15,4.0
+EMP-1194,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Data Analyst,Statistical Modeling|Python|SQL|Claims Data|Real World Evidence,6,2026-05-29,4.1
+EMP-1194,Claims reporting transformation,Analytics / Consulting,Insurance,Data Analyst,SQL|EHR Data,10,2023-03-10,4.9
+EMP-1195,EHR insight platform,Analytics / Consulting,Healthcare,Senior Consultant,EHR Data|Power BI,2,2026-05-21,4.8
+EMP-1195,Claims reporting transformation,Analytics / Consulting,Healthcare,Senior Consultant,Python|SQL|R,2,2024-11-21,4.6
+EMP-1195,Claims reporting transformation,Analytics / Consulting,Healthcare,Senior Consultant,SQL|Claims Data|Power BI|R,10,2023-09-12,3.7
+EMP-1196,Clinical analytics platform,Analytics / Consulting,Market Analytics,Consultant,Segmentation|Clustering|Python|SQL,3,2024-09-02,4.3
+EMP-1196,Safety signal analytics,Analytics / Consulting,Market Analytics,Consultant,Power BI|Clustering,7,2024-01-24,4.6
+EMP-1196,GenAI insight accelerator,Analytics / Consulting,Market Analytics,Consultant,SQL|Python,7,2026-03-23,4.4
+EMP-1196,Commercial dashboard rollout,Analytics / Consulting,Market Analytics,Consultant,SQL|Power BI|Python|Commercial Analytics|Tableau,3,2024-12-06,4.6
+EMP-1197,MMX European pricing study,Analytics / Consulting,Market Analytics,Senior Consultant,Python|SQL|Clustering,5,2024-11-22,4.0
+EMP-1197,Data quality remediation,Analytics / Consulting,Market Analytics,Senior Consultant,Commercial Analytics|Segmentation|Python|Power BI|SQL,5,2024-04-29,4.2
+EMP-1197,GenAI insight accelerator,Analytics / Consulting,Market Analytics,Senior Consultant,Power BI|SQL|Clustering|Segmentation|Commercial Analytics,4,2026-04-16,4.6
+EMP-1197,Omnichannel measurement,Analytics / Consulting,Market Analytics,Senior Consultant,Clustering|Tableau,6,2023-07-12,4.8
+EMP-1197,Patient analytics modernization,Analytics / Consulting,Market Analytics,Senior Consultant,Power BI|Python,7,2025-11-14,4.4
+EMP-1197,Claims reporting transformation,Analytics / Consulting,Market Analytics,Senior Consultant,Segmentation|Tableau|Python|Power BI,8,2026-03-13,4.6
+EMP-1198,RWE study enablement,Analytics / Consulting,Real World Evidence,Engagement Manager,EHR Data|Causal Inference|Python|Real World Evidence,5,2024-11-27,4.1
+EMP-1198,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Engagement Manager,Claims Data|Real World Evidence|Causal Inference|Python|Statistical Modeling,12,2025-03-06,4.1
+EMP-1198,GenAI insight accelerator,Analytics / Consulting,Technology,Engagement Manager,Statistical Modeling|Causal Inference,6,2023-01-24,4.0
+EMP-1198,Data platform modernization,Analytics / Consulting,Technology,Engagement Manager,EHR Data|SQL|Real World Evidence|Claims Data|Causal Inference,8,2026-03-11,3.9
+EMP-1199,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Consultant,Forecasting|Commercial Analytics|Tableau|Segmentation,3,2025-06-27,3.9
+EMP-1199,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Consultant,SQL|Segmentation|Power BI|Python,2,2023-03-24,4.3
+EMP-1199,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Consultant,Forecasting|Power BI|Python|Tableau|Segmentation,2,2023-12-10,3.8
+EMP-1199,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Consultant,Forecasting|Tableau|Segmentation|Commercial Analytics,7,2024-11-09,4.6
+EMP-1200,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Engagement Manager,Segmentation|Forecasting|Python|Commercial Analytics,11,2024-11-22,4.1
+EMP-1200,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Engagement Manager,SQL|Power BI|Commercial Analytics|Segmentation,11,2022-10-13,4.2
+EMP-1200,European commercial analytics,Analytics / Consulting,Commercial Analytics,Engagement Manager,SQL|Forecasting|Python|Commercial Analytics|Tableau,3,2026-06-13,3.8
+EMP-1201,Clinical analytics platform,Analytics / Consulting,Life Sciences,Analytics Consultant,SAS|Clinical Trial Data|R|SQL,5,2025-08-19,3.9
+EMP-1201,Safety signal analytics,Analytics / Consulting,Life Sciences,Analytics Consultant,R|Data Visualization|SAS|Clinical Trial Data,5,2025-05-01,3.9
+EMP-1201,Safety signal analytics,Analytics / Consulting,Life Sciences,Analytics Consultant,Python|SQL,10,2022-10-15,3.9
+EMP-1201,Trial data modernization,Analytics / Consulting,Life Sciences,Analytics Consultant,SQL|Pharmacovigilance|Data Visualization|Python|SAS,6,2023-09-10,4.4
+EMP-1201,Safety signal analytics,Analytics / Consulting,Life Sciences,Analytics Consultant,Data Visualization|Pharmacovigilance|SAS|SQL|R,6,2025-08-20,4.7
+EMP-1201,Safety signal analytics,Analytics / Consulting,Life Sciences,Analytics Consultant,R|Clinical Trial Data|Data Visualization,9,2022-11-27,4.2
+EMP-1202,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Senior Principal,Price Elasticity|Promo Optimization|Pricing Strategy|Python|SQL,11,2026-04-02,4.8
+EMP-1202,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Senior Principal,Price Elasticity|SQL,6,2025-09-07,4.0
+EMP-1202,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Senior Principal,Python|Promo Optimization,5,2024-03-13,4.7
+EMP-1202,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Senior Principal,Pricing Strategy|SQL|Promo Optimization|Market Mix Modeling,10,2023-04-21,3.8
+EMP-1202,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Senior Principal,SQL|Segmentation,10,2025-03-10,4.9
+EMP-1203,Data quality remediation,Analytics / Consulting,Clinical Analytics,Analytics Consultant,SAS|Data Visualization|R|Clinical Trial Data|Statistical Modeling,10,2025-05-08,4.5
+EMP-1203,Omnichannel measurement,Analytics / Consulting,Clinical Analytics,Analytics Consultant,Clinical Trial Data|R|SAS,11,2026-06-15,4.2
+EMP-1204,Commercial dashboard rollout,Analytics / Consulting,Insurance,Consultant,Python|Excel|Claims Data|Forecasting|Predictive Modeling,10,2025-04-20,4.8
+EMP-1204,Forecast automation,Analytics / Consulting,Insurance,Consultant,Claims Data|SQL,9,2025-01-02,4.5
+EMP-1204,Omnichannel measurement,Analytics / Consulting,Insurance,Consultant,Forecasting|Excel|Claims Data|SQL|Predictive Modeling,9,2024-03-18,3.9
+EMP-1204,Claims reporting transformation,Analytics / Consulting,Insurance,Consultant,Python|Forecasting|SQL|Excel,9,2024-07-02,4.3
+EMP-1204,GenAI insight accelerator,Analytics / Consulting,Insurance,Consultant,Excel|SQL|Python|Predictive Modeling|Forecasting,8,2025-02-20,4.2
+EMP-1204,Clinical analytics platform,Analytics / Consulting,Insurance,Consultant,Python|Excel|Predictive Modeling|SQL,7,2022-11-13,4.0
+EMP-1205,RWE study enablement,Analytics / Consulting,Patient Services,Analytics Consultant,Data Visualization|Python|Patient Journey Analytics,8,2026-01-15,3.8
+EMP-1205,GenAI insight accelerator,Analytics / Consulting,Patient Services,Analytics Consultant,Data Visualization|Power BI|Python,8,2025-11-18,3.8
+EMP-1205,Claims reporting transformation,Analytics / Consulting,Patient Services,Analytics Consultant,Patient Journey Analytics|Customer Analytics,10,2023-03-04,3.8
+EMP-1205,Forecast automation,Analytics / Consulting,Patient Services,Analytics Consultant,Patient Journey Analytics|Customer Analytics|Python|Data Visualization|Power BI,3,2022-09-24,4.5
+EMP-1205,Patient analytics modernization,Analytics / Consulting,Patient Services,Analytics Consultant,Data Visualization|Customer Analytics,9,2025-02-24,4.3
+EMP-1205,GenAI insight accelerator,Analytics / Consulting,Patient Services,Analytics Consultant,Patient Journey Analytics|SQL|Python|Data Visualization,8,2023-09-13,4.5
+EMP-1206,Commercial dashboard rollout,Analytics / Consulting,Financial Services,Analytics Consultant,Forecasting|Financial Analytics|Python,12,2022-11-25,4.5
+EMP-1206,Price elasticity assessment,Analytics / Consulting,Financial Services,Analytics Consultant,Forecasting|Python|Predictive Modeling,12,2025-06-21,3.7
+EMP-1207,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Engagement Manager,Price Elasticity|Promo Optimization|Pricing Strategy|SQL,10,2023-01-07,4.4
+EMP-1207,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Engagement Manager,Price Elasticity|Pricing Strategy|Market Mix Modeling|Promo Optimization,12,2023-02-04,4.0
+EMP-1207,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Engagement Manager,SQL|Python|Promo Optimization|Segmentation,8,2023-07-16,4.6
+EMP-1207,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Engagement Manager,Python|SQL,2,2024-08-30,4.1
+EMP-1207,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Engagement Manager,SQL|Price Elasticity|Market Mix Modeling|Promo Optimization|Segmentation,5,2022-09-19,4.5
+EMP-1208,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Engagement Manager,Price Elasticity|Pricing Strategy|Python|Segmentation,7,2025-10-09,4.0
+EMP-1208,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Engagement Manager,Pricing Strategy|Python|Market Mix Modeling|Segmentation,2,2024-02-11,4.2
+EMP-1209,Forecast automation,Analytics / Consulting,Pharmacovigilance,Data Analyst,Forecasting|Python,12,2025-02-19,4.2
+EMP-1209,Commercial dashboard rollout,Analytics / Consulting,Pharmacovigilance,Data Analyst,Forecasting|Data Engineering|SQL|Power BI|Python,4,2026-01-22,4.3
+EMP-1209,Patient analytics modernization,Analytics / Consulting,Manufacturing Analytics,Data Analyst,Power BI|Supply Chain Analytics|Data Engineering|Forecasting,9,2024-03-05,4.5
+EMP-1209,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Data Analyst,SQL|Supply Chain Analytics,9,2024-10-14,4.4
+EMP-1209,MMX European pricing study,Analytics / Consulting,Pharmacovigilance,Data Analyst,SQL|Forecasting|Power BI|Python,11,2026-01-22,4.1
+EMP-1209,MMX European pricing study,Analytics / Consulting,Manufacturing Analytics,Data Analyst,Supply Chain Analytics|Data Engineering,7,2024-04-25,4.0
+EMP-1210,RWE study enablement,Analytics / Consulting,Patient Services,Engagement Manager,Segmentation|Commercial Analytics|Python|Tableau|Power BI,12,2023-05-24,4.3
+EMP-1210,RWE study enablement,Analytics / Consulting,Patient Services,Engagement Manager,Commercial Analytics|Tableau|Segmentation|Clustering|Python,3,2026-02-15,4.7
+EMP-1210,Claims reporting transformation,Analytics / Consulting,Market Analytics,Engagement Manager,Commercial Analytics|Tableau|Clustering|SQL|Python,5,2024-08-17,3.7
+EMP-1210,Claims reporting transformation,Analytics / Consulting,Patient Services,Engagement Manager,Clustering|Python|SQL|Tableau,9,2025-01-21,4.6
+EMP-1211,Data quality remediation,Analytics / Consulting,Pharmacovigilance,Data Analyst,Clinical Trial Data|SQL,2,2025-02-18,4.8
+EMP-1211,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Data Analyst,Python|Statistical Modeling|Pharmacovigilance|Clinical Trial Data|SQL,12,2024-05-22,4.9
+EMP-1211,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Data Analyst,Statistical Modeling|Clinical Trial Data,6,2025-01-24,4.2
+EMP-1212,Price elasticity assessment,Analytics / Consulting,Market Analytics,Engagement Manager,Tableau|SQL,8,2026-05-02,4.4
+EMP-1212,Data quality remediation,Analytics / Consulting,Market Analytics,Engagement Manager,Clustering|Commercial Analytics,7,2026-03-04,4.2
+EMP-1212,MMX European pricing study,Analytics / Consulting,Market Analytics,Engagement Manager,Power BI|Commercial Analytics,5,2026-01-02,3.9
+EMP-1212,Omnichannel measurement,Analytics / Consulting,Market Analytics,Engagement Manager,SQL|Power BI|Tableau,7,2022-12-05,4.1
+EMP-1213,Clinical analytics platform,Analytics / Consulting,Life Sciences,Engagement Manager,R|Clinical Trial Data|Pharmacovigilance|Data Visualization,3,2024-10-16,4.4
+EMP-1213,Safety signal analytics,Analytics / Consulting,Life Sciences,Engagement Manager,Pharmacovigilance|Python|SAS,4,2022-10-26,4.8
+EMP-1213,Clinical analytics platform,Analytics / Consulting,Life Sciences,Engagement Manager,SAS|Data Visualization|R|Clinical Trial Data|SQL,3,2025-03-27,4.1
+EMP-1213,Trial data modernization,Analytics / Consulting,Life Sciences,Engagement Manager,Pharmacovigilance|Python|SAS,3,2025-11-13,4.1
+EMP-1213,Trial data modernization,Analytics / Consulting,Life Sciences,Engagement Manager,R|SQL,2,2024-11-18,4.2
+EMP-1214,RWE study enablement,Analytics / Consulting,Market Analytics,Consultant,Tableau|Power BI|Segmentation|SQL,10,2024-08-25,3.9
+EMP-1214,Omnichannel measurement,Analytics / Consulting,Market Analytics,Consultant,SQL|Python,2,2023-03-25,4.8
+EMP-1214,Forecast automation,Analytics / Consulting,Market Analytics,Consultant,Segmentation|SQL|Commercial Analytics|Tableau,12,2026-05-01,4.5
+EMP-1215,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Principal,Commercial Analytics|Segmentation,9,2025-01-14,4.6
+EMP-1215,European commercial analytics,Analytics / Consulting,Commercial Analytics,Principal,Tableau|Python|SQL|Commercial Analytics|Power BI,5,2025-12-24,4.0
+EMP-1216,Observational research analytics,Analytics / Consulting,Real World Evidence,Data Analyst,Real World Evidence|SQL|Python|EHR Data|Statistical Modeling,9,2023-05-21,3.9
+EMP-1216,RWE study enablement,Analytics / Consulting,Real World Evidence,Data Analyst,Causal Inference|Statistical Modeling|Claims Data|Real World Evidence,8,2025-02-08,4.2
+EMP-1216,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Data Analyst,EHR Data|Claims Data,2,2024-07-19,4.1
+EMP-1216,Observational research analytics,Analytics / Consulting,Real World Evidence,Data Analyst,Statistical Modeling|Real World Evidence|SQL|Claims Data,6,2025-10-19,4.8
+EMP-1217,RWE study enablement,Analytics / Consulting,Insurance,Principal,Claims Data|Python|Excel,7,2026-01-13,3.9
+EMP-1217,Price elasticity assessment,Analytics / Consulting,Clinical Analytics,Principal,Predictive Modeling|Python|Claims Data|Excel,11,2024-10-12,4.2
+EMP-1217,Price elasticity assessment,Analytics / Consulting,Clinical Analytics,Principal,Excel|Claims Data|Predictive Modeling,3,2024-03-21,4.2
+EMP-1217,Claims reporting transformation,Analytics / Consulting,Clinical Analytics,Principal,SQL|Claims Data|Excel|Forecasting,4,2025-01-14,3.6
+EMP-1217,RWE study enablement,Analytics / Consulting,Clinical Analytics,Principal,Claims Data|SQL|Excel|Forecasting,5,2025-10-22,3.9
+EMP-1218,LLM evaluation framework,Analytics / Consulting,Technology,Analytics Consultant,Agentic AI|GenAI,6,2025-01-28,4.2
+EMP-1218,GenAI insight accelerator,Analytics / Consulting,Technology,Analytics Consultant,Python|SQL|Machine Learning|Data Engineering,5,2025-11-16,4.3
+EMP-1218,LLM evaluation framework,Analytics / Consulting,Technology,Analytics Consultant,Python|Machine Learning|AWS|Data Engineering,9,2024-12-06,4.2
+EMP-1218,Agentic analytics pilot,Analytics / Consulting,Technology,Analytics Consultant,Python|Agentic AI|Azure|SQL|GenAI,6,2024-12-16,3.9
+EMP-1218,LLM evaluation framework,Analytics / Consulting,Technology,Analytics Consultant,Azure|Machine Learning|AWS|SQL|Python,5,2024-10-23,4.8
+EMP-1218,Data platform modernization,Analytics / Consulting,Technology,Analytics Consultant,Python|GCP|Machine Learning|SQL,7,2024-08-14,4.5
+EMP-1219,Data quality remediation,Analytics / Consulting,Pharmacovigilance,Senior Principal,Statistical Modeling|SQL|Pharmacovigilance|SAS,9,2024-02-04,3.8
+EMP-1219,RWE study enablement,Analytics / Consulting,Real World Evidence,Senior Principal,Python|Clinical Trial Data|Pharmacovigilance|SQL,3,2024-06-01,4.0
+EMP-1219,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Senior Principal,Clinical Trial Data|Pharmacovigilance,2,2024-01-16,4.8
+EMP-1220,Claims reporting transformation,Analytics / Consulting,Healthcare,Analytics Consultant,Python|R|Healthcare Data|EHR Data,12,2024-05-17,4.4
+EMP-1220,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Analytics Consultant,R|Power BI|Healthcare Data,11,2022-08-29,3.9
+EMP-1221,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Data Analyst,Python|Segmentation|SQL|Pricing Strategy|Promo Optimization,7,2024-01-06,4.8
+EMP-1221,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Data Analyst,Pricing Strategy|Price Elasticity,2,2024-10-06,4.5
+EMP-1221,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Data Analyst,Python|Pricing Strategy|Price Elasticity|Promo Optimization,12,2023-10-30,4.0
+EMP-1221,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Data Analyst,Pricing Strategy|Market Mix Modeling|Python|Segmentation|SQL,11,2023-05-30,4.1
+EMP-1221,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Data Analyst,Promo Optimization|Segmentation|Python|Price Elasticity,10,2024-03-21,4.2
+EMP-1222,LLM evaluation framework,Analytics / Consulting,Technology,Data Analyst,Python|Agentic AI|AWS|GenAI|Machine Learning,4,2025-02-06,3.7
+EMP-1222,Agentic analytics pilot,Analytics / Consulting,Technology,Data Analyst,GCP|SQL,4,2024-03-27,4.2
+EMP-1222,GenAI insight accelerator,Analytics / Consulting,Technology,Data Analyst,Agentic AI|SQL|Machine Learning,12,2023-05-03,4.0
+EMP-1222,Data platform modernization,Analytics / Consulting,Technology,Data Analyst,SQL|Agentic AI,3,2024-04-11,4.4
+EMP-1223,Data platform modernization,Analytics / Consulting,Technology,Senior Consultant,Data Engineering|Azure,8,2026-07-07,4.6
+EMP-1223,Agentic analytics pilot,Analytics / Consulting,Technology,Senior Consultant,GCP|AWS|Agentic AI|Machine Learning|Python,9,2023-11-10,3.9
+EMP-1223,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Senior Consultant,Python|Agentic AI|Machine Learning|GCP,10,2025-05-20,4.0
+EMP-1223,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Senior Consultant,Python|Azure|GCP,4,2025-05-16,4.0
+EMP-1223,LLM evaluation framework,Analytics / Consulting,Technology,Senior Consultant,AWS|Python|Machine Learning|Azure|SQL,5,2025-07-07,4.8
+EMP-1223,GenAI insight accelerator,Analytics / Consulting,Technology,Senior Consultant,GCP|Python,10,2024-08-11,4.6
+EMP-1224,Claims reporting transformation,Analytics / Consulting,Market Analytics,Senior Principal,Tableau|Python|Commercial Analytics|SQL|Power BI,10,2022-11-12,3.9
+EMP-1224,Data quality remediation,Analytics / Consulting,Patient Services,Senior Principal,SQL|Tableau|Python|Clustering,12,2023-01-27,3.6
+EMP-1224,RWE study enablement,Analytics / Consulting,Market Analytics,Senior Principal,Commercial Analytics|Power BI|Clustering,4,2024-12-26,4.8
+EMP-1224,RWE study enablement,Analytics / Consulting,Patient Services,Senior Principal,Power BI|Tableau,9,2024-10-30,4.2
+EMP-1225,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Analytics Consultant,SQL|Clinical Trial Data|SAS|Statistical Modeling|Pharmacovigilance,9,2025-03-10,4.6
+EMP-1225,GenAI insight accelerator,Analytics / Consulting,Pharmacovigilance,Analytics Consultant,Pharmacovigilance|Statistical Modeling|SAS|Python,10,2025-12-03,4.8
+EMP-1225,Price elasticity assessment,Analytics / Consulting,Pharmacovigilance,Analytics Consultant,SQL|Python|Statistical Modeling|Clinical Trial Data,6,2024-01-20,4.2
+EMP-1225,RWE study enablement,Analytics / Consulting,Pharmacovigilance,Analytics Consultant,Clinical Trial Data|Python,3,2026-05-16,4.0
+EMP-1226,Clinical analytics platform,Analytics / Consulting,Manufacturing Analytics,Data Analyst,Promo Optimization|Segmentation|Python,6,2022-10-12,4.6
+EMP-1226,Omnichannel measurement,Analytics / Consulting,Manufacturing Analytics,Data Analyst,Promo Optimization|Pricing Strategy|Segmentation|Python,5,2023-01-05,3.8
+EMP-1226,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Data Analyst,SQL|Promo Optimization|Price Elasticity|Pricing Strategy,8,2023-01-17,4.2
+EMP-1227,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Senior Consultant,SQL|Pricing Strategy,11,2023-12-06,4.3
+EMP-1227,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Senior Consultant,SQL|Segmentation|Market Mix Modeling,7,2025-03-02,4.6
+EMP-1227,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Senior Consultant,SQL|Market Mix Modeling,11,2025-07-10,4.0
+EMP-1227,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Senior Consultant,Pricing Strategy|Promo Optimization,6,2023-04-25,4.5
+EMP-1228,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Consultant,Market Mix Modeling|Pricing Strategy|Price Elasticity|Promo Optimization,3,2025-02-15,4.1
+EMP-1228,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Consultant,Price Elasticity|Promo Optimization|Market Mix Modeling|Segmentation|Pricing Strategy,4,2025-04-24,4.4
+EMP-1228,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Consultant,Market Mix Modeling|Price Elasticity|Python,4,2025-06-22,4.4
+EMP-1229,Data quality remediation,Analytics / Consulting,Financial Services,Senior Consultant,SQL|Power BI|Predictive Modeling|Forecasting|Financial Analytics,2,2023-08-24,4.1
+EMP-1229,Data quality remediation,Analytics / Consulting,Financial Services,Senior Consultant,Financial Analytics|Power BI,6,2024-05-11,4.2
+EMP-1229,Safety signal analytics,Analytics / Consulting,Financial Services,Senior Consultant,Power BI|SQL|Forecasting|Python|Predictive Modeling,10,2024-04-06,4.9
+EMP-1229,Omnichannel measurement,Analytics / Consulting,Financial Services,Senior Consultant,Power BI|Financial Analytics|Forecasting|Python|SQL,10,2025-04-03,4.8
+EMP-1229,Data quality remediation,Analytics / Consulting,Financial Services,Senior Consultant,SQL|Forecasting|Predictive Modeling|Financial Analytics,8,2026-06-02,4.6
+EMP-1230,Safety signal analytics,Analytics / Consulting,Public Sector,Senior Consultant,Data Visualization|SQL|Power BI|Deep Learning|Python,5,2025-10-04,4.8
+EMP-1230,Omnichannel measurement,Analytics / Consulting,Insurance,Senior Consultant,Deep Learning|Excel|Data Visualization,9,2024-04-18,3.7
+EMP-1230,Omnichannel measurement,Analytics / Consulting,Insurance,Senior Consultant,Excel|Power BI|Deep Learning|Data Visualization|SQL,10,2023-08-17,3.9
+EMP-1231,Clinical analytics platform,Analytics / Consulting,Life Sciences,Consultant,R|Data Visualization,5,2026-03-25,4.0
+EMP-1231,Clinical analytics platform,Analytics / Consulting,Life Sciences,Consultant,R|SQL,4,2026-02-27,4.8
+EMP-1232,Data quality remediation,Analytics / Consulting,Pharmacovigilance,Consultant,Pharmacovigilance|SQL|Statistical Modeling|SAS|Python,3,2024-09-18,4.5
+EMP-1232,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Consultant,Clinical Trial Data|SAS|Python|Pharmacovigilance,10,2023-09-27,3.9
+EMP-1232,GenAI insight accelerator,Analytics / Consulting,Pharmacovigilance,Consultant,SAS|Pharmacovigilance,4,2025-05-03,4.0
+EMP-1233,Omnichannel measurement,Analytics / Consulting,Financial Services,Senior Consultant,Clustering|Power BI|SQL|Python,9,2024-02-10,4.5
+EMP-1233,Omnichannel measurement,Analytics / Consulting,Market Analytics,Senior Consultant,Power BI|Python|Tableau|Commercial Analytics|Segmentation,9,2023-07-12,4.4
+EMP-1233,MMX European pricing study,Analytics / Consulting,Market Analytics,Senior Consultant,Commercial Analytics|Power BI|Tableau|Python,5,2024-10-02,3.8
+EMP-1233,GenAI insight accelerator,Analytics / Consulting,Financial Services,Senior Consultant,Power BI|SQL|Python|Commercial Analytics|Segmentation,12,2024-03-04,4.2
+EMP-1233,Data quality remediation,Analytics / Consulting,Market Analytics,Senior Consultant,SQL|Clustering|Tableau|Python|Segmentation,3,2024-04-13,3.7
+EMP-1233,Safety signal analytics,Analytics / Consulting,Market Analytics,Senior Consultant,Power BI|Tableau|Commercial Analytics,9,2023-10-14,4.0
+EMP-1234,Clinical analytics platform,Analytics / Consulting,Insurance,Principal,Predictive Modeling|Excel|Forecasting,4,2023-11-29,3.8
+EMP-1234,GenAI insight accelerator,Analytics / Consulting,Insurance,Principal,Python|Excel,7,2023-05-10,3.9
+EMP-1235,Data quality remediation,Analytics / Consulting,Public Sector,Engagement Manager,Data Visualization|Excel,6,2023-02-12,4.2
+EMP-1235,GenAI insight accelerator,Analytics / Consulting,Public Sector,Engagement Manager,Data Visualization|SQL|Python|Power BI|Excel,12,2025-04-04,4.8
+EMP-1235,Patient analytics modernization,Analytics / Consulting,Public Sector,Engagement Manager,Excel|Python|Data Visualization|Alteryx|SQL,12,2023-02-18,3.8
+EMP-1235,Commercial dashboard rollout,Analytics / Consulting,Public Sector,Engagement Manager,Data Visualization|Excel|Power BI|Alteryx|SQL,11,2026-05-27,3.8
+EMP-1235,Clinical analytics platform,Analytics / Consulting,Public Sector,Engagement Manager,Python|Power BI|SQL|Excel|Alteryx,12,2024-06-11,4.1
+EMP-1236,Omnichannel measurement,Analytics / Consulting,Patient Services,Analytics Consultant,SQL|Patient Journey Analytics,5,2026-02-20,4.0
+EMP-1236,MMX European pricing study,Analytics / Consulting,Patient Services,Analytics Consultant,Power BI|Python,11,2024-08-29,4.8
+EMP-1236,Data quality remediation,Analytics / Consulting,Patient Services,Analytics Consultant,Power BI|Customer Analytics|Patient Journey Analytics,8,2025-03-30,4.7
+EMP-1237,Claims reporting transformation,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Forecasting|Data Engineering|SQL,6,2024-05-06,4.7
+EMP-1237,Clinical analytics platform,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Forecasting|Supply Chain Analytics|SQL,2,2026-04-10,4.1
+EMP-1237,Commercial dashboard rollout,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Power BI|Data Engineering,11,2024-02-07,3.6
+EMP-1237,Price elasticity assessment,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Python|Power BI|Forecasting|SQL|Data Engineering,4,2026-07-16,4.7
+EMP-1237,Safety signal analytics,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Data Engineering|Python|Power BI|Forecasting,3,2026-02-23,4.2
+EMP-1238,Omnichannel measurement,Analytics / Consulting,Market Analytics,Analytics Consultant,SQL|Python|Segmentation,11,2023-01-07,4.9
+EMP-1238,Commercial dashboard rollout,Analytics / Consulting,Market Analytics,Analytics Consultant,Clustering|SQL|Segmentation|Tableau,5,2026-06-04,3.8
+EMP-1238,Omnichannel measurement,Analytics / Consulting,Market Analytics,Analytics Consultant,Commercial Analytics|Clustering|Segmentation|Python|Power BI,3,2026-04-21,4.0
+EMP-1239,Safety signal analytics,Analytics / Consulting,Life Sciences,Engagement Manager,Clinical Trial Data|R,3,2022-10-11,3.6
+EMP-1239,Clinical analytics platform,Analytics / Consulting,Life Sciences,Engagement Manager,Python|Pharmacovigilance,9,2024-03-31,3.8
+EMP-1239,Trial data modernization,Analytics / Consulting,Life Sciences,Engagement Manager,Data Visualization|R|SQL|Clinical Trial Data,4,2025-12-14,3.7
+EMP-1240,Patient analytics modernization,Analytics / Consulting,Pharmacovigilance,Senior Principal,Statistical Modeling|Python|SAS|SQL|Clinical Trial Data,12,2023-04-04,4.7
+EMP-1240,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Senior Principal,SAS|Clinical Trial Data|Python|Statistical Modeling|Pharmacovigilance,4,2025-08-29,3.8
+EMP-1241,Patient analytics modernization,Analytics / Consulting,Healthcare,Senior Principal,Claims Data|EHR Data|R|SQL|Python,8,2025-02-12,4.3
+EMP-1241,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Senior Principal,Healthcare Data|R|Claims Data|EHR Data|SQL,8,2023-01-28,4.1
+EMP-1241,Patient analytics modernization,Analytics / Consulting,Healthcare,Senior Principal,Claims Data|Healthcare Data,11,2025-09-17,3.9
+EMP-1241,Patient analytics modernization,Analytics / Consulting,Healthcare,Senior Principal,Healthcare Data|Python|Power BI|R,3,2024-12-08,3.8
+EMP-1241,Healthcare dashboard rollout,Analytics / Consulting,Healthcare,Senior Principal,EHR Data|Healthcare Data|Python|Claims Data,2,2023-01-22,4.4
+EMP-1242,Data platform modernization,Analytics / Consulting,Technology,Analytics Consultant,Machine Learning|AWS,5,2024-02-19,4.2
+EMP-1242,GenAI insight accelerator,Analytics / Consulting,Technology,Analytics Consultant,GenAI|Machine Learning|Python|GCP|Data Engineering,6,2025-06-28,4.1
+EMP-1242,Agentic analytics pilot,Analytics / Consulting,Technology,Analytics Consultant,SQL|Machine Learning|GCP|AWS|Data Engineering,8,2024-10-01,3.8
+EMP-1242,Agentic analytics pilot,Analytics / Consulting,Technology,Analytics Consultant,Azure|Data Engineering|Python|GenAI,12,2025-07-31,4.5
+EMP-1242,LLM evaluation framework,Analytics / Consulting,Technology,Analytics Consultant,SQL|GenAI|Data Engineering|Agentic AI,10,2025-03-25,4.4
+EMP-1242,LLM evaluation framework,Analytics / Consulting,Technology,Analytics Consultant,Python|GenAI,5,2023-10-10,4.2
+EMP-1243,MMX European pricing study,Analytics / Consulting,Pharmacovigilance,Analytics Consultant,Python|Pharmacovigilance,6,2024-11-22,3.8
+EMP-1243,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Analytics Consultant,Statistical Modeling|Pharmacovigilance|SAS,3,2026-05-07,4.3
+EMP-1243,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Analytics Consultant,Clinical Trial Data|SAS,7,2023-11-07,4.8
+EMP-1243,GenAI insight accelerator,Analytics / Consulting,Pharmacovigilance,Analytics Consultant,SAS|Python,4,2026-04-11,3.6
+EMP-1243,Data quality remediation,Analytics / Consulting,Pharmacovigilance,Analytics Consultant,Pharmacovigilance|Python,11,2023-07-17,4.7
+EMP-1244,Patient analytics modernization,Analytics / Consulting,Pharmacovigilance,Principal,SQL|Clinical Trial Data|SAS,3,2024-02-22,4.3
+EMP-1244,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Principal,Python|Statistical Modeling|SQL,7,2023-04-15,3.8
+EMP-1244,Price elasticity assessment,Analytics / Consulting,Pharmacovigilance,Principal,SQL|Statistical Modeling|SAS|Python,8,2025-02-27,3.8
+EMP-1244,Data quality remediation,Analytics / Consulting,Pharmacovigilance,Principal,Clinical Trial Data|SQL|Pharmacovigilance|SAS|Statistical Modeling,9,2023-04-03,4.1
+EMP-1244,GenAI insight accelerator,Analytics / Consulting,Pharmacovigilance,Principal,SQL|Clinical Trial Data|Python|SAS,11,2022-12-31,4.5
+EMP-1244,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Principal,Pharmacovigilance|Statistical Modeling,9,2023-12-13,4.8
+EMP-1245,RWE study enablement,Analytics / Consulting,Real World Evidence,Consultant,Real World Evidence|EHR Data,12,2025-09-04,3.7
+EMP-1245,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Consultant,SQL|Python|Statistical Modeling|Real World Evidence|Causal Inference,4,2026-01-03,3.8
+EMP-1245,Observational research analytics,Analytics / Consulting,Real World Evidence,Consultant,Python|Real World Evidence|Statistical Modeling|Claims Data,5,2025-05-29,4.6
+EMP-1245,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Consultant,Real World Evidence|Python|Statistical Modeling|SQL|Causal Inference,11,2024-07-28,3.9
+EMP-1245,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Consultant,Python|Causal Inference|EHR Data|Real World Evidence|Statistical Modeling,5,2024-07-27,4.3
+EMP-1246,Commercial dashboard rollout,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,SQL|Python|Commercial Analytics|Segmentation|Forecasting,10,2025-07-10,4.6
+EMP-1246,Price elasticity assessment,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,SQL|Python,3,2026-03-08,3.7
+EMP-1246,Data quality remediation,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,Python|Tableau|Segmentation,3,2025-10-25,4.0
+EMP-1246,Price elasticity assessment,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,Segmentation|Power BI|Commercial Analytics,4,2022-12-21,3.9
+EMP-1247,Price elasticity assessment,Analytics / Consulting,Insurance,Senior Consultant,Forecasting|Excel|SQL|Predictive Modeling,2,2023-01-23,4.2
+EMP-1247,Claims reporting transformation,Analytics / Consulting,Insurance,Senior Consultant,Claims Data|Forecasting|Predictive Modeling,11,2026-05-15,4.2
+EMP-1247,Safety signal analytics,Analytics / Consulting,Insurance,Senior Consultant,Forecasting|Claims Data|Python|Excel,4,2025-03-12,4.2
+EMP-1247,Patient analytics modernization,Analytics / Consulting,Insurance,Senior Consultant,Python|Predictive Modeling|Forecasting,7,2025-11-17,4.8
+EMP-1247,GenAI insight accelerator,Analytics / Consulting,Insurance,Senior Consultant,Excel|Claims Data,4,2026-07-14,4.3
+EMP-1247,Forecast automation,Analytics / Consulting,Insurance,Senior Consultant,Claims Data|Excel|Forecasting|SQL,7,2023-11-11,4.6
+EMP-1248,GenAI insight accelerator,Analytics / Consulting,Technology,Engagement Manager,SQL|Agentic AI|Machine Learning|GCP|Python,9,2023-02-04,3.7
+EMP-1248,Agentic analytics pilot,Analytics / Consulting,Technology,Engagement Manager,AWS|GCP|GenAI|SQL|Machine Learning,10,2026-01-18,4.5
+EMP-1248,GenAI insight accelerator,Analytics / Consulting,Technology,Engagement Manager,AWS|Azure|Data Engineering|GenAI|Machine Learning,3,2024-01-18,4.1
+EMP-1249,Safety signal analytics,Analytics / Consulting,Life Sciences,Principal,R|Data Visualization|Pharmacovigilance,10,2023-11-26,4.7
+EMP-1249,Trial data modernization,Analytics / Consulting,Life Sciences,Principal,Data Visualization|SQL,10,2022-11-07,4.1
+EMP-1249,Clinical analytics platform,Analytics / Consulting,Life Sciences,Principal,SQL|Clinical Trial Data,5,2023-05-21,3.9
+EMP-1249,Trial data modernization,Analytics / Consulting,Life Sciences,Principal,Pharmacovigilance|Data Visualization|Clinical Trial Data|SAS|SQL,4,2024-07-26,3.6
+EMP-1249,Clinical analytics platform,Analytics / Consulting,Life Sciences,Principal,Python|Data Visualization|R|SAS|Clinical Trial Data,11,2023-09-27,3.7
+EMP-1249,Clinical analytics platform,Analytics / Consulting,Life Sciences,Principal,Pharmacovigilance|SAS|SQL,8,2024-07-14,4.8
+EMP-1250,Clinical analytics platform,Analytics / Consulting,Life Sciences,Analytics Consultant,SAS|Data Visualization|Python,8,2025-08-24,4.5
+EMP-1250,Trial data modernization,Analytics / Consulting,Life Sciences,Analytics Consultant,Python|SQL|Pharmacovigilance|SAS|R,12,2023-04-15,4.4
+EMP-1251,Data quality remediation,Analytics / Consulting,Public Sector,Engagement Manager,Price Elasticity|Promo Optimization|Pricing Strategy|Segmentation|SQL,12,2024-03-20,4.3
+EMP-1251,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Engagement Manager,Segmentation|Python|Promo Optimization|Pricing Strategy,5,2025-04-11,4.3
+EMP-1251,Patient analytics modernization,Analytics / Consulting,Public Sector,Engagement Manager,SQL|Pricing Strategy|Python|Market Mix Modeling,2,2023-01-05,4.2
+EMP-1251,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Engagement Manager,SQL|Market Mix Modeling|Promo Optimization|Python,4,2026-02-28,4.7
+EMP-1251,Data quality remediation,Analytics / Consulting,Public Sector,Engagement Manager,Market Mix Modeling|SQL|Pricing Strategy,3,2025-12-03,4.0
+EMP-1252,Price elasticity assessment,Analytics / Consulting,Financial Services,Senior Consultant,Predictive Modeling|SQL|Python|Financial Analytics,9,2025-09-30,4.8
+EMP-1252,Observational research analytics,Analytics / Consulting,Real World Evidence,Senior Consultant,Forecasting|SQL|Financial Analytics,5,2023-09-09,4.7
+EMP-1253,Data quality remediation,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Forecasting|Power BI|SQL,3,2026-04-06,4.3
+EMP-1253,Commercial dashboard rollout,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,SQL|Forecasting|Data Engineering|Power BI,11,2023-02-06,4.2
+EMP-1253,Commercial dashboard rollout,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Data Engineering|Forecasting,10,2024-11-19,4.0
+EMP-1254,GenAI insight accelerator,Analytics / Consulting,Market Analytics,Senior Consultant,Python|SQL|EHR Data|Real World Evidence|Statistical Modeling,4,2023-04-05,4.4
+EMP-1254,GenAI insight accelerator,Analytics / Consulting,Market Analytics,Senior Consultant,Claims Data|Causal Inference,12,2025-08-28,4.8
+EMP-1254,Patient analytics modernization,Analytics / Consulting,Market Analytics,Senior Consultant,SQL|Claims Data|Real World Evidence|Python,5,2024-11-19,4.2
+EMP-1254,RWE study enablement,Analytics / Consulting,Real World Evidence,Senior Consultant,Causal Inference|EHR Data|Real World Evidence|SQL,5,2025-01-21,4.1
+EMP-1254,Observational research analytics,Analytics / Consulting,Real World Evidence,Senior Consultant,SQL|Claims Data|Statistical Modeling|Python|EHR Data,2,2026-05-31,4.5
+EMP-1255,Price elasticity assessment,Analytics / Consulting,Market Analytics,Senior Consultant,Commercial Analytics|Clustering|Power BI|Python,2,2025-10-15,4.8
+EMP-1255,GenAI insight accelerator,Analytics / Consulting,Market Analytics,Senior Consultant,Python|Segmentation|Power BI|Tableau,9,2022-08-16,4.7
+EMP-1256,Trial data modernization,Analytics / Consulting,Life Sciences,Senior Principal,SQL|Pharmacovigilance|Python|Clinical Trial Data,7,2026-03-17,3.9
+EMP-1256,Clinical analytics platform,Analytics / Consulting,Life Sciences,Senior Principal,Data Visualization|SAS|Python|Clinical Trial Data,7,2023-12-07,4.0
+EMP-1256,Clinical analytics platform,Analytics / Consulting,Life Sciences,Senior Principal,SQL|Python|Pharmacovigilance|R,10,2023-03-17,3.7
+EMP-1256,MMX European pricing study,Analytics / Consulting,Pharmacovigilance,Senior Principal,Clinical Trial Data|SQL|Pharmacovigilance|Data Visualization|R,12,2026-03-28,4.1
+EMP-1257,Data quality remediation,Analytics / Consulting,Insurance,Analytics Consultant,Claims Data|Excel|Forecasting|SQL,10,2025-03-03,4.0
+EMP-1257,Patient analytics modernization,Analytics / Consulting,Insurance,Analytics Consultant,Predictive Modeling|Excel|SQL,5,2025-02-26,4.4
+EMP-1258,Claims reporting transformation,Analytics / Consulting,Patient Services,Data Analyst,Data Visualization|Patient Journey Analytics|Customer Analytics|Power BI|SQL,8,2024-11-30,4.1
+EMP-1258,RWE study enablement,Analytics / Consulting,Patient Services,Data Analyst,Data Visualization|Patient Journey Analytics,9,2025-09-01,4.5
+EMP-1258,Omnichannel measurement,Analytics / Consulting,Patient Services,Data Analyst,Python|Data Visualization|SQL,9,2026-05-15,4.4
+EMP-1258,Forecast automation,Analytics / Consulting,Patient Services,Data Analyst,Power BI|SQL|Python|Data Visualization|Patient Journey Analytics,6,2025-10-21,4.5
+EMP-1258,Price elasticity assessment,Analytics / Consulting,Patient Services,Data Analyst,Customer Analytics|Data Visualization,9,2026-02-23,4.1
+EMP-1258,Price elasticity assessment,Analytics / Consulting,Patient Services,Data Analyst,Python|SQL|Power BI|Data Visualization,11,2024-11-09,4.6
+EMP-1259,Clinical analytics platform,Analytics / Consulting,Life Sciences,Senior Consultant,Python|Clinical Trial Data,10,2025-10-03,4.6
+EMP-1259,Safety signal analytics,Analytics / Consulting,Life Sciences,Senior Consultant,SAS|R,8,2023-12-15,4.0
+EMP-1259,Safety signal analytics,Analytics / Consulting,Life Sciences,Senior Consultant,R|Pharmacovigilance|SAS|Clinical Trial Data,9,2024-05-19,4.1
+EMP-1260,RWE study enablement,Analytics / Consulting,Real World Evidence,Engagement Manager,Real World Evidence|Python|SQL|Causal Inference,3,2023-08-29,4.0
+EMP-1260,Observational research analytics,Analytics / Consulting,Real World Evidence,Engagement Manager,Real World Evidence|Claims Data|Python,11,2026-06-22,4.8
+EMP-1261,European commercial analytics,Analytics / Consulting,Commercial Analytics,Consultant,Segmentation|SQL|Python,6,2022-11-02,4.2
+EMP-1261,European commercial analytics,Analytics / Consulting,Commercial Analytics,Consultant,Segmentation|Commercial Analytics|Power BI|Python|Forecasting,5,2023-02-18,4.7
+EMP-1261,Clinical analytics platform,Analytics / Consulting,Life Sciences,Consultant,SQL|Python,2,2025-06-16,3.9
+EMP-1261,European commercial analytics,Analytics / Consulting,Commercial Analytics,Consultant,Forecasting|Tableau|SQL,7,2026-06-25,4.6
+EMP-1261,Clinical analytics platform,Analytics / Consulting,Life Sciences,Consultant,Tableau|SQL|Commercial Analytics|Forecasting,3,2025-01-17,4.1
+EMP-1261,Trial data modernization,Analytics / Consulting,Life Sciences,Consultant,Power BI|Tableau|Segmentation|Commercial Analytics,10,2023-05-30,4.3
+EMP-1262,Patient analytics modernization,Analytics / Consulting,Healthcare,Senior Principal,Real World Evidence|EHR Data|Statistical Modeling,11,2024-04-01,4.1
+EMP-1262,Claims reporting transformation,Analytics / Consulting,Healthcare,Senior Principal,Real World Evidence|Python|Claims Data,12,2024-09-04,4.0
+EMP-1262,Patient analytics modernization,Analytics / Consulting,Healthcare,Senior Principal,EHR Data|Statistical Modeling|SQL|Claims Data|Causal Inference,7,2023-04-07,4.5
+EMP-1262,EHR insight platform,Analytics / Consulting,Healthcare,Senior Principal,Causal Inference|Claims Data|Statistical Modeling|Python,8,2024-02-08,3.9
+EMP-1262,Observational research analytics,Analytics / Consulting,Real World Evidence,Senior Principal,SQL|EHR Data|Python,10,2025-05-14,4.5
+EMP-1262,Observational research analytics,Analytics / Consulting,Real World Evidence,Senior Principal,EHR Data|Claims Data|Python|SQL|Statistical Modeling,6,2025-08-04,3.9
+EMP-1263,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Consultant,Price Elasticity|SQL,3,2024-03-01,4.8
+EMP-1263,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Consultant,Pricing Strategy|Segmentation|Market Mix Modeling,9,2024-01-27,3.6
+EMP-1263,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Consultant,Pricing Strategy|Market Mix Modeling|Price Elasticity|Segmentation,6,2023-12-30,3.6
+EMP-1264,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Data Analyst,SQL|Segmentation,6,2023-08-09,3.9
+EMP-1264,European commercial analytics,Analytics / Consulting,Commercial Analytics,Data Analyst,Tableau|Power BI|Commercial Analytics,4,2024-06-25,4.1
+EMP-1265,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Senior Consultant,Pharmacovigilance|Clinical Trial Data|SQL|SAS,3,2023-07-10,3.9
+EMP-1265,RWE study enablement,Analytics / Consulting,Pharmacovigilance,Senior Consultant,Statistical Modeling|SQL|Pharmacovigilance,2,2024-02-27,4.8
+EMP-1265,Data quality remediation,Analytics / Consulting,Pharmacovigilance,Senior Consultant,Pharmacovigilance|Clinical Trial Data|Statistical Modeling,12,2023-11-25,3.8
+EMP-1266,GenAI insight accelerator,Analytics / Consulting,Public Sector,Consultant,Power BI|Excel|Python,12,2023-11-04,4.9
+EMP-1266,Safety signal analytics,Analytics / Consulting,Public Sector,Consultant,Data Visualization|EHR Data|Power BI,4,2022-07-29,4.9
+EMP-1267,Clinical analytics platform,Analytics / Consulting,Life Sciences,Senior Principal,SAS|Data Visualization|Pharmacovigilance,4,2025-12-04,4.7
+EMP-1267,Safety signal analytics,Analytics / Consulting,Life Sciences,Senior Principal,Pharmacovigilance|Python|Data Visualization,10,2023-12-22,4.6
+EMP-1267,Clinical analytics platform,Analytics / Consulting,Life Sciences,Senior Principal,Python|Data Visualization|SQL,11,2025-04-17,4.2
+EMP-1267,Safety signal analytics,Analytics / Consulting,Life Sciences,Senior Principal,SQL|Pharmacovigilance,3,2024-02-07,3.8
+EMP-1267,Safety signal analytics,Analytics / Consulting,Life Sciences,Senior Principal,Data Visualization|Clinical Trial Data,2,2024-12-04,4.0
+EMP-1268,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Data Analyst,Real World Evidence|EHR Data|Causal Inference|Claims Data,6,2023-08-07,3.7
+EMP-1268,Observational research analytics,Analytics / Consulting,Real World Evidence,Data Analyst,SQL|Python|Claims Data|Real World Evidence,2,2025-01-02,4.3
+EMP-1268,RWE study enablement,Analytics / Consulting,Real World Evidence,Data Analyst,Claims Data|EHR Data|Statistical Modeling|Causal Inference,11,2023-01-04,4.5
+EMP-1268,RWE study enablement,Analytics / Consulting,Real World Evidence,Data Analyst,EHR Data|Real World Evidence|Claims Data|Statistical Modeling,7,2022-10-05,4.0
+EMP-1269,Safety signal analytics,Analytics / Consulting,Public Sector,Consultant,SQL|SAS,5,2023-05-15,3.9
+EMP-1269,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Consultant,Python|Pharmacovigilance|SAS,12,2023-06-02,4.1
+EMP-1269,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Consultant,Python|Pharmacovigilance|SAS,9,2023-09-11,3.7
+EMP-1270,European commercial analytics,Analytics / Consulting,Commercial Analytics,Senior Principal,Tableau|Power BI|Commercial Analytics|Python,7,2026-03-26,4.7
+EMP-1270,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Senior Principal,Forecasting|Python|Tableau|Commercial Analytics|Power BI,12,2022-08-20,4.4
+EMP-1270,Market opportunity sizing,Analytics / Consulting,Commercial Analytics,Senior Principal,Forecasting|SQL|Power BI|Tableau|Python,11,2024-08-12,4.4
+EMP-1270,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Senior Principal,Forecasting|Power BI|Tableau|Python|Segmentation,11,2023-10-16,4.5
+EMP-1270,European commercial analytics,Analytics / Consulting,Commercial Analytics,Senior Principal,Forecasting|Segmentation|Commercial Analytics|Tableau,12,2022-11-25,4.1
+EMP-1271,Claims reporting transformation,Analytics / Consulting,Insurance,Analytics Consultant,Predictive Modeling|Claims Data|SQL|Forecasting|Python,7,2023-10-03,4.2
+EMP-1271,Price elasticity assessment,Analytics / Consulting,Insurance,Analytics Consultant,Excel|SQL|Python|Predictive Modeling|Claims Data,11,2025-05-10,4.0
+EMP-1271,Safety signal analytics,Analytics / Consulting,Insurance,Analytics Consultant,SQL|Excel|Predictive Modeling|Python|Claims Data,4,2023-01-22,4.3
+EMP-1271,MMX European pricing study,Analytics / Consulting,Insurance,Analytics Consultant,Forecasting|Python|Claims Data|Predictive Modeling|SQL,9,2025-09-14,3.7
+EMP-1271,Forecast automation,Analytics / Consulting,Insurance,Analytics Consultant,Forecasting|Excel|Claims Data,2,2025-11-12,4.7
+EMP-1272,MMX European pricing study,Analytics / Consulting,Financial Services,Principal,Predictive Modeling|Forecasting,7,2023-09-21,4.9
+EMP-1272,Safety signal analytics,Analytics / Consulting,Financial Services,Principal,SQL|Power BI|Predictive Modeling|Financial Analytics,8,2022-11-07,4.6
+EMP-1273,Omnichannel measurement,Analytics / Consulting,Patient Services,Senior Consultant,Python|Patient Journey Analytics|Power BI,11,2023-04-06,4.2
+EMP-1273,Price elasticity assessment,Analytics / Consulting,Patient Services,Senior Consultant,Data Visualization|Customer Analytics|SQL|Patient Journey Analytics,8,2023-08-13,3.6
+EMP-1273,Price elasticity assessment,Analytics / Consulting,Patient Services,Senior Consultant,Data Visualization|SQL|Python|Power BI|Patient Journey Analytics,6,2023-12-21,4.2
+EMP-1273,RWE study enablement,Analytics / Consulting,Patient Services,Senior Consultant,Customer Analytics|Power BI|SQL,10,2023-12-14,4.6
+EMP-1274,Safety signal analytics,Analytics / Consulting,Market Analytics,Senior Principal,Python|Supply Chain Analytics|SQL|Data Engineering,2,2025-11-07,4.6
+EMP-1274,RWE study enablement,Analytics / Consulting,Manufacturing Analytics,Senior Principal,Python|SQL|Supply Chain Analytics|Data Engineering,12,2025-04-27,4.1
+EMP-1275,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Senior Principal,Statistical Modeling|SAS|Python,6,2025-09-22,4.8
+EMP-1275,GenAI insight accelerator,Analytics / Consulting,Pharmacovigilance,Senior Principal,SAS|SQL|Python|Statistical Modeling,11,2023-05-08,4.5
+EMP-1275,Forecast automation,Analytics / Consulting,Pharmacovigilance,Senior Principal,Python|Pharmacovigilance,7,2026-01-28,4.3
+EMP-1275,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Senior Principal,Python|Clinical Trial Data|Pharmacovigilance,10,2023-02-09,3.7
+EMP-1276,Patient analytics modernization,Analytics / Consulting,Financial Services,Data Analyst,Financial Analytics|Python|Forecasting|Predictive Modeling|Power BI,10,2024-07-10,4.3
+EMP-1276,Safety signal analytics,Analytics / Consulting,Financial Services,Data Analyst,Python|Predictive Modeling,6,2025-05-01,4.9
+EMP-1276,Forecast automation,Analytics / Consulting,Financial Services,Data Analyst,Python|Predictive Modeling|Financial Analytics|Power BI,3,2026-01-06,3.9
+EMP-1276,GenAI insight accelerator,Analytics / Consulting,Financial Services,Data Analyst,Predictive Modeling|Python|Financial Analytics|Forecasting|SQL,6,2026-04-07,4.5
+EMP-1277,Data quality remediation,Analytics / Consulting,Insurance,Analytics Consultant,SQL|Predictive Modeling|Python|Excel|Forecasting,9,2023-09-04,4.6
+EMP-1277,Forecast automation,Analytics / Consulting,Insurance,Analytics Consultant,Predictive Modeling|Forecasting|Excel,8,2023-02-24,4.8
+EMP-1278,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Engagement Manager,Real World Evidence|EHR Data|Claims Data|SQL,3,2024-05-27,4.9
+EMP-1278,Observational research analytics,Analytics / Consulting,Real World Evidence,Engagement Manager,Causal Inference|Statistical Modeling,9,2026-04-28,4.7
+EMP-1278,Observational research analytics,Analytics / Consulting,Real World Evidence,Engagement Manager,Statistical Modeling|Real World Evidence|Python|Causal Inference,3,2025-09-30,4.9
+EMP-1278,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Engagement Manager,Python|Statistical Modeling|EHR Data,7,2024-04-12,4.0
+EMP-1279,Patient analytics modernization,Analytics / Consulting,Market Analytics,Senior Consultant,Python|Clustering|Commercial Analytics|Tableau,9,2025-02-26,4.0
+EMP-1279,Forecast automation,Analytics / Consulting,Market Analytics,Senior Consultant,Python|Commercial Analytics|Clustering,11,2024-03-10,4.1
+EMP-1279,Data quality remediation,Analytics / Consulting,Market Analytics,Senior Consultant,Segmentation|Python|Power BI|Commercial Analytics|Tableau,8,2025-02-23,3.9
+EMP-1279,Patient analytics modernization,Analytics / Consulting,Market Analytics,Senior Consultant,SQL|Power BI,2,2022-08-23,4.3
+EMP-1279,Price elasticity assessment,Analytics / Consulting,Market Analytics,Senior Consultant,Segmentation|Tableau|Commercial Analytics|SQL|Python,6,2023-06-17,3.7
+EMP-1280,Data platform modernization,Analytics / Consulting,Technology,Engagement Manager,Machine Learning|GCP|SQL,12,2024-10-13,4.4
+EMP-1280,Agentic analytics pilot,Analytics / Consulting,Technology,Engagement Manager,Data Engineering|SQL|Python|Machine Learning|GenAI,9,2023-01-31,4.9
+EMP-1280,GenAI insight accelerator,Analytics / Consulting,Technology,Engagement Manager,Data Engineering|GCP|Agentic AI|AWS|Machine Learning,12,2024-01-16,3.9
+EMP-1280,LLM evaluation framework,Analytics / Consulting,Technology,Engagement Manager,AWS|SQL|Azure|Python|Agentic AI,8,2025-08-03,4.0
+EMP-1281,Price elasticity assessment,Analytics / Consulting,Insurance,Principal,Forecasting|Excel|Python|Predictive Modeling,3,2025-03-22,4.0
+EMP-1281,Claims reporting transformation,Analytics / Consulting,Insurance,Principal,Claims Data|Forecasting|Excel,2,2023-12-23,4.2
+EMP-1281,Commercial dashboard rollout,Analytics / Consulting,Insurance,Principal,Predictive Modeling|Claims Data|SQL,8,2024-12-07,4.3
+EMP-1281,RWE study enablement,Analytics / Consulting,Insurance,Principal,Python|Forecasting|Excel|SQL|Predictive Modeling,4,2025-03-09,4.0
+EMP-1281,Claims reporting transformation,Analytics / Consulting,Insurance,Principal,Excel|Claims Data,2,2025-10-09,3.7
+EMP-1282,GenAI insight accelerator,Analytics / Consulting,Public Sector,Senior Consultant,Agentic AI|Power BI|SQL|Excel,9,2024-04-11,4.5
+EMP-1282,Claims reporting transformation,Analytics / Consulting,Public Sector,Senior Consultant,Agentic AI|Data Visualization|Python,5,2025-08-16,4.4
+EMP-1282,Commercial dashboard rollout,Analytics / Consulting,Public Sector,Senior Consultant,Python|Data Visualization|Power BI|Excel|SQL,6,2023-10-29,4.8
+EMP-1282,RWE study enablement,Analytics / Consulting,Public Sector,Senior Consultant,Agentic AI|Data Visualization|Excel|Power BI,12,2024-06-03,4.0
+EMP-1282,Omnichannel measurement,Analytics / Consulting,Public Sector,Senior Consultant,Data Visualization|Agentic AI|Power BI,4,2023-08-15,4.8
+EMP-1283,Commercial dashboard rollout,Analytics / Consulting,Pharmacovigilance,Senior Consultant,SQL|Power BI,4,2026-07-07,4.8
+EMP-1283,Data quality remediation,Analytics / Consulting,Market Analytics,Senior Consultant,SQL|Commercial Analytics|Python,4,2026-01-26,4.6
+EMP-1283,GenAI insight accelerator,Analytics / Consulting,Market Analytics,Senior Consultant,Tableau|Segmentation|SQL|Python|Commercial Analytics,3,2026-01-13,3.6
+EMP-1283,Clinical analytics platform,Analytics / Consulting,Pharmacovigilance,Senior Consultant,Segmentation|Power BI|Tableau,11,2022-12-31,4.1
+EMP-1283,Price elasticity assessment,Analytics / Consulting,Pharmacovigilance,Senior Consultant,SQL|Clustering|Commercial Analytics|Power BI,4,2025-08-22,4.6
+EMP-1284,Trial data modernization,Analytics / Consulting,Life Sciences,Data Analyst,Statistical Modeling|Pharmacovigilance,2,2023-06-10,4.8
+EMP-1284,Trial data modernization,Analytics / Consulting,Life Sciences,Data Analyst,Python|SAS,2,2025-08-02,4.3
+EMP-1284,Trial data modernization,Analytics / Consulting,Life Sciences,Data Analyst,Pharmacovigilance|Statistical Modeling|SAS,12,2022-10-24,4.5
+EMP-1285,GenAI insight accelerator,Analytics / Consulting,Manufacturing Analytics,Consultant,Python|Data Engineering|SQL|Forecasting,10,2026-02-27,4.2
+EMP-1285,Safety signal analytics,Analytics / Consulting,Clinical Analytics,Consultant,SQL|Supply Chain Analytics|Power BI|Forecasting,8,2024-10-17,4.1
+EMP-1285,Forecast automation,Analytics / Consulting,Clinical Analytics,Consultant,SQL|Data Engineering|Power BI|Supply Chain Analytics|Forecasting,11,2023-07-19,4.2
+EMP-1285,RWE study enablement,Analytics / Consulting,Clinical Analytics,Consultant,Forecasting|Power BI|Data Engineering|Supply Chain Analytics|Python,9,2023-10-21,4.1
+EMP-1285,Commercial dashboard rollout,Analytics / Consulting,Manufacturing Analytics,Consultant,SQL|Power BI,7,2022-10-19,3.9
+EMP-1285,GenAI insight accelerator,Analytics / Consulting,Manufacturing Analytics,Consultant,Python|SQL|Data Engineering|Supply Chain Analytics,10,2026-05-17,4.1
+EMP-1286,Safety signal analytics,Analytics / Consulting,Manufacturing Analytics,Principal,SQL|Forecasting,9,2024-08-30,4.6
+EMP-1286,Omnichannel measurement,Analytics / Consulting,Manufacturing Analytics,Principal,Power BI|Python|Supply Chain Analytics,7,2024-01-21,3.7
+EMP-1286,Claims reporting transformation,Analytics / Consulting,Manufacturing Analytics,Principal,Data Engineering|Supply Chain Analytics|Python,8,2022-10-30,4.9
+EMP-1286,GenAI insight accelerator,Analytics / Consulting,Manufacturing Analytics,Principal,Python|Power BI|Supply Chain Analytics|Forecasting,4,2023-11-14,4.1
+EMP-1286,Commercial dashboard rollout,Analytics / Consulting,Manufacturing Analytics,Principal,Python|Data Engineering|Supply Chain Analytics|Forecasting|SQL,11,2026-06-28,3.7
+EMP-1286,Omnichannel measurement,Analytics / Consulting,Manufacturing Analytics,Principal,Python|Forecasting,9,2022-10-28,4.3
+EMP-1287,GenAI insight accelerator,Analytics / Consulting,Technology,Data Analyst,Data Engineering|Machine Learning|Agentic AI|GenAI|Azure,7,2025-09-03,4.1
+EMP-1287,Agentic analytics pilot,Analytics / Consulting,Technology,Data Analyst,Python|Data Engineering|Machine Learning|Azure,9,2025-12-16,3.7
+EMP-1287,GenAI insight accelerator,Analytics / Consulting,Technology,Data Analyst,Agentic AI|SQL,5,2024-04-21,4.1
+EMP-1288,Forecast automation,Analytics / Consulting,Patient Services,Senior Consultant,SQL|Customer Analytics|Python|Power BI|Patient Journey Analytics,3,2026-05-23,4.1
+EMP-1288,Data quality remediation,Analytics / Consulting,Patient Services,Senior Consultant,Patient Journey Analytics|SQL|Data Visualization|Power BI|Python,7,2022-12-24,4.2
+EMP-1289,GenAI insight accelerator,Analytics / Consulting,Technology,Data Analyst,Statistical Modeling|Pharmacovigilance|Python|SQL|Clinical Trial Data,11,2025-04-16,3.8
+EMP-1289,Data quality remediation,Analytics / Consulting,Pharmacovigilance,Data Analyst,Pharmacovigilance|SAS,4,2025-12-05,4.7
+EMP-1289,MMX European pricing study,Analytics / Consulting,Pharmacovigilance,Data Analyst,Clinical Trial Data|Statistical Modeling|Python|SAS,8,2024-01-18,4.6
+EMP-1290,Clinical analytics platform,Analytics / Consulting,Life Sciences,Principal,Python|R,9,2026-04-11,3.8
+EMP-1290,Commercial dashboard rollout,Analytics / Consulting,Financial Services,Principal,Python|R|SQL|Pharmacovigilance|Clinical Trial Data,7,2025-04-12,4.4
+EMP-1290,Data quality remediation,Analytics / Consulting,Financial Services,Principal,SAS|Data Visualization|Python|Clinical Trial Data|Pharmacovigilance,11,2026-07-14,4.1
+EMP-1290,Data quality remediation,Analytics / Consulting,Financial Services,Principal,SQL|Pharmacovigilance,7,2025-07-20,4.4
+EMP-1290,Patient analytics modernization,Analytics / Consulting,Financial Services,Principal,Pharmacovigilance|SAS,6,2025-04-20,4.6
+EMP-1291,Omnichannel measurement,Analytics / Consulting,Insurance,Engagement Manager,Forecasting|SQL,3,2024-11-15,4.3
+EMP-1291,RWE study enablement,Analytics / Consulting,Insurance,Engagement Manager,Predictive Modeling|Forecasting|Claims Data,9,2026-03-29,4.8
+EMP-1291,GenAI insight accelerator,Analytics / Consulting,Insurance,Engagement Manager,Predictive Modeling|Python|SQL,2,2025-08-15,4.8
+EMP-1291,Claims reporting transformation,Analytics / Consulting,Insurance,Engagement Manager,Forecasting|SQL|Excel,11,2024-08-16,4.2
+EMP-1292,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Senior Principal,Statistical Modeling|SAS|Pharmacovigilance,4,2026-03-24,4.8
+EMP-1292,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Senior Principal,Clinical Trial Data|Python,10,2026-06-09,4.1
+EMP-1292,Patient analytics modernization,Analytics / Consulting,Pharmacovigilance,Senior Principal,Python|Clinical Trial Data|SQL|SAS,2,2023-07-18,3.8
+EMP-1292,Data quality remediation,Analytics / Consulting,Pharmacovigilance,Senior Principal,Statistical Modeling|Clinical Trial Data|SQL,6,2025-05-29,3.6
+EMP-1292,Claims reporting transformation,Analytics / Consulting,Pharmacovigilance,Senior Principal,Statistical Modeling|Clinical Trial Data,3,2025-06-12,4.5
+EMP-1292,MMX European pricing study,Analytics / Consulting,Pharmacovigilance,Senior Principal,SAS|Statistical Modeling|Python,7,2024-10-24,4.8
+EMP-1293,Safety signal analytics,Analytics / Consulting,Life Sciences,Engagement Manager,SQL|Clustering,3,2024-10-05,3.8
+EMP-1293,Clinical analytics platform,Analytics / Consulting,Life Sciences,Engagement Manager,Commercial Analytics|Segmentation|SQL,8,2026-01-02,3.8
+EMP-1294,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Senior Consultant,Segmentation|Pricing Strategy,8,2024-01-14,4.8
+EMP-1294,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Senior Consultant,Price Elasticity|Segmentation,2,2023-01-25,4.0
+EMP-1294,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Senior Consultant,Pricing Strategy|Segmentation,9,2026-05-25,4.6
+EMP-1295,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Senior Principal,Python|Claims Data|SQL,10,2025-08-02,4.2
+EMP-1295,RWE study enablement,Analytics / Consulting,Real World Evidence,Senior Principal,Causal Inference|Python|EHR Data,10,2023-04-18,4.3
+EMP-1295,RWE study enablement,Analytics / Consulting,Real World Evidence,Senior Principal,Claims Data|Real World Evidence|Causal Inference,9,2024-03-04,4.1
+EMP-1295,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Senior Principal,EHR Data|Causal Inference|Real World Evidence|SQL,3,2024-11-29,4.3
+EMP-1296,Data quality remediation,Analytics / Consulting,Public Sector,Analytics Consultant,Excel|Causal Inference|Data Visualization|Python,8,2025-06-13,4.2
+EMP-1296,MMX European pricing study,Analytics / Consulting,Public Sector,Analytics Consultant,SQL|Data Visualization|Python|Power BI,2,2023-08-27,4.2
+EMP-1296,MMX European pricing study,Analytics / Consulting,Public Sector,Analytics Consultant,Data Visualization|Power BI,3,2024-10-02,4.6
+EMP-1297,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Consultant,Pricing Strategy|Python|Market Mix Modeling,9,2025-10-06,3.9
+EMP-1297,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Consultant,Python|Segmentation|Pricing Strategy|Price Elasticity,5,2025-05-22,4.2
+EMP-1297,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Consultant,Promo Optimization|Pricing Strategy|Price Elasticity|Python|Market Mix Modeling,7,2022-11-16,4.3
+EMP-1297,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Consultant,Promo Optimization|Segmentation,7,2026-01-28,3.9
+EMP-1297,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Consultant,Python|Price Elasticity|Segmentation,2,2026-02-18,4.6
+EMP-1297,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Consultant,Price Elasticity|Promo Optimization|Python|Market Mix Modeling,8,2023-08-26,4.1
+EMP-1298,Data platform modernization,Analytics / Consulting,Technology,Consultant,Data Engineering|GCP|Python,4,2024-10-04,4.2
+EMP-1298,LLM evaluation framework,Analytics / Consulting,Technology,Consultant,Machine Learning|Azure,7,2025-01-10,4.5
+EMP-1298,Agentic analytics pilot,Analytics / Consulting,Technology,Consultant,GCP|Azure|Agentic AI|AWS|GenAI,2,2024-02-25,4.9
+EMP-1298,Agentic analytics pilot,Analytics / Consulting,Technology,Consultant,AWS|SQL|Agentic AI|GCP,11,2026-05-27,4.2
+EMP-1298,GenAI insight accelerator,Analytics / Consulting,Technology,Consultant,Machine Learning|GenAI,2,2022-10-22,3.8
+EMP-1299,Price elasticity assessment,Analytics / Consulting,Patient Services,Senior Consultant,Data Visualization|Power BI|Customer Analytics|SQL,5,2023-03-25,4.9
+EMP-1299,Clinical analytics platform,Analytics / Consulting,Patient Services,Senior Consultant,Patient Journey Analytics|Python|Data Visualization|Power BI|SQL,8,2024-12-17,4.7
+EMP-1299,Price elasticity assessment,Analytics / Consulting,Patient Services,Senior Consultant,Power BI|Patient Journey Analytics|Customer Analytics|SQL|Data Visualization,5,2026-02-07,4.5
+EMP-1299,Claims reporting transformation,Analytics / Consulting,Patient Services,Senior Consultant,Python|Data Visualization|Patient Journey Analytics,5,2025-03-13,4.8
+EMP-1299,Clinical analytics platform,Analytics / Consulting,Patient Services,Senior Consultant,Patient Journey Analytics|Python,5,2025-11-04,4.9
+EMP-1299,Data quality remediation,Analytics / Consulting,Patient Services,Senior Consultant,Patient Journey Analytics|Data Visualization|Customer Analytics|SQL,10,2026-05-11,4.1
+EMP-1300,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Consultant,SQL|Power BI|Forecasting|Tableau|Segmentation,2,2025-05-02,3.9
+EMP-1300,Commercial dashboard rollout,Analytics / Consulting,Commercial Analytics,Consultant,Python|Forecasting|SQL|Segmentation,11,2025-09-16,4.2
+EMP-1300,Sales force effectiveness,Analytics / Consulting,Commercial Analytics,Consultant,Tableau|Python|Segmentation|SQL|Power BI,2,2024-03-05,4.4
+EMP-1300,European commercial analytics,Analytics / Consulting,Commercial Analytics,Consultant,Tableau|Segmentation|Python|SQL|Commercial Analytics,5,2023-11-05,3.8
+EMP-1300,European commercial analytics,Analytics / Consulting,Commercial Analytics,Consultant,Segmentation|Power BI|Forecasting|SQL,4,2024-02-09,4.3
+EMP-1301,MMX European pricing study,Analytics / Consulting,Patient Services,Consultant,Data Visualization|Customer Analytics|Python,5,2024-04-08,4.2
+EMP-1301,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Consultant,Python|Patient Journey Analytics|Power BI|Data Visualization|SQL,12,2023-03-17,4.8
+EMP-1302,Patient analytics modernization,Analytics / Consulting,Insurance,Principal,Claims Data|Excel|Python,2,2026-03-08,4.8
+EMP-1302,Forecast automation,Analytics / Consulting,Insurance,Principal,Python|Claims Data|SQL|Excel,8,2022-12-31,4.8
+EMP-1303,Pricing strategy transformation,Analytics / Consulting,Pricing & Promotion,Principal,Pricing Strategy|Price Elasticity,10,2025-08-03,4.7
+EMP-1303,Price elasticity assessment,Analytics / Consulting,Manufacturing Analytics,Principal,SQL|Price Elasticity|Pricing Strategy|Python|Market Mix Modeling,10,2025-07-20,3.8
+EMP-1304,Clinical analytics platform,Analytics / Consulting,Manufacturing Analytics,Engagement Manager,Excel|Omnichannel Analytics,6,2022-08-22,3.9
+EMP-1304,Claims reporting transformation,Analytics / Consulting,Manufacturing Analytics,Engagement Manager,Excel|Omnichannel Analytics|Power BI|SQL|Data Visualization,9,2022-09-23,4.4
+EMP-1304,Data quality remediation,Analytics / Consulting,Public Sector,Engagement Manager,Omnichannel Analytics|Power BI,10,2026-01-26,4.5
+EMP-1304,Claims reporting transformation,Analytics / Consulting,Public Sector,Engagement Manager,Python|Excel,8,2023-12-10,4.6
+EMP-1305,Claims reporting transformation,Analytics / Consulting,Market Analytics,Principal,Power BI|Segmentation,9,2026-01-13,4.0
+EMP-1305,Clinical analytics platform,Analytics / Consulting,Market Analytics,Principal,Power BI|Commercial Analytics|Python|Clustering,6,2024-07-21,4.6
+EMP-1305,RWE study enablement,Analytics / Consulting,Market Analytics,Principal,Power BI|Clustering|SQL|Python,2,2023-06-08,4.8
+EMP-1305,Claims reporting transformation,Analytics / Consulting,Market Analytics,Principal,Python|Segmentation|Power BI|Commercial Analytics,10,2025-10-26,4.1
+EMP-1305,Omnichannel measurement,Analytics / Consulting,Market Analytics,Principal,Power BI|Segmentation|Tableau|Clustering,9,2024-07-31,4.2
+EMP-1305,RWE study enablement,Analytics / Consulting,Market Analytics,Principal,Segmentation|Clustering,5,2026-07-18,3.8
+EMP-1306,Price elasticity assessment,Analytics / Consulting,Market Analytics,Data Analyst,Python|Commercial Analytics|Power BI,2,2023-07-07,4.9
+EMP-1306,Clinical analytics platform,Analytics / Consulting,Market Analytics,Data Analyst,Power BI|Clustering|SQL,5,2022-10-29,3.8
+EMP-1306,Commercial dashboard rollout,Analytics / Consulting,Market Analytics,Data Analyst,Python|Segmentation|SQL,7,2024-06-10,4.0
+EMP-1306,Patient analytics modernization,Analytics / Consulting,Market Analytics,Data Analyst,Commercial Analytics|Power BI|Segmentation|Clustering|SQL,11,2024-10-30,4.4
+EMP-1306,Omnichannel measurement,Analytics / Consulting,Market Analytics,Data Analyst,Clustering|SQL|Segmentation|Commercial Analytics,6,2023-04-26,4.9
+EMP-1307,Promo optimization program,Analytics / Consulting,Pricing & Promotion,Data Analyst,Pricing Strategy|SQL|Python|Segmentation,2,2023-06-07,3.6
+EMP-1307,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Data Analyst,Segmentation|Price Elasticity|Promo Optimization|SQL,2,2022-12-11,4.9
+EMP-1307,Price elasticity assessment,Analytics / Consulting,Pricing & Promotion,Data Analyst,Segmentation|Promo Optimization|Price Elasticity|Market Mix Modeling,7,2025-11-25,3.7
+EMP-1308,RWE study enablement,Analytics / Consulting,Real World Evidence,Analytics Consultant,Claims Data|Python|Real World Evidence|EHR Data,11,2024-08-04,4.4
+EMP-1308,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Analytics Consultant,SQL|Python,5,2023-01-19,3.8
+EMP-1308,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Analytics Consultant,Python|EHR Data|SQL|Statistical Modeling|Real World Evidence,3,2025-03-23,4.0
+EMP-1309,Agentic analytics pilot,Analytics / Consulting,Technology,Engagement Manager,GCP|Machine Learning|Python|GenAI,10,2023-10-15,4.8
+EMP-1309,LLM evaluation framework,Analytics / Consulting,Technology,Engagement Manager,GenAI|Data Engineering,11,2024-04-06,4.6
+EMP-1309,LLM evaluation framework,Analytics / Consulting,Technology,Engagement Manager,GCP|Agentic AI|SQL,7,2026-04-04,3.6
+EMP-1309,LLM evaluation framework,Analytics / Consulting,Technology,Engagement Manager,GCP|GenAI|SQL|Machine Learning|Azure,6,2022-08-27,4.0
+EMP-1309,Agentic analytics pilot,Analytics / Consulting,Technology,Engagement Manager,Data Engineering|GCP|GenAI|Agentic AI|Python,9,2025-10-29,3.8
+EMP-1310,Commercial dashboard rollout,Analytics / Consulting,Clinical Analytics,Senior Principal,Clinical Trial Data|Python|R,8,2024-11-15,4.4
+EMP-1310,Claims reporting transformation,Analytics / Consulting,Clinical Analytics,Senior Principal,SQL|SAS|Python|Statistical Modeling,10,2023-12-10,4.7
+EMP-1310,Trial data modernization,Analytics / Consulting,Life Sciences,Senior Principal,R|SQL|Clinical Trial Data|Statistical Modeling,2,2023-05-27,4.7
+EMP-1310,Clinical analytics platform,Analytics / Consulting,Life Sciences,Senior Principal,R|Clinical Trial Data|Python|SQL|Data Visualization,12,2024-11-15,4.2
+EMP-1310,Clinical analytics platform,Analytics / Consulting,Life Sciences,Senior Principal,Statistical Modeling|Clinical Trial Data,12,2024-04-10,4.7
+EMP-1311,Omnichannel measurement,Analytics / Consulting,Public Sector,Consultant,SQL|Excel,7,2024-08-11,4.8
+EMP-1311,Claims reporting transformation,Analytics / Consulting,Public Sector,Consultant,Python|R,4,2022-08-16,4.9
+EMP-1312,MMX European pricing study,Analytics / Consulting,Public Sector,Consultant,Python|EHR Data|Power BI|Excel|Data Visualization,3,2022-09-07,3.6
+EMP-1312,MMX European pricing study,Analytics / Consulting,Public Sector,Consultant,Python|Power BI,5,2024-11-02,4.1
+EMP-1312,Forecast automation,Analytics / Consulting,Public Sector,Consultant,Data Visualization|SQL|Excel|EHR Data,9,2023-09-21,4.9
+EMP-1312,MMX European pricing study,Analytics / Consulting,Public Sector,Consultant,Python|SQL|Data Visualization|EHR Data|Power BI,6,2026-01-16,4.3
+EMP-1312,Omnichannel measurement,Analytics / Consulting,Public Sector,Consultant,EHR Data|Data Visualization,5,2023-10-22,3.7
+EMP-1312,Clinical analytics platform,Analytics / Consulting,Public Sector,Consultant,SQL|Python,8,2023-08-15,4.3
+EMP-1313,Patient analytics modernization,Analytics / Consulting,Patient Services,Senior Consultant,Data Visualization|Power BI,9,2026-01-08,3.8
+EMP-1313,Patient analytics modernization,Analytics / Consulting,Patient Services,Senior Consultant,Patient Journey Analytics|Power BI,2,2025-04-02,4.7
+EMP-1313,Commercial dashboard rollout,Analytics / Consulting,Patient Services,Senior Consultant,Data Visualization|Patient Journey Analytics|SQL|Power BI|Python,6,2024-08-27,3.8
+EMP-1313,Patient analytics modernization,Analytics / Consulting,Patient Services,Senior Consultant,Power BI|Python|Patient Journey Analytics,6,2026-04-06,3.8
+EMP-1314,MMX European pricing study,Analytics / Consulting,Pharmacovigilance,Data Analyst,Statistical Modeling|Python|Pharmacovigilance,11,2024-12-25,3.9
+EMP-1314,Omnichannel measurement,Analytics / Consulting,Pharmacovigilance,Data Analyst,SQL|Clinical Trial Data|Statistical Modeling|Python,8,2024-01-25,4.5
+EMP-1315,Omnichannel measurement,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Forecasting|SQL|Python,9,2024-01-16,4.5
+EMP-1315,Safety signal analytics,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Python|Data Engineering|Power BI,5,2022-09-23,4.5
+EMP-1315,Claims reporting transformation,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,Forecasting|Data Engineering|Power BI|Python|Supply Chain Analytics,6,2026-01-11,4.3
+EMP-1315,Clinical analytics platform,Analytics / Consulting,Manufacturing Analytics,Analytics Consultant,SQL|Forecasting,6,2024-02-27,4.6
+EMP-1316,Clinical analytics platform,Analytics / Consulting,Market Analytics,Senior Consultant,Segmentation|SQL,5,2023-02-11,4.2
+EMP-1316,RWE study enablement,Analytics / Consulting,Market Analytics,Senior Consultant,Python|Segmentation|SQL|Pricing Strategy,9,2024-05-05,4.6
+EMP-1316,MMX European pricing study,Analytics / Consulting,Pricing & Promotion,Senior Consultant,Promo Optimization|Segmentation|SQL|Price Elasticity,8,2024-08-21,4.1
+EMP-1317,Data quality remediation,Analytics / Consulting,Insurance,Senior Consultant,Python|Excel,11,2024-04-30,3.9
+EMP-1317,Forecast automation,Analytics / Consulting,Insurance,Senior Consultant,Excel|Predictive Modeling,3,2026-06-22,4.1
+EMP-1317,Forecast automation,Analytics / Consulting,Insurance,Senior Consultant,Predictive Modeling|Forecasting,7,2026-02-26,4.1
+EMP-1318,RWE study enablement,Analytics / Consulting,Real World Evidence,Engagement Manager,Claims Data|Real World Evidence|Causal Inference,4,2026-03-11,4.5
+EMP-1318,Observational research analytics,Analytics / Consulting,Real World Evidence,Engagement Manager,Python|Causal Inference,9,2025-04-19,4.8
+EMP-1318,Claims evidence accelerator,Analytics / Consulting,Real World Evidence,Engagement Manager,Python|SQL|EHR Data|Statistical Modeling,2,2023-03-16,3.9
+EMP-1319,Data quality remediation,Analytics / Consulting,Insurance,Analytics Consultant,Excel|Forecasting|Python|Claims Data|SQL,6,2025-12-10,3.8
+EMP-1319,Commercial dashboard rollout,Analytics / Consulting,Insurance,Analytics Consultant,Python|Claims Data|Forecasting,4,2025-03-16,4.4
+EMP-1319,Forecast automation,Analytics / Consulting,Financial Services,Analytics Consultant,SQL|Claims Data,10,2023-02-02,4.3
+EMP-1320,Data quality remediation,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,Forecasting|Data Engineering|SQL|Python|Supply Chain Analytics,9,2023-02-26,3.7
+EMP-1320,Commercial dashboard rollout,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,Data Engineering|Power BI|SQL,5,2024-05-05,4.2
+EMP-1320,Patient analytics modernization,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,Supply Chain Analytics|Power BI|Data Engineering|SQL,12,2022-09-13,3.7
+EMP-1320,Data quality remediation,Analytics / Consulting,Manufacturing Analytics,Senior Consultant,SQL|Python|Supply Chain Analytics|Data Engineering|Forecasting,6,2024-10-21,4.7
