@@ -1,5 +1,11 @@
 # CSEC RM Copilot POC
 
+## Documentation
+
+- [Complete project guide](docs/PROJECT_GUIDE.md) — architecture, end-to-end flow, every tab, scoring, guardrails, limitations and glossary.
+- [Data dictionary](docs/DATA_DICTIONARY.md) — every source, request, derived, result and audit field with formats and validation.
+- [Stakeholder walkthrough](docs/STAKEHOLDER_WALKTHROUGH.md) — presentation script, demo scenario, FAQs, honest limitations and roadmap.
+
 ## Purpose
 
 A decision-support POC for CSEC capability discovery and resource matching.
@@ -23,6 +29,27 @@ The product has two user journeys over the same backend:
 - Alternatives explicitly exclude the selected person.
 - Protected or sensitive attributes are not used in matching.
 - The fit score is a comparison aid, not a prediction of performance or employee value.
+- Excluded candidates retain a separate potential-fit score for audit/near-match review, but their recommendation score remains zero.
+- Near matches are explicitly labelled as excluded and require a human to change a constraint; the engine never relaxes a gate silently.
+
+## Recommended RM guardrails
+
+Treat these as strict when the requester explicitly supplies them:
+
+- request dates and weekly allocation;
+- mandatory skill presence and minimum proficiency;
+- minimum/maximum grade;
+- required work location, time zone and client language;
+- complete weekly capacity data and confirmed headroom when hard-capacity mode is enabled;
+- domain only when regulation, client context or delivery policy genuinely requires prior domain experience.
+
+Treat preferred skills, development interests, additional proficiency, prior delivery evidence and tentative capacity as ranking or risk signals rather than automatic exclusions. Before production, add governed fields for work authorization, contractual entity, security clearance and local labor restrictions; the POC does not infer these from location or nationality.
+
+The system must never score protected characteristics, infer missing skills, hide missing capacity, autonomously allocate a person, or let a high weighted score override a failed strict constraint. Profiles below the confidence threshold and tentative conflicts require verification by RM.
+
+## Score interpretation
+
+The 0–100 fit score applies only to candidates who pass every hard gate. It combines mandatory coverage, preferred capabilities, proficiency depth, relevant and recent delivery evidence, capacity resilience, domain fit, development alignment and profile confidence. It is deterministic and versioned, and should be used to compare feasible candidates—not as a probability of project success.
 
 ## Dataset
 
@@ -71,7 +98,7 @@ From the project directory:
 
 ```powershell
 python -m venv .venv
-.venv\\Scripts\\activate
+.venv\Scripts\activate
 python -m pip install -r requirements.txt
 streamlit run app.py
 ```
@@ -110,6 +137,8 @@ Human decision
 ```
 
 The LLM should not become the system of record for eligibility or scoring. It should translate user language into the governed request/intent schema.
+
+No API key is needed for the current application. When approved access arrives, the LLM adapter should read credentials from `st.secrets`, return schema-validated structured intent, preserve the original user text for audit, and reject unsupported taxonomy values. Prompt text must never be allowed to alter hard-gate policy or matching weights.
 
 ## External product-design benchmark
 

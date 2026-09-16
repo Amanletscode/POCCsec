@@ -112,9 +112,9 @@ DEFAULT_WEIGHTS = {
     "data_confidence": 0.03,
 }
 
-RULE_VERSION = "RM-RULES-3.0"
+RULE_VERSION = "RM-RULES-3.1"
 TAXONOMY_VERSION = "SKILL-CATALOG-2.0"
-DATA_VERSION = "SYNTHETIC-2026-09"
+DATA_VERSION = "SYNTHETIC-2026-09.1"
 
 @dataclass(frozen=True)
 class CapacityPolicy:

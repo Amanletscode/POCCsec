@@ -16,7 +16,7 @@ from modules.config import (
 )
 from modules.data import canonicalize_capacity, canonicalize_evidence, canonicalize_resources, dataset_health, load_demo_data, load_workbook
 from modules.discovery import discovery_search, interpret_query, mock_llm_adapter_spec
-from modules.engine import build_alternatives, candidate_capacity, run_matching
+from modules.engine import build_alternatives, build_near_matches, candidate_capacity, run_matching
 from modules.sample_data import write_demo_data
 from modules.validation import parse_skill_string, split_pipe, validate_request
 
@@ -27,8 +27,16 @@ DATA_DIR.mkdir(exist_ok=True)
 if not (DATA_DIR / "resources.csv").exists():
     write_demo_data(DATA_DIR)
 
+
+@st.cache_data(max_entries=3)
+def load_cached_demo_data(data_dir: str, data_version: str):
+    # data_version deliberately participates in the cache key.
+    del data_version
+    return load_demo_data(Path(data_dir))
+
+
 # Always canonicalize, because uploaded/demo files can have missing optional fields.
-resources, capacity, evidence = load_demo_data(DATA_DIR)
+resources, capacity, evidence = load_cached_demo_data(str(DATA_DIR), DATA_VERSION)
 
 
 def styled_header():
@@ -117,6 +125,7 @@ with st.sidebar:
         except Exception:
             st.error("The workbook could not be read. Please use the demo workbook structure or upload a clean XLSX.")
     health = dataset_health(resources, capacity, evidence)
+    data_ready = health["resources_ok"] and health["capacity_ok"] and health["evidence_ok"]
     st.caption(f"{len(resources):,} resources · {len(capacity):,} capacity rows · {len(evidence):,} delivery records")
     if health["resources_errors"]:
         st.error("Resource data: " + " | ".join(health["resources_errors"][:3]))
@@ -124,6 +133,8 @@ with st.sidebar:
         st.error("Capacity data: " + " | ".join(health["capacity_errors"][:3]))
     if health["evidence_errors"]:
         st.error("Evidence data: " + " | ".join(health["evidence_errors"][:3]))
+    if not data_ready:
+        st.warning("Matching is disabled until blocking data-quality errors are resolved.")
     with st.expander("Matching policy", expanded=False):
         st.write("Location is a hard gate when selected. Time zone is also a hard gate when selected. A high score never offsets a failed hard gate.")
         capacity_strict = st.checkbox("Require requested allocation every week", value=True)
@@ -156,11 +167,11 @@ with TABS[0]:
     ec = st.columns(len(examples))
     for i, example in enumerate(examples):
         with ec[i]:
-            if st.button(example, key=f"example_{i}", use_container_width=True):
+            if st.button(example, key=f"example_{i}", width="stretch"):
                 st.session_state.chat_query = example
     query = st.text_input("Ask Copilot", value=st.session_state.get("chat_query", ""), placeholder="Try: Who has expertise in price elasticity for Europe?")
     combine = st.checkbox("Use current structured staffing request as context", value=st.session_state.get("results") is not None)
-    if st.button("Search capability network", type="primary", use_container_width=True):
+    if st.button("Search capability network", type="primary", width="stretch"):
         if not query.strip():
             st.warning("Enter a question or choose one of the examples above.")
         else:
@@ -190,12 +201,12 @@ with TABS[0]:
             cols = ["rank", "resource_name", "grade", "team", "location", "time_zone", "score", "key_skills", "geography_expertise", "project_expertise", "contact_email", "manager_name", "manager_email"]
             show = found[[c for c in cols if c in found.columns]].copy()
             show.rename(columns={"resource_name": "Expert / contact", "score": "Relevance", "key_skills": "Relevant skills", "contact_email": "Contact", "manager_name": "Manager", "manager_email": "Manager contact"}, inplace=True)
-            st.dataframe(show, use_container_width=True, hide_index=True)
+            st.dataframe(show, width="stretch", hide_index=True)
 
     if st.session_state.get("results") is not None:
         st.markdown("### Bridge to the structured engine")
         st.info("The Copilot and the structured form are intentionally two front doors to the same rule engine. A future LLM can replace only the query interpretation layer, not the eligibility or scoring rules.")
-        if st.button("Open current request in Recommendations", use_container_width=True):
+        if st.button("Open current request in Recommendations", width="stretch"):
             st.session_state.active_tab_hint = "recommendations"
 
 # ---------------- Structured match ----------------
@@ -203,7 +214,9 @@ with TABS[1]:
     st.subheader("Structured request", divider="blue")
     st.caption("Use this when you know the delivery constraints. Every controlled attribute comes from the governed catalogue, so malformed skill strings cannot crash the application.")
     current = st.session_state.request or request_defaults()
-    with st.form("structured_request"):
+    # Not an st.form: the proficiency dropdowns must appear as soon as a skill is
+    # selected, and a form defers every widget update until submit.
+    with st.container():
         left, middle, right = st.columns(3)
         with left:
             request_id = st.text_input("Request ID", value=current.get("request_id", "REQ-2026-001"))
@@ -245,7 +258,7 @@ with TABS[1]:
                     existing = int(current.get("preferred_skills", {}).get(skill, 2))
                     level_idx = max(0, min(3, existing - 1))
                     pref_levels[skill] = PROFICIENCY[st.selectbox(skill + " ", PROFICIENCY_LABELS, index=level_idx, key="req_pref_" + skill)]
-        submitted = st.form_submit_button("Run explainable match", type="primary", use_container_width=True)
+        submitted = st.button("Run explainable match", type="primary", width="stretch")
 
     if submitted:
         request = {
@@ -258,7 +271,17 @@ with TABS[1]:
             "capacity_strict": cap_mode, "domain_strict": domain_mode,
         }
         report = validate_request(request)
-        if not report.ok:
+        current_health = dataset_health(resources, capacity, evidence)
+        data_errors = (
+            current_health["resources_errors"]
+            + current_health["capacity_errors"]
+            + current_health["evidence_errors"]
+        )
+        if data_errors:
+            st.error("The active dataset has blocking quality errors. No matching run was attempted.")
+            for error in data_errors[:8]:
+                st.error(error)
+        elif not report.ok:
             st.error("The request was not accepted. No matching run was attempted.")
             for error in report.errors:
                 st.error(error)
@@ -298,8 +321,23 @@ with TABS[2]:
             labels = ["Location", "Time zone", "Language", "Domain", "Grade", "Mandatory skill", "Mandatory proficiency", "Capacity data", "Capacity"]
             keys = ["location", "time_zone", "language", "domain", "grade", "mandatory_skill", "mandatory_proficiency", "capacity_data", "capacity"]
             diag = pd.DataFrame({"Constraint": labels, "Candidates failing": [counts.get(k, 0) for k in keys]})
-            st.plotly_chart(px.bar(diag, x="Constraint", y="Candidates failing", text_auto=True), use_container_width=True)
+            st.plotly_chart(px.bar(diag, x="Constraint", y="Candidates failing", text_auto=True), width="stretch")
             st.caption("These counts are diagnostic only. The manager must explicitly change a constraint if business context permits it.")
+            near_matches = build_near_matches(table)
+            if near_matches:
+                st.markdown("### Near matches for explicit review")
+                st.warning("These people are not recommendations. They fail one or two hard gates and are shown only to support a documented RM decision.")
+                near_df = pd.DataFrame(near_matches)
+                near_df["exclusion_reasons"] = near_df["exclusion_reasons"].map(lambda values: " · ".join(values))
+                st.dataframe(
+                    near_df.rename(columns={
+                        "resource_name": "Candidate", "team": "Team", "grade": "Grade",
+                        "location": "Location", "potential_score": "Potential fit",
+                        "minimum_available_pct": "Min availability",
+                        "failed_gate_count": "Failed gates", "exclusion_reasons": "Why excluded",
+                    }),
+                    hide_index=True,
+                )
         else:
             eligible = table[table.status.eq("Eligible")].copy()
             st.markdown("### Feasible shortlist")
@@ -307,7 +345,7 @@ with TABS[2]:
             if "confidence_label" not in eligible.columns:
                 eligible["confidence_label"] = eligible.profile_confidence.map(lambda x: "High" if x >= .9 else "Medium" if x >= .8 else "Verify")
             shortlist = eligible[[c for c in shortlist_cols if c in eligible.columns]].copy()
-            st.dataframe(shortlist, use_container_width=True, hide_index=True, column_config={
+            st.dataframe(shortlist, width="stretch", hide_index=True, column_config={
                 "total_score": st.column_config.ProgressColumn("Fit score", min_value=0, max_value=100, format="%.1f"),
                 "fit_percentile": st.column_config.NumberColumn("Fit percentile", format="%.1f"),
                 "minimum_available_pct": st.column_config.ProgressColumn("Minimum weekly availability", min_value=0, max_value=100, format="%.0f%%"),
@@ -320,7 +358,7 @@ with TABS[2]:
             with detail_left:
                 st.markdown(f"## {row.resource_name}")
                 st.caption(f"{row.grade} · {row.team} · {row.location} · {row.time_zone}")
-                st.success(f"Top-line recommendation: **{row["total_score"]:.1f}/100** · **{row["fit_percentile"]:.0f}th percentile** among feasible candidates.")
+                st.success(f"Top-line recommendation: **{row['total_score']:.1f}/100** · **{row['fit_percentile']:.0f}th percentile** among feasible candidates.")
                 st.markdown("### Why this person is a fit")
                 reasons = []
                 if row.score_components.get("mandatory_skills", 0) >= weights["mandatory_skills"] * 90:
@@ -355,7 +393,7 @@ with TABS[2]:
                         "Candidate": PROFICIENCY_LABELS[actual - 1] if actual in PROFICIENCY.values() else "Not listed",
                         "Gap": "None" if actual >= level else f"Needs {PROFICIENCY_LABELS[level - 1]}",
                     })
-                st.dataframe(pd.DataFrame(skill_rows), use_container_width=True, hide_index=True)
+                st.dataframe(pd.DataFrame(skill_rows), width="stretch", hide_index=True)
 
                 if row.evidence_summary:
                     st.markdown("### Relevant delivery evidence")
@@ -377,13 +415,13 @@ with TABS[2]:
                 chart_df = pd.DataFrame({"Component": [k.replace("_", " ").title() for k in comp], "Points": [round(v, 2) for v in comp.values()]})
                 fig = px.bar(chart_df, x="Points", y="Component", orientation="h", text_auto=".1f")
                 fig.update_layout(height=380, margin=dict(l=0, r=10, t=10, b=0))
-                st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, width="stretch")
                 st.caption("These are actual weighted points out of 100. Hard-gate eligibility is decided before scoring.")
 
                 st.markdown("### Capacity summary")
-                st.metric("Minimum available", f"{row["minimum_available_pct"]:.0f}%")
-                st.metric("Weeks below demand", f"{int(row["weeks_below_demand"])}")
-                st.metric("Tentative-risk weeks", f"{int(row["tentative_risk_weeks"])}")
+                st.metric("Minimum available", f"{row['minimum_available_pct']:.0f}%")
+                st.metric("Weeks below demand", f"{int(row['weeks_below_demand'])}")
+                st.metric("Tentative-risk weeks", f"{int(row['tentative_risk_weeks'])}")
                 st.metric("Data confidence", f"{row.profile_confidence * 100:.0f}%")
 
             st.markdown("### Genuine alternatives")
@@ -391,7 +429,7 @@ with TABS[2]:
             if alternatives:
                 alt_df = pd.DataFrame(alternatives)
                 alt_df["total_score"] = alt_df.total_score.round(1)
-                st.dataframe(alt_df.rename(columns={"resource_name": "Candidate", "team": "Team", "grade": "Grade", "location": "Location", "total_score": "Fit score", "fit_percentile": "Percentile", "minimum_available_pct": "Min availability", "tentative_risk_weeks": "Tentative-risk weeks"}), use_container_width=True, hide_index=True)
+                st.dataframe(alt_df.rename(columns={"resource_name": "Candidate", "team": "Team", "grade": "Grade", "location": "Location", "total_score": "Fit score", "fit_percentile": "Percentile", "minimum_available_pct": "Min availability", "tentative_risk_weeks": "Tentative-risk weeks"}), width="stretch", hide_index=True)
             else:
                 st.info("No additional feasible backup is available under the same hard constraints.")
 
@@ -434,8 +472,8 @@ with TABS[3]:
             fig = px.line(cap_plot, x="week_start", y="Percent", color="Series", markers=True)
             fig.update_yaxes(range=[0, 100])
             fig.update_layout(height=430, margin=dict(l=0, r=0, t=15, b=0))
-            st.plotly_chart(fig, use_container_width=True)
-            st.dataframe(cap[["week_start", "working_capacity_pct", "confirmed_allocation_pct", "tentative_allocation_pct", "leave_pct", "available_pct", "required_pct", "gap_pct", "tentative_gap_pct", "status"]], use_container_width=True, hide_index=True)
+            st.plotly_chart(fig, width="stretch")
+            st.dataframe(cap[["week_start", "working_capacity_pct", "confirmed_allocation_pct", "tentative_allocation_pct", "leave_pct", "available_pct", "required_pct", "gap_pct", "tentative_gap_pct", "status"]], width="stretch", hide_index=True)
             st.caption(f"This view is intentionally specific to {person.resource_name}. It evaluates the complete request horizon at weekly grain rather than hiding a bad week inside an average.")
 
 # ---------------- Capability map ----------------
@@ -461,7 +499,7 @@ with TABS[4]:
         m2.metric("Teams", int(portfolio.team.nunique()))
         m3.metric("Locations", int(portfolio.location.nunique()))
         m4.metric("Senior / SME pool", int(portfolio.grade.isin(["Engagement Manager", "Principal", "Senior Principal"]).sum()))
-        st.dataframe(portfolio[["resource_name", "role_title", "grade", "team", "location", "time_zone", "domains", "skills", "geography_expertise", "project_expertise", "contact_email", "manager_name"]].head(100), use_container_width=True, hide_index=True)
+        st.dataframe(portfolio[["resource_name", "role_title", "grade", "team", "location", "time_zone", "domains", "skills", "geography_expertise", "project_expertise", "contact_email", "manager_name"]].head(100), width="stretch", hide_index=True)
 
     st.markdown("### Supply by skill")
     supply_rows = []
@@ -470,7 +508,7 @@ with TABS[4]:
         if count:
             supply_rows.append({"Skill": skill, "People": count})
     supply = pd.DataFrame(supply_rows).sort_values("People", ascending=False).head(20)
-    st.plotly_chart(px.bar(supply, x="People", y="Skill", orientation="h"), use_container_width=True)
+    st.plotly_chart(px.bar(supply, x="People", y="Skill", orientation="h"), width="stretch")
 
     if st.session_state.results is not None:
         eligible = st.session_state.results.table[st.session_state.results.table.status.eq("Eligible")]
@@ -480,7 +518,7 @@ with TABS[4]:
                 Feasible=("resource_id", "count"), MedianScore=("total_score", "median"),
                 BestScore=("total_score", "max"), MinWeeklyAvailability=("minimum_available_pct", "min"),
             ).sort_values("Feasible", ascending=False)
-            st.dataframe(team, use_container_width=True, hide_index=True)
+            st.dataframe(team, width="stretch", hide_index=True)
 
 # ---------------- Audit & data ----------------
 with TABS[5]:

@@ -67,12 +67,16 @@ def canonicalize_capacity(df: pd.DataFrame | None) -> pd.DataFrame:
     if df is None:
         return pd.DataFrame(columns=["resource_id", "week_start", "working_capacity_pct", "confirmed_allocation_pct", "tentative_allocation_pct", "leave_pct"])
     out = df.copy()
+    if "resource_id" not in out.columns:
+        out["resource_id"] = ""
+    if "week_start" not in out.columns:
+        out["week_start"] = pd.NaT
     for col in ["working_capacity_pct", "confirmed_allocation_pct", "tentative_allocation_pct", "leave_pct"]:
         if col not in out.columns:
             out[col] = 0.0
         out[col] = pd.to_numeric(out[col], errors="coerce")
-    out["resource_id"] = out.get("resource_id", "").astype(str)
-    out["week_start"] = pd.to_datetime(out.get("week_start"), errors="coerce").dt.normalize()
+    out["resource_id"] = out["resource_id"].fillna("").astype(str).str.strip()
+    out["week_start"] = pd.to_datetime(out["week_start"], errors="coerce").dt.normalize()
     return out
 
 
@@ -87,8 +91,9 @@ def canonicalize_evidence(df: pd.DataFrame | None) -> pd.DataFrame:
     for col, default in defaults.items():
         if col not in out.columns:
             out[col] = default
-    out["resource_id"] = out["resource_id"].astype(str)
+    out["resource_id"] = out["resource_id"].fillna("").astype(str).str.strip()
     out["project_end"] = pd.to_datetime(out["project_end"], errors="coerce")
+    out["duration_months"] = pd.to_numeric(out["duration_months"], errors="coerce").fillna(0)
     out["outcome_score"] = pd.to_numeric(out["outcome_score"], errors="coerce").fillna(0)
     return out
 

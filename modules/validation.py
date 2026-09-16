@@ -108,6 +108,10 @@ def validate_resources(df: pd.DataFrame) -> ValidationReport:
     if df.empty:
         errors.append("Resources dataset is empty.")
         return ValidationReport(False, errors, warnings)
+    if df.resource_id.fillna("").astype(str).str.strip().eq("").any():
+        errors.append("Every resource must have a non-empty resource_id.")
+    if df.resource_name.fillna("").astype(str).str.strip().eq("").any():
+        errors.append("Every resource must have a non-empty resource_name.")
     if df.resource_id.astype(str).duplicated().any():
         dup = df.loc[df.resource_id.astype(str).duplicated(keep=False), "resource_id"].astype(str).unique()[:8]
         errors.append(f"Duplicate resource IDs found: {', '.join(dup)}")
@@ -117,6 +121,9 @@ def validate_resources(df: pd.DataFrame) -> ValidationReport:
     unknown_locations = sorted(set(df.location.dropna().astype(str)) - set(LOCATIONS))
     if unknown_locations:
         warnings.append(f"Unknown location(s) found: {', '.join(unknown_locations[:8])}")
+    unknown_zones = sorted(set(df.time_zone.dropna().astype(str)) - set(TIME_ZONES))
+    if unknown_zones:
+        warnings.append(f"Unknown time zone(s) found: {', '.join(unknown_zones[:8])}")
     for idx, raw in df.skills.items():
         parsed = parse_skill_string(raw)
         if raw is not None and str(raw).strip() and not parsed:
@@ -158,6 +165,18 @@ def validate_capacity(df: pd.DataFrame, resources: pd.DataFrame) -> ValidationRe
         errors.append(f"Capacity references unknown resource IDs: {', '.join(sorted(unknown_ids)[:8])}")
     if cap.duplicated(["resource_id", "week_start"], keep=False).any():
         errors.append("Duplicate resource/week capacity rows found.")
+    confirmed_plus_leave = (
+        pd.to_numeric(cap["confirmed_allocation_pct"], errors="coerce").fillna(0)
+        + pd.to_numeric(cap["leave_pct"], errors="coerce").fillna(0)
+    )
+    working = pd.to_numeric(cap["working_capacity_pct"], errors="coerce").fillna(0)
+    if (confirmed_plus_leave > working).any():
+        errors.append("Confirmed allocation plus leave cannot exceed working capacity.")
+    tentative_total = confirmed_plus_leave + pd.to_numeric(cap["tentative_allocation_pct"], errors="coerce").fillna(0)
+    if (tentative_total > working).any():
+        warnings.append("Some tentative commitments would exceed working capacity; these rows are flagged as capacity risk.")
+    if cap.week_start.notna().any() and cap.loc[cap.week_start.notna(), "week_start"].dt.weekday.ne(0).any():
+        warnings.append("Some capacity dates are not Mondays; request windows use Monday-based weeks.")
     return ValidationReport(not errors, errors, warnings)
 
 
@@ -175,8 +194,13 @@ def validate_evidence(df: pd.DataFrame, resources: pd.DataFrame) -> ValidationRe
     if unknown_ids:
         errors.append(f"Delivery evidence references unknown resource IDs: {', '.join(sorted(unknown_ids)[:8])}")
     vals = pd.to_numeric(df.outcome_score, errors="coerce")
+    if vals.isna().any():
+        errors.append("Evidence outcome_score must be numeric.")
     if ((vals.dropna() < 0) | (vals.dropna() > 5)).any():
         errors.append("Evidence outcome_score must stay between 0 and 5.")
+    duration = pd.to_numeric(df.duration_months, errors="coerce")
+    if duration.isna().any() or (duration.dropna() < 0).any():
+        errors.append("Evidence duration_months must be a non-negative number.")
     return ValidationReport(not errors, errors, warnings)
 
 
@@ -191,6 +215,8 @@ def validate_request(request: dict) -> ValidationReport:
         end = pd.Timestamp(request["end_date"]).date()
         if end < start:
             errors.append("End date cannot be before start date.")
+        elif (end - start).days > 730:
+            errors.append("Request duration cannot exceed two years.")
     except Exception:
         errors.append("Start and end dates must be valid dates.")
     try:
@@ -225,6 +251,8 @@ def validate_request(request: dict) -> ValidationReport:
     overlap = set(request.get("mandatory_skills", {})) & set(request.get("preferred_skills", {}))
     if overlap:
         warnings.append(f"Skills cannot be both mandatory and preferred. Mandatory takes precedence: {', '.join(sorted(overlap))}")
+    if not request.get("mandatory_skills") and not request.get("preferred_skills"):
+        warnings.append("No skills were selected; recommendations will be driven by capacity, domain and profile evidence.")
     # If a timezone is explicitly selected, validate the location-to-timezone relationship only as information.
     # The actual gate remains exact on the candidate's timezone so mixed-location global searches remain possible.
     selected_locations = request.get("allowed_locations") or []

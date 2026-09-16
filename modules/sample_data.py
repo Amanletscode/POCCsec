@@ -195,10 +195,11 @@ def generate_demo_data(n_resources: int = 320, start: date = date(2026, 8, 31), 
                 leave = 0
                 working = 100
             else:
-                confirmed = max(0, min(100, base + pressure + RNG.randint(-10, 18)))
-                tentative = max(0, min(30, RNG.randint(0, 25) if RNG.random() < 0.58 else 0))
                 leave = RNG.choice([0, 0, 0, 0, 5, 10, 20])
                 working = 80 if RNG.random() < 0.08 else 100
+                confirmed = max(0, min(working - leave, base + pressure + RNG.randint(-10, 18)))
+                remaining = max(working - leave - confirmed, 0)
+                tentative = max(0, min(remaining, RNG.randint(0, 25) if RNG.random() < 0.58 else 0))
             capacity_rows.append({
                 "resource_id": r.resource_id, "week_start": wk, "working_capacity_pct": working,
                 "confirmed_allocation_pct": confirmed, "tentative_allocation_pct": tentative, "leave_pct": leave,

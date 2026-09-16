@@ -4,7 +4,7 @@ import pandas as pd
 from modules.config import DEFAULT_WEIGHTS, GRADE_LEVELS
 from modules.data import load_demo_data, canonicalize_resources, canonicalize_capacity, canonicalize_evidence
 from modules.discovery import discovery_search, interpret_query
-from modules.engine import run_matching, candidate_capacity
+from modules.engine import build_near_matches, run_matching, candidate_capacity
 from modules.sample_data import generate_demo_data
 from modules.validation import parse_skill_string, validate_request, validate_resources, validate_capacity
 DEMO_DATA = generate_demo_data()
@@ -69,6 +69,11 @@ def test_missing_skill_is_exclusion_not_error():
     mr = run_matching(r, c, e, q, DEFAULT_WEIGHTS)
     assert len(mr.table) == len(r)
     assert "gates" in mr.table.columns
+    row = mr.table.iloc[0]
+    assert not (
+        "Mandatory skill missing" in row.exclusion_reasons
+        and "Mandatory proficiency below required level" in row.exclusion_reasons
+    )
 
 
 def test_impossible_combination_is_zero_match_without_fake_candidate():
@@ -150,3 +155,41 @@ def test_dataset_roundtrip_loads():
     assert len(r) == 320
     assert len(c) == 9600
     assert len(e) >= 640
+
+
+def test_scores_are_bounded_and_excluded_candidates_keep_audit_score():
+    r, c, e = DEMO_DATA
+    mr = run_matching(r, c, e, default_request(), DEFAULT_WEIGHTS)
+    assert mr.table.total_score.between(0, 100).all()
+    assert mr.table.potential_score.between(0, 100).all()
+    excluded = mr.table[mr.table.status.eq("Excluded")]
+    assert (excluded.total_score == 0).all()
+    assert (excluded.potential_score > 0).any()
+
+
+def test_near_matches_never_masquerade_as_eligible_recommendations():
+    r, c, e = DEMO_DATA
+    q = default_request()
+    q["languages"] = ["French"]
+    mr = run_matching(r, c, e, q, DEFAULT_WEIGHTS)
+    near = build_near_matches(mr.table, limit=10)
+    assert all(1 <= row["failed_gate_count"] <= 2 for row in near)
+    assert all(row["exclusion_reasons"] for row in near)
+
+
+def test_capacity_validation_rejects_confirmed_overbooking():
+    r, _, _ = DEMO_DATA
+    bad = pd.DataFrame({
+        "resource_id": [r.iloc[0].resource_id], "week_start": ["2026-09-14"],
+        "working_capacity_pct": [80], "confirmed_allocation_pct": [75],
+        "tentative_allocation_pct": [0], "leave_pct": [10],
+    })
+    report = validate_capacity(bad, r)
+    assert not report.ok
+    assert any("cannot exceed working capacity" in error for error in report.errors)
+
+
+def test_request_longer_than_two_years_is_rejected():
+    q = default_request()
+    q["end_date"] = date(2029, 1, 1)
+    assert not validate_request(q).ok
