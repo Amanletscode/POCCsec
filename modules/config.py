@@ -10,16 +10,33 @@ PROFICIENCY = {
 }
 PROFICIENCY_LABELS = list(PROFICIENCY.keys())
 
-# Governed CSEC hierarchy. Lower index = lower seniority.
-GRADE_LEVELS = [
-    "Analyst",
-    "Associate Consultant",
-    "Consultant",
-    "Senior Consultant",
-    "Engagement Manager",
-    "Principal",
-    "Senior Principal",
-]
+# PSA working week used to translate between the source capacity percentage
+# and the hours resource managers allocate across projects.
+STANDARD_WEEK_HOURS = 42.5
+
+# Governed HR grade codes. Analyst and Associate Consultant share grade 130;
+# designation remains the user-facing distinction between those two roles.
+GRADE_LABELS = {
+    130: "Analyst / Associate Consultant",
+    140: "Consultant",
+    150: "Senior Consultant",
+    160: "Engagement Manager",
+    170: "Principal",
+    180: "Senior Principal",
+}
+GRADE_CODES = list(GRADE_LABELS)
+DESIGNATION_TO_GRADE = {
+    "Analyst": 130,
+    "Associate Consultant": 130,
+    "Consultant": 140,
+    "Senior Consultant": 150,
+    "Engagement Manager": 160,
+    "Principal": 170,
+    "Senior Principal": 180,
+}
+DESIGNATIONS = list(DESIGNATION_TO_GRADE)
+# Compatibility alias for integrations that import the old symbol.
+GRADE_LEVELS = DESIGNATIONS
 
 LANGUAGES = [
     "English", "Hindi", "French", "Spanish", "German", "Mandarin", "Japanese",
@@ -56,6 +73,26 @@ DOMAINS = [
     "Market Analytics", "Real World Evidence", "Clinical Analytics",
     "Pharmacovigilance", "Manufacturing Analytics", "Insurance", "Technology",
     "Public Sector", "Financial Services", "Pricing & Promotion",
+]
+
+THERAPEUTIC_AREAS = [
+    "Oncology", "Immunology", "Cardiology", "Diabetes", "Obesity", "Neurology",
+    "Rare Disease", "Respiratory", "Dermatology", "Vaccines", "Hematology",
+    "Ophthalmology", "Women's Health", "Patient Services", "Cross-therapy",
+]
+
+KPI_FOCUS_AREAS = [
+    "Adherence", "Persistence", "Abandonment", "Refill Rate", "Patient Starts",
+    "Patient Reach", "Time to Diagnosis", "Drop-off Rate", "Copay Utilisation",
+    "Enrolment Rate", "Conversion", "Market Share", "NBRx", "TRx", "Market Growth",
+    "HCP Reach", "HCP Engagement", "Channel Conversion", "Forecast Accuracy",
+    "Service Level", "Case Resolution", "Call Abandonment", "Average Handling Time",
+    "First Call Resolution", "Incremental Sales",
+]
+
+TRAVEL_REQUIREMENTS = [
+    "No travel", "Kickoff onsite", "Monthly onsite", "Quarterly onsite",
+    "Up to 10%", "Up to 15%", "Up to 20%",
 ]
 
 SKILL_CATALOG = [
@@ -96,30 +133,26 @@ SKILL_ALIASES = {
 SEARCH_ALIASES = {
     "mmx": {"tags": {"MMX", "Market Mix Modeling"}, "skills": {"Market Mix Modeling"}},
     "pricing": {"tags": {"Pricing", "Pricing Strategy", "Price Elasticity"}, "skills": {"Price Elasticity", "Pricing Strategy"}},
-    "europe": {"locations": {"France", "Germany", "Spain", "UK"}},
+    "europe": {"geographies": {"Europe"}},
     "india": {"locations": {"India"}},
-    "asia": {"locations": {"India", "Singapore", "Japan", "Australia", "Philippines"}},
+    "asia": {"geographies": {"Asia", "APAC"}},
+    "apac": {"geographies": {"APAC"}},
+    "north america": {"geographies": {"North America"}},
 }
 
 DEFAULT_WEIGHTS = {
     "mandatory_skills": 0.35,
-    "preferred_skills": 0.10,
-    "proficiency": 0.10,
-    "relevant_evidence": 0.15,
-    "capacity": 0.15,
-    "delivery_fit": 0.08,
-    "development_alignment": 0.04,
-    "data_confidence": 0.03,
+    "preferred_skills": 0.25,
+    "proficiency": 0.20,
+    "capacity": 0.20,
 }
 
-RULE_VERSION = "RM-RULES-3.1"
+RULE_VERSION = "RM-RULES-4.1"
 TAXONOMY_VERSION = "SKILL-CATALOG-2.0"
-DATA_VERSION = "SYNTHETIC-2026-09.1"
+DATA_VERSION = "SYNTHETIC-2026-09.4"
 
 @dataclass(frozen=True)
 class CapacityPolicy:
     require_full_allocation: bool = True
-    tentative_is_reserved: bool = False
-    allow_small_capacity_shortfall_pct: float = 0.0
 
 CAPACITY_POLICY = CapacityPolicy()

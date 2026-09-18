@@ -5,8 +5,9 @@ from typing import Any
 import pandas as pd
 
 from .config import (
-    DOMAINS,
-    GRADE_LEVELS,
+    DESIGNATIONS,
+    DESIGNATION_TO_GRADE,
+    GRADE_CODES,
     LANGUAGES,
     LOCATION_TO_TIMEZONE,
     LOCATIONS,
@@ -25,15 +26,10 @@ class ValidationReport:
 REQUIRED_RESOURCE_COLUMNS = {
     "resource_id", "resource_name", "team", "grade", "location", "time_zone",
     "languages", "skills", "domains", "development_interests", "years_experience",
-    "delivery_rating", "profile_confidence", "profile_updated",
+    "delivery_rating", "profile_updated",
 }
 REQUIRED_CAPACITY_COLUMNS = {
-    "resource_id", "week_start", "working_capacity_pct", "confirmed_allocation_pct",
-    "tentative_allocation_pct", "leave_pct",
-}
-REQUIRED_EVIDENCE_COLUMNS = {
-    "resource_id", "project_name", "project_type", "domain", "role", "skills_used",
-    "duration_months", "project_end", "outcome_score",
+    "resource_id", "week_start", "available_capacity_pct",
 }
 
 ALIAS_LOWER = {k.lower(): v for k, v in SKILL_ALIASES.items()}
@@ -115,9 +111,12 @@ def validate_resources(df: pd.DataFrame) -> ValidationReport:
     if df.resource_id.astype(str).duplicated().any():
         dup = df.loc[df.resource_id.astype(str).duplicated(keep=False), "resource_id"].astype(str).unique()[:8]
         errors.append(f"Duplicate resource IDs found: {', '.join(dup)}")
-    unknown_grades = sorted(set(df.grade.dropna().astype(str)) - set(GRADE_LEVELS))
+    grade_values = pd.to_numeric(df.grade, errors="coerce")
+    unknown_grades = sorted(set(grade_values.dropna().astype(int)) - set(GRADE_CODES))
+    if grade_values.isna().any():
+        errors.append("Resource grade must be a numeric governed grade code.")
     if unknown_grades:
-        errors.append(f"Unknown resource grade(s): {', '.join(unknown_grades[:8])}")
+        errors.append(f"Unknown resource grade code(s): {', '.join(map(str, unknown_grades[:8]))}")
     unknown_locations = sorted(set(df.location.dropna().astype(str)) - set(LOCATIONS))
     if unknown_locations:
         warnings.append(f"Unknown location(s) found: {', '.join(unknown_locations[:8])}")
@@ -130,7 +129,7 @@ def validate_resources(df: pd.DataFrame) -> ValidationReport:
             warnings.append(f"Resource row {idx + 2}: no valid governed skill entries were found.")
             if len(warnings) >= 12:
                 break
-    for col, lo, hi in [("delivery_rating", 0, 5), ("profile_confidence", 0, 1), ("years_experience", 0, 60)]:
+    for col, lo, hi in [("delivery_rating", 0, 5), ("years_experience", 0, 60)]:
         if col in df.columns:
             vals = pd.to_numeric(df[col], errors="coerce")
             if vals.isna().any():
@@ -154,60 +153,25 @@ def validate_capacity(df: pd.DataFrame, resources: pd.DataFrame) -> ValidationRe
     cap["week_start"] = pd.to_datetime(cap["week_start"], errors="coerce").dt.normalize()
     if cap.week_start.isna().any():
         errors.append("Capacity contains invalid week_start values.")
-    for col in ["working_capacity_pct", "confirmed_allocation_pct", "tentative_allocation_pct", "leave_pct"]:
-        vals = pd.to_numeric(cap[col], errors="coerce")
-        if vals.isna().any():
-            errors.append(f"Capacity column '{col}' contains non-numeric values.")
-        if ((vals < 0) | (vals > 100)).any():
-            errors.append(f"Capacity column '{col}' must stay between 0 and 100.")
+    vals = pd.to_numeric(cap["available_capacity_pct"], errors="coerce")
+    if vals.isna().any():
+        errors.append("Capacity column 'available_capacity_pct' contains non-numeric values.")
+    if ((vals < 0) | (vals > 100)).any():
+        errors.append("Capacity column 'available_capacity_pct' must stay between 0 and 100.")
     unknown_ids = set(cap.resource_id.astype(str)) - set(resources.resource_id.astype(str))
     if unknown_ids:
         errors.append(f"Capacity references unknown resource IDs: {', '.join(sorted(unknown_ids)[:8])}")
     if cap.duplicated(["resource_id", "week_start"], keep=False).any():
         errors.append("Duplicate resource/week capacity rows found.")
-    confirmed_plus_leave = (
-        pd.to_numeric(cap["confirmed_allocation_pct"], errors="coerce").fillna(0)
-        + pd.to_numeric(cap["leave_pct"], errors="coerce").fillna(0)
-    )
-    working = pd.to_numeric(cap["working_capacity_pct"], errors="coerce").fillna(0)
-    if (confirmed_plus_leave > working).any():
-        errors.append("Confirmed allocation plus leave cannot exceed working capacity.")
-    tentative_total = confirmed_plus_leave + pd.to_numeric(cap["tentative_allocation_pct"], errors="coerce").fillna(0)
-    if (tentative_total > working).any():
-        warnings.append("Some tentative commitments would exceed working capacity; these rows are flagged as capacity risk.")
     if cap.week_start.notna().any() and cap.loc[cap.week_start.notna(), "week_start"].dt.weekday.ne(0).any():
         warnings.append("Some capacity dates are not Mondays; request windows use Monday-based weeks.")
-    return ValidationReport(not errors, errors, warnings)
-
-
-def validate_evidence(df: pd.DataFrame, resources: pd.DataFrame) -> ValidationReport:
-    errors: list[str] = []
-    warnings: list[str] = []
-    missing = REQUIRED_EVIDENCE_COLUMNS - set(df.columns)
-    if missing:
-        errors.append(f"Delivery evidence is missing required columns: {', '.join(sorted(missing))}")
-        return ValidationReport(False, errors, warnings)
-    if df.empty:
-        warnings.append("Delivery evidence dataset is empty. Relevant evidence scores will be conservative.")
-        return ValidationReport(True, errors, warnings)
-    unknown_ids = set(df.resource_id.astype(str)) - set(resources.resource_id.astype(str))
-    if unknown_ids:
-        errors.append(f"Delivery evidence references unknown resource IDs: {', '.join(sorted(unknown_ids)[:8])}")
-    vals = pd.to_numeric(df.outcome_score, errors="coerce")
-    if vals.isna().any():
-        errors.append("Evidence outcome_score must be numeric.")
-    if ((vals.dropna() < 0) | (vals.dropna() > 5)).any():
-        errors.append("Evidence outcome_score must stay between 0 and 5.")
-    duration = pd.to_numeric(df.duration_months, errors="coerce")
-    if duration.isna().any() or (duration.dropna() < 0).any():
-        errors.append("Evidence duration_months must be a non-negative number.")
     return ValidationReport(not errors, errors, warnings)
 
 
 def validate_request(request: dict) -> ValidationReport:
     errors: list[str] = []
     warnings: list[str] = []
-    required = ["start_date", "end_date", "allocation_pct", "grade_min", "grade_max"]
+    required = ["start_date", "end_date", "allocation_pct", "role_mix"]
     if any(k not in request for k in required):
         return ValidationReport(False, ["The staffing request is incomplete."], warnings)
     try:
@@ -225,19 +189,53 @@ def validate_request(request: dict) -> ValidationReport:
             errors.append("Allocation must be between 1% and 100%.")
     except Exception:
         errors.append("Allocation must be numeric.")
-    if request.get("grade_min") not in GRADE_LEVELS or request.get("grade_max") not in GRADE_LEVELS:
-        errors.append("Grade range contains an unsupported grade.")
-    elif GRADE_LEVELS.index(request["grade_min"]) > GRADE_LEVELS.index(request["grade_max"]):
-        errors.append("Minimum grade cannot be above maximum grade.")
+    role_mix = request.get("role_mix") or []
+    if not isinstance(role_mix, list) or not role_mix:
+        errors.append("Add at least one role and headcount.")
+    else:
+        seen = set()
+        for row in role_mix:
+            designation = row.get("designation")
+            try:
+                headcount = int(row.get("headcount", 0))
+            except (TypeError, ValueError):
+                headcount = 0
+            if designation not in DESIGNATIONS:
+                errors.append(f"Unsupported designation: {designation}")
+            elif int(row.get("grade", DESIGNATION_TO_GRADE[designation])) != DESIGNATION_TO_GRADE[designation]:
+                errors.append(f"Grade code does not match designation: {designation}")
+            if not 1 <= headcount <= 50:
+                errors.append("Each role headcount must be between 1 and 50.")
+            key = designation
+            if key in seen:
+                errors.append(f"Duplicate role row: {designation}")
+            seen.add(key)
+            for skill_group in ["mandatory_skills", "preferred_skills"]:
+                values = row.get(skill_group, {}) or {}
+                if not isinstance(values, dict):
+                    errors.append(f"{designation} {skill_group} must be a skill-to-level mapping.")
+                    continue
+                for skill, level in values.items():
+                    if skill not in SKILL_CATALOG:
+                        errors.append(f"Unsupported skill for {designation}: {skill}")
+                    if level not in PROFICIENCY.values():
+                        errors.append(f"Invalid proficiency for {designation}: {skill}")
+            role_overlap = set(row.get("mandatory_skills", {})) & set(row.get("preferred_skills", {}))
+            if role_overlap:
+                warnings.append(
+                    f"{designation}: mandatory takes precedence for {', '.join(sorted(role_overlap))}."
+                )
     for field, allowed, label in [
         ("allowed_locations", LOCATIONS, "location"),
         ("languages", LANGUAGES, "language"),
         ("time_zones", TIME_ZONES, "time zone"),
-        ("domains", DOMAINS, "domain"),
     ]:
         for val in request.get(field, []) or []:
             if val not in allowed:
                 errors.append(f"Unsupported {label}: {val}")
+    for team in request.get("allowed_teams", []) or []:
+        if not str(team).strip():
+            errors.append("Specific team cannot be blank.")
     for group in ["mandatory_skills", "preferred_skills"]:
         values = request.get(group, {}) or {}
         if not isinstance(values, dict):
@@ -251,8 +249,12 @@ def validate_request(request: dict) -> ValidationReport:
     overlap = set(request.get("mandatory_skills", {})) & set(request.get("preferred_skills", {}))
     if overlap:
         warnings.append(f"Skills cannot be both mandatory and preferred. Mandatory takes precedence: {', '.join(sorted(overlap))}")
-    if not request.get("mandatory_skills") and not request.get("preferred_skills"):
-        warnings.append("No skills were selected; recommendations will be driven by capacity, domain and profile evidence.")
+    has_role_skills = any(
+        row.get("mandatory_skills") or row.get("preferred_skills")
+        for row in role_mix
+    )
+    if not has_role_skills and not request.get("mandatory_skills") and not request.get("preferred_skills"):
+        warnings.append("No skills were selected; recommendations will be driven by capacity and domain.")
     # If a timezone is explicitly selected, validate the location-to-timezone relationship only as information.
     # The actual gate remains exact on the candidate's timezone so mixed-location global searches remain possible.
     selected_locations = request.get("allowed_locations") or []

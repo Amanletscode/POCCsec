@@ -2,11 +2,10 @@ from __future__ import annotations
 
 from datetime import date, timedelta
 from pathlib import Path
-import hashlib
 import random
 import pandas as pd
 
-from .config import GRADE_LEVELS, LANGUAGES, LOCATIONS, LOCATION_TO_TIMEZONE, DOMAINS, SKILL_CATALOG
+from .config import DESIGNATIONS, DESIGNATION_TO_GRADE, LANGUAGES, LOCATIONS, LOCATION_TO_TIMEZONE, DOMAINS, SKILL_CATALOG
 
 RNG = random.Random(20260915)
 
@@ -52,8 +51,29 @@ PROJECTS_BY_DOMAIN = {
     "Real World Evidence": ["RWE study enablement", "Claims evidence accelerator", "Observational research analytics"],
 }
 ROLE_BY_GRADE = {
-    "Analyst": "Data Analyst", "Associate Consultant": "Analytics Consultant", "Consultant": "Consultant",
-    "Senior Consultant": "Senior Consultant", "Engagement Manager": "Engagement Manager", "Principal": "Principal", "Senior Principal": "Senior Principal",
+    designation: designation for designation in DESIGNATIONS
+}
+
+# Skills are deliberately cumulative: senior people retain hands-on foundations
+# while adding cloud, architecture, delivery and leadership depth.
+ROLE_SKILLS = {
+    "Analyst": ["SQL", "Python", "Excel", "Tableau", "Data Visualization", "GenAI"],
+    "Associate Consultant": ["SQL", "Python", "Excel", "Tableau", "Power BI", "Data Visualization", "GenAI", "Healthcare Data"],
+    "Consultant": ["SQL", "Python", "Tableau", "Power BI", "GenAI", "Healthcare Data", "AWS", "Azure", "Databricks", "Project Management"],
+    "Senior Consultant": ["SQL", "Python", "Power BI", "GenAI", "AWS", "Azure", "Databricks", "Snowflake", "Data Engineering", "Machine Learning", "Project Management"],
+    "Engagement Manager": ["SQL", "Python", "Power BI", "GenAI", "AWS", "Azure", "Databricks", "Data Engineering", "Machine Learning", "AI Governance", "Project Management"],
+    "Principal": ["SQL", "Python", "Power BI", "Tableau", "GenAI", "Agentic AI", "AWS", "Azure", "GCP", "Databricks", "Snowflake", "Data Engineering", "Machine Learning", "AI Governance", "Project Management"],
+    "Senior Principal": ["SQL", "Python", "Power BI", "Tableau", "GenAI", "Agentic AI", "AWS", "Azure", "GCP", "Databricks", "Snowflake", "Data Engineering", "Machine Learning", "MLOps", "AI Governance", "Project Management"],
+}
+ROLE_SKILL_COUNT = {
+    "Analyst": (7, 10), "Associate Consultant": (9, 12), "Consultant": (11, 15),
+    "Senior Consultant": (13, 17), "Engagement Manager": (14, 19),
+    "Principal": (17, 22), "Senior Principal": (19, 25),
+}
+ROLE_PROJECT_COUNT = {
+    "Analyst": 2, "Associate Consultant": 3, "Consultant": 4,
+    "Senior Consultant": 5, "Engagement Manager": 6, "Principal": 7,
+    "Senior Principal": 8,
 }
 
 MANAGERS = [
@@ -67,14 +87,66 @@ def _skill_string(skills: dict[str, int]) -> str:
     return "|".join(f"{k}:{v}" for k, v in sorted(skills.items()))
 
 
-def _choose_skills(domain: str, level: int) -> dict[str, int]:
-    core = DOMAIN_SKILLS.get(domain, ["SQL", "Python", "Data Visualization"])
-    extras = [x for x in SKILL_CATALOG if x not in core]
-    selected = list(dict.fromkeys(core))[:]
-    if len(selected) < 6:
-        selected += RNG.sample(extras, min(6 - len(selected), len(extras)))
-    selected = RNG.sample(selected, min(len(selected), RNG.randint(7, 12)))
-    return {skill: max(1, min(4, level + RNG.choice([-1, 0, 0, 1]))) for skill in selected}
+def _choose_skills(domain: str, designation: str) -> dict[str, int]:
+    seniority = DESIGNATIONS.index(designation)
+    foundations = ROLE_SKILLS[designation]
+    domain_skills = DOMAIN_SKILLS.get(domain, ["SQL", "Python", "Data Visualization"])
+    pool = list(dict.fromkeys(foundations + domain_skills + SKILL_CATALOG))
+    low, high = ROLE_SKILL_COUNT[designation]
+    target = RNG.randint(low, high)
+    selected = list(dict.fromkeys(foundations + domain_skills))
+    if len(selected) > target:
+        protected = foundations[: min(6, len(foundations))]
+        remainder = [skill for skill in selected if skill not in protected]
+        selected = protected + RNG.sample(remainder, target - len(protected))
+    elif len(selected) < target:
+        extras = [skill for skill in pool if skill not in selected]
+        selected += RNG.sample(extras, min(target - len(selected), len(extras)))
+
+    skills = {}
+    for skill in selected:
+        # Foundations improve gradually; specialists can be one level deeper.
+        base = 1 if seniority == 0 else 2 if seniority <= 2 else 3 if seniority <= 4 else 4
+        if skill in foundations[:6]:
+            base += 1 if seniority >= 2 else 0
+        skills[skill] = max(1, min(4, base + RNG.choice([-1, 0, 0, 0, 1])))
+    return skills
+
+
+def _ensure_profile_breadth(profile: dict) -> None:
+    """Bring hand-authored anchors up to the same seniority realism as generated rows."""
+    designation = profile["grade"]
+    seniority = DESIGNATIONS.index(designation)
+    minimum_skills = ROLE_SKILL_COUNT[designation][0]
+    domains = sorted(profile["domains"])
+    domain_skills = [
+        skill for domain in domains for skill in DOMAIN_SKILLS.get(domain, [])
+    ]
+    candidates = list(
+        dict.fromkeys(ROLE_SKILLS[designation] + domain_skills + SKILL_CATALOG)
+    )
+    for skill in candidates:
+        if len(profile["skills"]) >= minimum_skills:
+            break
+        if skill not in profile["skills"]:
+            base = 1 if seniority == 0 else 2 if seniority <= 2 else 3 if seniority <= 4 else 4
+            profile["skills"][skill] = min(4, base)
+
+    target_projects = ROLE_PROJECT_COUNT[designation]
+    project_pool = list(
+        dict.fromkeys(
+            [
+                project
+                for domain in domains
+                for project in PROJECTS_BY_DOMAIN.get(domain, [])
+            ]
+            + [project for projects in PROJECTS_BY_DOMAIN.values() for project in projects]
+        )
+    )
+    for project in project_pool:
+        if len(profile["project"]) >= target_projects:
+            break
+        profile["project"].add(project)
 
 
 def _email(name: str) -> str:
@@ -83,10 +155,11 @@ def _email(name: str) -> str:
 
 
 def generate_demo_data(n_resources: int = 320, start: date = date(2026, 8, 31), weeks: int = 30):
+    RNG.seed(20260915)
     anchors = [
         {
             "resource_id": "EMP-1001", "resource_name": "Aarav Sharma", "location": "India", "grade": "Consultant", "team": "CSEC Analytics India",
-            "skills": {"SQL": 4, "Python": 3, "Healthcare Data": 3, "Power BI": 4, "Claims Data": 3, "GenAI": 3, "RAG": 2},
+            "skills": {"SQL": 4, "Python": 3, "Healthcare Data": 3, "Power BI": 4, "Tableau": 3, "Claims Data": 3, "GenAI": 3, "RAG": 2},
             "languages": {"English", "Hindi"}, "domains": {"Healthcare", "Patient Services", "Real World Evidence"}, "dev": {"GenAI", "Agentic AI"},
             "years": 6.2, "rating": 4.7, "confidence": 0.97, "geo": {"India", "Europe"},
             "country": {"India", "UK", "Germany"}, "project": {"Healthcare Analytics", "RWE", "Claims Analytics"}, "tags": {"Healthcare SME", "Cross-team analytics"},
@@ -131,9 +204,9 @@ def generate_demo_data(n_resources: int = 320, start: date = date(2026, 8, 31), 
     grade_base = {"Analyst": 1, "Associate Consultant": 2, "Consultant": 2, "Senior Consultant": 3, "Engagement Manager": 3, "Principal": 4, "Senior Principal": 4}
     while len(rows) < n_resources:
         loc = RNG.choice(LOCATIONS)
-        grade = RNG.choice(GRADE_LEVELS)
+        grade = RNG.choice(DESIGNATIONS)
         domain = RNG.choice(DOMAINS)
-        skills = _choose_skills(domain, grade_base[grade])
+        skills = _choose_skills(domain, grade)
         base_lang = {"India": {"English", "Hindi"}, "France": {"French", "English"}, "Germany": {"German", "English"}, "Spain": {"Spanish", "English"},
                      "USA": {"English"}, "UK": {"English"}, "Canada": {"English", "French"}, "Singapore": {"English"}, "Japan": {"Japanese", "English"},
                      "Australia": {"English"}, "Philippines": {"English"}}[loc]
@@ -150,7 +223,12 @@ def generate_demo_data(n_resources: int = 320, start: date = date(2026, 8, 31), 
         if loc in {"France", "Germany", "Spain", "UK"} and RNG.random() < 0.35:
             country.add(RNG.choice(["France", "Germany", "Spain", "UK", "Italy", "Netherlands"]))
             geo.add("Europe")
-        project_pool = PROJECTS_BY_DOMAIN.get(domain, ["Analytics Project"]); project = set(RNG.sample(project_pool, RNG.randint(1, min(2, len(project_pool)))))
+        project_pool = list(dict.fromkeys(
+            PROJECTS_BY_DOMAIN.get(domain, ["Analytics transformation"])
+            + [name for names in PROJECTS_BY_DOMAIN.values() for name in names]
+        ))
+        project_count = min(ROLE_PROJECT_COUNT[grade], len(project_pool))
+        project = set(RNG.sample(project_pool, project_count))
         tags = {domain + " SME"} if grade_base[grade] >= 3 else {"Emerging " + domain}
         rows.append({
             "resource_id": f"EMP-{idx}", "resource_name": f"{RNG.choice(FIRST)} {RNG.choice(LAST)}", "location": loc, "grade": grade,
@@ -160,72 +238,49 @@ def generate_demo_data(n_resources: int = 320, start: date = date(2026, 8, 31), 
         })
         idx += 1
 
+    for profile in rows:
+        _ensure_profile_breadth(profile)
+
     resources = []
     for i, r in enumerate(rows):
         manager_name, manager_email = MANAGERS[i % len(MANAGERS)]
         resources.append({
-            "resource_id": r["resource_id"], "resource_name": r["resource_name"], "team": r["team"], "grade": r["grade"],
+            "resource_id": r["resource_id"], "resource_name": r["resource_name"], "team": r["team"],
+            "grade": DESIGNATION_TO_GRADE[r["grade"]],
             "role_title": ROLE_BY_GRADE[r["grade"]], "location": r["location"], "time_zone": LOCATION_TO_TIMEZONE[r["location"]],
             "languages": "|".join(sorted(r["languages"])), "skills": _skill_string(r["skills"]), "domains": "|".join(sorted(r["domains"])),
             "development_interests": "|".join(sorted(r["dev"])), "years_experience": r["years"], "delivery_rating": r["rating"],
-            "profile_confidence": r["confidence"], "profile_updated": date(2026, 8, 1) + timedelta(days=RNG.randint(0, 40)),
+            "profile_updated": date(2026, 8, 1) + timedelta(days=RNG.randint(0, 40)),
             "contact_email": _email(r["resource_name"]), "manager_name": manager_name, "manager_email": manager_email,
-            "geography_expertise": "|".join(sorted(r["geo"])), "country_expertise": "|".join(sorted(r["country"])),
-            "project_expertise": "|".join(sorted(r["project"])), "capability_tags": "|".join(sorted(r["tags"])),
+            "geography_expertise": "|".join(sorted(r["geo"])),
+            "project_expertise": "|".join(sorted(r["project"])),
             "expertise_summary": f"{r['grade']} in {r['team']} with {r['years']:.1f} years' experience across {', '.join(sorted(r['domains'])[:3])}.",
         })
     resources_df = pd.DataFrame(resources)
 
     capacity_rows = []
-    evidence_rows = []
-    projects = [
-        "Patient analytics modernization", "Claims reporting transformation", "Commercial dashboard rollout", "RWE study enablement",
-        "GenAI insight accelerator", "Clinical analytics platform", "Data quality remediation", "Forecast automation",
-        "Omnichannel measurement", "Safety signal analytics", "MMX European pricing study", "Price elasticity assessment",
-    ]
-    for i, r in resources_df.iterrows():
-        base = 58 if r.grade in ["Analyst", "Associate Consultant"] else 53 if r.grade in ["Consultant", "Senior Consultant"] else 46
-        pressure = RNG.randint(-18, 24)
+    for _, r in resources_df.iterrows():
+        # Direct weekly availability stays realistic and demo-friendly.
+        # Every value is guaranteed to remain within 30–70%.
+        # Keep most profiles demo-available while retaining a realistic lower-
+        # availability cohort for exclusion and scenario demonstrations.
+        base = RNG.randint(35, 49) if RNG.random() < 0.20 else RNG.randint(52, 66)
         for w in range(weeks):
             wk = start + timedelta(weeks=w)
-            # Anchors are intentionally stable enough to demonstrate the full decision workflow.
             if r.resource_id in {"EMP-1001", "EMP-1002"}:
-                confirmed = 27 + (w % 4) * 3
-                tentative = 0 if w % 5 else 8
-                leave = 0
-                working = 100
+                available = 60 + (w % 3) * 3
             else:
-                leave = RNG.choice([0, 0, 0, 0, 5, 10, 20])
-                working = 80 if RNG.random() < 0.08 else 100
-                confirmed = max(0, min(working - leave, base + pressure + RNG.randint(-10, 18)))
-                remaining = max(working - leave - confirmed, 0)
-                tentative = max(0, min(remaining, RNG.randint(0, 25) if RNG.random() < 0.58 else 0))
+                available = max(30, min(70, base + RNG.randint(-5, 5)))
             capacity_rows.append({
-                "resource_id": r.resource_id, "week_start": wk, "working_capacity_pct": working,
-                "confirmed_allocation_pct": confirmed, "tentative_allocation_pct": tentative, "leave_pct": leave,
+                "resource_id": r.resource_id, "week_start": wk,
+                "available_capacity_pct": available,
             })
-        # Historical delivery evidence: 2 to 6 records per resource.
-        domains = split = [x for x in str(r.domains).split("|") if x]
-        skill_names = [x.rsplit(":", 1)[0] for x in str(r.skills).split("|") if x]
-        for j in range(RNG.randint(2, 6)):
-            domain = RNG.choice(domains) if domains else "Technology"
-            project_name = RNG.choice(PROJECTS_BY_DOMAIN.get(domain, projects))
-            if r.resource_id in {"EMP-1004", "EMP-1005", "EMP-1006"} and RNG.random() < 0.65:
-                project_name = RNG.choice(["MMX European pricing study", "Price elasticity assessment", "European commercial analytics"])
-                domain = "Pricing & Promotion"
-            used = RNG.sample(skill_names, min(len(skill_names), RNG.randint(2, 5)))
-            evidence_rows.append({
-                "resource_id": r.resource_id, "project_name": project_name, "project_type": "Analytics / Consulting",
-                "domain": domain, "role": r.role_title, "skills_used": "|".join(used), "duration_months": RNG.randint(2, 12),
-                "project_end": date(2026, 9, 1) - timedelta(days=RNG.randint(40, 1500)), "outcome_score": round(RNG.uniform(3.6, 4.9), 1),
-            })
-    return resources_df, pd.DataFrame(capacity_rows), pd.DataFrame(evidence_rows)
+    return resources_df, pd.DataFrame(capacity_rows)
 
 
 def write_demo_data(data_dir: Path):
     data_dir.mkdir(parents=True, exist_ok=True)
-    resources, capacity, evidence = generate_demo_data()
+    resources, capacity = generate_demo_data()
     resources.to_csv(data_dir / "resources.csv", index=False)
     capacity.to_csv(data_dir / "capacity.csv", index=False)
-    evidence.to_csv(data_dir / "delivery_evidence.csv", index=False)
-    return resources, capacity, evidence
+    return resources, capacity

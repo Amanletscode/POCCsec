@@ -1,572 +1,1699 @@
 from __future__ import annotations
 
-import json
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 import streamlit as st
 
 from modules.config import (
-    DATA_VERSION, DEFAULT_WEIGHTS, DOMAINS, GRADE_LEVELS, LANGUAGES, LOCATIONS,
-    PROFICIENCY, PROFICIENCY_LABELS, RULE_VERSION, SKILL_CATALOG, TAXONOMY_VERSION,
+    DATA_VERSION,
+    DEFAULT_WEIGHTS,
+    DESIGNATIONS,
+    DESIGNATION_TO_GRADE,
+    KPI_FOCUS_AREAS,
+    LANGUAGES,
+    LOCATIONS,
+    PROFICIENCY,
+    PROFICIENCY_LABELS,
+    SKILL_CATALOG,
+    STANDARD_WEEK_HOURS,
+    THERAPEUTIC_AREAS,
     TIME_ZONES,
+    TRAVEL_REQUIREMENTS,
 )
-from modules.data import canonicalize_capacity, canonicalize_evidence, canonicalize_resources, dataset_health, load_demo_data, load_workbook
-from modules.discovery import discovery_search, interpret_query, mock_llm_adapter_spec
-from modules.engine import build_alternatives, build_near_matches, candidate_capacity, run_matching
+from modules.data import (
+    canonicalize_capacity,
+    canonicalize_resources,
+    dataset_health,
+    load_demo_data,
+    load_workbook,
+)
+from modules.discovery import discovery_search
+from modules.engine import build_near_matches, run_matching
+from modules.records import (
+    ALLOCATION_COLUMNS,
+    OPPORTUNITY_COLUMNS,
+    apply_confirmed_allocations,
+    append_confirmed_allocations,
+    load_register,
+)
 from modules.sample_data import write_demo_data
-from modules.validation import parse_skill_string, split_pipe, validate_request
+from modules.validation import parse_skill_string, validate_request
 
-st.set_page_config(page_title="CSEC RM Copilot", page_icon="🧭", layout="wide", initial_sidebar_state="expanded")
+
+st.set_page_config(
+    page_title="CSEC Resource Manager",
+    page_icon="◫",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
 DATA_DIR = Path(__file__).parent / "data"
+REGISTER_PATH = DATA_DIR / "staffing_register.xlsx"
 DATA_DIR.mkdir(exist_ok=True)
-if not (DATA_DIR / "resources.csv").exists():
+if not (DATA_DIR / "resources.csv").exists() or not (DATA_DIR / "capacity.csv").exists():
     write_demo_data(DATA_DIR)
+
+WORKFLOW_PAGES = ["Project brief", "Team & skills", "Recommendations"]
+TOOL_PAGES = ["Capacity & risk", "Ask Copilot"]
+PAGES = WORKFLOW_PAGES + TOOL_PAGES
+NAV_LABELS = {page: page for page in PAGES}
+NAV_HELP = {
+    "Project brief": "Delivery window, eligibility rules and opportunity record.",
+    "Team & skills": "Headcount per designation, required skills and ranking weights.",
+    "Recommendations": "People who meet every requirement, ranked by fit.",
+    "Capacity & risk": "Unused capacity, coverage risk and the weekly capacity trend.",
+    "Ask Copilot": "Search in plain language, for example: Tableau consultants in India.",
+}
 
 
 @st.cache_data(max_entries=3)
-def load_cached_demo_data(data_dir: str, data_version: str):
-    # data_version deliberately participates in the cache key.
+def load_cached_data(data_dir: str, data_version: str):
     del data_version
     return load_demo_data(Path(data_dir))
 
 
-# Always canonicalize, because uploaded/demo files can have missing optional fields.
-resources, capacity, evidence = load_cached_demo_data(str(DATA_DIR), DATA_VERSION)
-
-
-def styled_header():
+def apply_theme() -> None:
     st.markdown(
         """
         <style>
-        .block-container {max-width: 1550px; padding-top: 1.0rem; padding-bottom: 2.0rem;}
-        .hero {padding: 1.35rem 1.55rem; border-radius: 18px; background: linear-gradient(135deg,#17365D,#315A8A); color:#fff; margin-bottom:1rem;}
-        .hero h1 {margin:0;color:#fff;font-size:2.1rem;}
-        .hero p {margin:.35rem 0 0;color:#eaf2fb;font-size:1rem;}
-        .soft {padding:.75rem 1rem;border-radius:12px;background:#f7f9fc;border:1px solid #e6ebf1;}
-        .pass {color:#157347;font-weight:700;}
-        .fail {color:#b42318;font-weight:700;}
-        .warn {padding:.55rem .7rem;border-radius:9px;background:#fff7e6;border:1px solid #f4c27a;margin:.25rem 0;}
-        .chatq {padding:.75rem 1rem;border-radius:14px;background:#f2f6fb;border:1px solid #dbe5f0;margin:.35rem 0;}
+        :root {
+            --ink:#253746; --muted:#607582; --line:#D7E2E8;
+            --brand:#005487; --brand-dark:#003B61; --accent:#00A1DF;
+            --accent-dark:#0089BE; --soft:#F5F8FA; --pale:#EAF5FA;
+            --ok:#16806a; --risk:#a4442c;
+        }
+        .block-container {max-width:1420px; padding-top:1.1rem; padding-bottom:3.5rem;}
+        h1, h2, h3 {color:var(--ink); letter-spacing:-.015em;}
+        .brandbar {display:flex; justify-content:space-between; align-items:flex-end;
+            padding-bottom:.7rem; border-bottom:1px solid var(--line); margin-bottom:.9rem;}
+        .brandbar .name {font-size:1.15rem; font-weight:700; color:var(--ink);}
+        .brandbar .sub {font-size:.85rem; color:var(--muted);}
+        .brandbar .ctx {text-align:right; font-size:.85rem; color:var(--muted);}
+        .brandbar .ctx b {color:var(--ink);}
+        .pagehead {margin:.4rem 0 1.1rem;}
+        .pagehead h1 {font-size:1.5rem; margin:0;}
+        .pagehead p {margin:.3rem 0 0; color:var(--muted); max-width:70ch;}
+        .cardtitle {font-size:.78rem; font-weight:700; letter-spacing:.08em;
+            text-transform:uppercase; color:var(--brand); margin:.1rem 0 .55rem;}
+        /* Cards in the same row share one height, so field groups stay aligned.
+           Element containers keep their natural height, otherwise the card title
+           would stretch and push the fields to the bottom of the card. */
+        div[data-testid="stColumn"] div:has(.cardtitle):not([data-testid="stElementContainer"])
+            {height:100%;}
+        div[data-testid="stColumn"] div[data-testid="stElementContainer"]:has(.cardtitle)
+            {flex:0 0 auto;}
+        div[data-testid="stColumn"] div:has(> div[data-testid="stElementContainer"] .cardtitle)
+            {border-radius:10px;}
+        .note {padding:.75rem .95rem; border-left:3px solid var(--accent);
+            background:var(--soft); border-radius:6px; color:var(--muted); font-size:.9rem;}
+        .preview {padding:.65rem .9rem; border:1px dashed var(--line);
+            border-radius:8px; color:var(--muted); font-size:.9rem; background:#fff;}
+        .pass {color:var(--ok); font-weight:600;}
+        .fail {color:var(--risk); font-weight:600;}
+        div[data-testid="stMetric"] {border:1px solid var(--line); border-radius:10px;
+            padding:.7rem .85rem; background:#fff;}
+        div[data-testid="stMetricLabel"] p {color:var(--muted); font-size:.82rem;}
+        .stButton > button {border-radius:8px; min-height:2.6rem; font-weight:600;}
+        [data-testid="stBaseButton-primary"] {background:#005487; border-color:#005487;}
+        [data-testid="stBaseButton-primary"]:hover {background:#003B61; border-color:#003B61;}
+        [data-testid="stBaseButton-secondary"]:hover {color:#005487; border-color:#00A1DF; background:#EAF5FA;}
+        a {color:#005487;}
+        section[data-testid="stFileUploaderDropzone"] {border-radius:10px;}
         </style>
         """,
         unsafe_allow_html=True,
     )
-    st.markdown(
-        '<div class="hero"><h1>🧭 CSEC RM Copilot</h1><p>Capability discovery first. Explainable resource matching underneath. Human decision always stays in control.</p></div>',
-        unsafe_allow_html=True,
-    )
 
 
-def serialize_df(df: pd.DataFrame) -> bytes:
-    out = df.copy()
-    for col in out.columns:
-        out[col] = out[col].apply(lambda x: json.dumps(x, default=str) if isinstance(x, (dict, list, set)) else x)
-    return out.to_csv(index=False).encode("utf-8")
+def navigate(page: str) -> None:
+    """Change page using plain state, never a widget key, so reruns stay safe."""
+    st.session_state.page = page
+    st.rerun()
 
 
 def request_defaults() -> dict:
     return {
-        "request_id": "REQ-2026-001",
-        "role_title": "Healthcare Data Analyst",
-        "start_date": date(2026, 9, 14),
-        "end_date": date(2026, 11, 30),
+        "request_id": "OPP-2026-011",
+        "project_name": "Healthcare analytics delivery",
+        "start_date": date.today() + timedelta(days=7),
+        "end_date": date.today() + timedelta(days=84),
+        "allocation_hours": 21.25,
         "allocation_pct": 50,
         "allowed_locations": ["India"],
         "time_zones": ["Asia/Kolkata"],
         "languages": ["English"],
-        "domains": ["Healthcare"],
-        "mandatory_skills": {"SQL": 3, "Python": 2, "Healthcare Data": 2},
-        "preferred_skills": {"Power BI": 2, "Claims Data": 2},
-        "grade_min": "Analyst",
-        "grade_max": "Consultant",
-        "capacity_strict": True,
-        "domain_strict": False,
+        "allowed_teams": [],
+        "client": "Axerion Pharma",
+        "project_description": "Build patient-level analytics and reporting for delivery teams.",
+        "therapeutic_area": "Oncology",
+        "kpi_focus_areas": ["Adherence", "Patient Reach", "Service Level"],
+        "kpi_focus_area": "Adherence | Patient Reach | Service Level",
+        "client_facing": "Y",
+        "client_location": "India",
+        "travel_requirement": "No travel",
+        "custom_weights": False,
+        "weights": DEFAULT_WEIGHTS.copy(),
+        "role_mix": [{
+            "designation": "Consultant",
+            "grade": 140,
+            "headcount": 2,
+            "mandatory_skills": {"SQL": 3, "Python": 2},
+            "preferred_skills": {"Power BI": 2},
+        }],
+        "mandatory_skills": {"SQL": 3, "Python": 2},
+        "preferred_skills": {"Power BI": 2},
     }
 
 
-def display_name(df: pd.DataFrame, rid: str) -> str:
-    row = df[df.resource_id.astype(str).eq(str(rid))]
-    if row.empty:
-        return str(rid)
-    name = row.iloc[0].get("resource_name", "Unknown")
-    return f"{name}  ·  {rid}"
+def init_state() -> None:
+    initial = {
+        "page": "Project brief",
+        "request": request_defaults(),
+        "results": None,
+        "chat_history": [],
+        "editor_version": 0,
+        "uploaded_data": None,
+        "last_register_result": None,
+    }
+    for key, value in initial.items():
+        if key not in st.session_state:
+            st.session_state[key] = value
 
 
-styled_header()
+def active_data():
+    if st.session_state.uploaded_data is not None:
+        return st.session_state.uploaded_data
+    return load_cached_data(str(DATA_DIR), DATA_VERSION)
 
-if "request" not in st.session_state:
-    st.session_state.request = request_defaults()
-if "results" not in st.session_state:
-    st.session_state.results = None
-if "decisions" not in st.session_state:
-    st.session_state.decisions = []
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
 
-# Sidebar: data + policy only. Business intake is kept out of the sidebar to make the main experience feel less like a traditional form.
-with st.sidebar:
-    st.header("Data & policy")
-    uploaded = st.file_uploader("Upload workbook", type=["xlsx", "xls"], help="Workbook should contain Resources, Capacity and DeliveryEvidence sheets. The same deterministic engine is used after upload.")
-    if uploaded is not None:
-        try:
-            up_res, up_cap, up_evi = load_workbook(uploaded)
-            if up_res is None:
-                st.error("No Resources sheet was found. The demo dataset remains active.")
-            else:
-                resources = canonicalize_resources(up_res)
-                capacity = canonicalize_capacity(up_cap)
-                evidence = canonicalize_evidence(up_evi)
-                st.success("Workbook loaded safely. Optional columns were filled where missing.")
-        except Exception:
-            st.error("The workbook could not be read. Please use the demo workbook structure or upload a clean XLSX.")
-    health = dataset_health(resources, capacity, evidence)
-    data_ready = health["resources_ok"] and health["capacity_ok"] and health["evidence_ok"]
-    st.caption(f"{len(resources):,} resources · {len(capacity):,} capacity rows · {len(evidence):,} delivery records")
-    if health["resources_errors"]:
-        st.error("Resource data: " + " | ".join(health["resources_errors"][:3]))
-    if health["capacity_errors"]:
-        st.error("Capacity data: " + " | ".join(health["capacity_errors"][:3]))
-    if health["evidence_errors"]:
-        st.error("Evidence data: " + " | ".join(health["evidence_errors"][:3]))
-    if not data_ready:
-        st.warning("Matching is disabled until blocking data-quality errors are resolved.")
-    with st.expander("Matching policy", expanded=False):
-        st.write("Location is a hard gate when selected. Time zone is also a hard gate when selected. A high score never offsets a failed hard gate.")
-        capacity_strict = st.checkbox("Require requested allocation every week", value=True)
-        domain_strict_default = st.checkbox("Make selected domain a hard gate", value=False)
-    with st.expander("Weights", expanded=False):
-        weight_labels = {
-            "mandatory_skills": "Mandatory skills", "preferred_skills": "Preferred skills", "proficiency": "Proficiency",
-            "relevant_evidence": "Relevant evidence", "capacity": "Capacity", "delivery_fit": "Delivery fit",
-            "development_alignment": "Development alignment", "data_confidence": "Data confidence",
-        }
-        entered = {}
-        for key, default in DEFAULT_WEIGHTS.items():
-            entered[key] = st.number_input(weight_labels[key], 0.0, 100.0, default * 100, 1.0, key="weight_" + key)
-        raw_total = sum(entered.values())
-        weights = {k: v / raw_total for k, v in entered.items()} if raw_total else DEFAULT_WEIGHTS.copy()
-        st.caption(f"Weights normalized to {sum(weights.values()) * 100:.0f}%.")
-
-TABS = st.tabs(["💬 Copilot", "🧩 Structured match", "🎯 Recommendations", "📅 Selected capacity", "🌐 Capability map", "🔎 Audit & data"])
-
-# ---------------- Copilot ----------------
-with TABS[0]:
-    st.subheader("Ask the capability network")
-    st.caption("This POC does not call an LLM yet. It uses the same governed catalogue and deterministic search engine that a future LLM adapter will call.")
-    examples = [
-        "I have an MMX project, who should I contact?",
-        "Who has expertise in price elasticity for Europe?",
-        "Find India consultants with SQL and Python",
-        "Who are the GenAI and Agentic AI SMEs?",
-    ]
-    ec = st.columns(len(examples))
-    for i, example in enumerate(examples):
-        with ec[i]:
-            if st.button(example, key=f"example_{i}", width="stretch"):
-                st.session_state.chat_query = example
-    query = st.text_input("Ask Copilot", value=st.session_state.get("chat_query", ""), placeholder="Try: Who has expertise in price elasticity for Europe?")
-    combine = st.checkbox("Use current structured staffing request as context", value=st.session_state.get("results") is not None)
-    if st.button("Search capability network", type="primary", width="stretch"):
-        if not query.strip():
-            st.warning("Enter a question or choose one of the examples above.")
-        else:
-            intent, found = discovery_search(resources, evidence, query, limit=12)
-            st.session_state.chat_history.append({"query": query, "intent": intent, "rows": found})
-            if combine and st.session_state.request and st.session_state.results is not None and intent.intent == "resource_matching":
-                # No LLM magic: use the already computed deterministic shortlist and optionally narrow it by discovered terms.
-                st.session_state.chat_resource_mode = True
-            else:
-                st.session_state.chat_resource_mode = False
-    for item in reversed(st.session_state.chat_history[-3:]):
-        st.markdown(f'<div class="chatq"><b>You:</b> {item["query"]}</div>', unsafe_allow_html=True)
-        intent, found = item["intent"], item["rows"]
-        if found.empty:
-            st.info("I could not find a strong governed match. Try a skill, domain, geography, project name or team that exists in the catalogue.")
-            if intent.skills:
-                st.warning("Detected skills: " + ", ".join(sorted(intent.skills)))
-        else:
-            detected = []
-            if intent.skills: detected.append("Skills: " + ", ".join(sorted(intent.skills)))
-            if intent.locations: detected.append("Geography: " + ", ".join(sorted(intent.locations)))
-            if intent.domains: detected.append("Domain: " + ", ".join(sorted(intent.domains)))
-            if intent.terms: detected.append("Context: " + ", ".join(sorted(intent.terms)[:8]))
-            if detected:
-                st.caption(" | ".join(detected))
-            st.markdown("### People and teams to contact")
-            cols = ["rank", "resource_name", "grade", "team", "location", "time_zone", "score", "key_skills", "geography_expertise", "project_expertise", "contact_email", "manager_name", "manager_email"]
-            show = found[[c for c in cols if c in found.columns]].copy()
-            show.rename(columns={"resource_name": "Expert / contact", "score": "Relevance", "key_skills": "Relevant skills", "contact_email": "Contact", "manager_name": "Manager", "manager_email": "Manager contact"}, inplace=True)
-            st.dataframe(show, width="stretch", hide_index=True)
-
-    if st.session_state.get("results") is not None:
-        st.markdown("### Bridge to the structured engine")
-        st.info("The Copilot and the structured form are intentionally two front doors to the same rule engine. A future LLM can replace only the query interpretation layer, not the eligibility or scoring rules.")
-        if st.button("Open current request in Recommendations", width="stretch"):
-            st.session_state.active_tab_hint = "recommendations"
-
-# ---------------- Structured match ----------------
-with TABS[1]:
-    st.subheader("Structured request", divider="blue")
-    st.caption("Use this when you know the delivery constraints. Every controlled attribute comes from the governed catalogue, so malformed skill strings cannot crash the application.")
-    current = st.session_state.request or request_defaults()
-    # Not an st.form: the proficiency dropdowns must appear as soon as a skill is
-    # selected, and a form defers every widget update until submit.
-    with st.container():
-        left, middle, right = st.columns(3)
-        with left:
-            request_id = st.text_input("Request ID", value=current.get("request_id", "REQ-2026-001"))
-            role_title = st.text_input("Opportunity / role", value=current.get("role_title", "Healthcare Data Analyst"))
-            allocation = st.slider("Required allocation (%)", 5, 100, int(current.get("allocation_pct", 50)), 5)
-            start = st.date_input("Start date", value=current.get("start_date", date(2026, 9, 14)))
-            end = st.date_input("End date", value=current.get("end_date", date(2026, 11, 30)))
-        with middle:
-            min_grade = st.selectbox("Minimum grade", GRADE_LEVELS, index=GRADE_LEVELS.index(current.get("grade_min", "Analyst")))
-            valid_max = GRADE_LEVELS[GRADE_LEVELS.index(min_grade):]
-            default_max = current.get("grade_max", "Consultant") if current.get("grade_max", "Consultant") in valid_max else valid_max[-1]
-            max_grade = st.selectbox("Maximum grade", valid_max, index=valid_max.index(default_max))
-            locations = st.multiselect("Allowed work locations · STRICT", LOCATIONS, default=[x for x in current.get("allowed_locations", ["India"]) if x in LOCATIONS])
-            zones = st.multiselect("Allowed time zones · STRICT", TIME_ZONES, default=[x for x in current.get("time_zones", ["Asia/Kolkata"]) if x in TIME_ZONES])
-        with right:
-            languages = st.multiselect("Mandatory languages", LANGUAGES, default=[x for x in current.get("languages", ["English"]) if x in LANGUAGES])
-            domains = st.multiselect("Relevant domains", DOMAINS, default=[x for x in current.get("domains", ["Healthcare"]) if x in DOMAINS])
-            cap_mode = st.checkbox("Hard capacity gate", value=bool(capacity_strict))
-            domain_mode = st.checkbox("Hard domain gate", value=bool(domain_strict_default or current.get("domain_strict", False)))
-
-        st.markdown("#### Mandatory capabilities")
-        selected_mand = st.multiselect("Mandatory skills", SKILL_CATALOG, default=[x for x in current.get("mandatory_skills", {}) if x in SKILL_CATALOG], help="A candidate must have every selected skill at or above the requested level.")
-        mand_levels = {}
-        if selected_mand:
-            mcols = st.columns(min(4, len(selected_mand)))
-            for i, skill in enumerate(selected_mand):
-                with mcols[i % len(mcols)]:
-                    existing = int(current.get("mandatory_skills", {}).get(skill, 2))
-                    level_idx = max(0, min(3, existing - 1))
-                    mand_levels[skill] = PROFICIENCY[st.selectbox(skill, PROFICIENCY_LABELS, index=level_idx, key="req_mand_" + skill)]
-        st.markdown("#### Nice-to-have capabilities")
-        preferred_catalog = [x for x in SKILL_CATALOG if x not in selected_mand]
-        selected_pref = st.multiselect("Preferred skills", preferred_catalog, default=[x for x in current.get("preferred_skills", {}) if x in preferred_catalog])
-        pref_levels = {}
-        if selected_pref:
-            pcols = st.columns(min(4, len(selected_pref)))
-            for i, skill in enumerate(selected_pref):
-                with pcols[i % len(pcols)]:
-                    existing = int(current.get("preferred_skills", {}).get(skill, 2))
-                    level_idx = max(0, min(3, existing - 1))
-                    pref_levels[skill] = PROFICIENCY[st.selectbox(skill + " ", PROFICIENCY_LABELS, index=level_idx, key="req_pref_" + skill)]
-        submitted = st.button("Run explainable match", type="primary", width="stretch")
-
-    if submitted:
-        request = {
-            "request_id": request_id.strip() or "UNNAMED-REQUEST",
-            "role_title": role_title.strip() or "Unspecified opportunity",
-            "start_date": start, "end_date": end, "allocation_pct": allocation,
-            "allowed_locations": locations, "time_zones": zones, "languages": languages, "domains": domains,
-            "mandatory_skills": mand_levels, "preferred_skills": pref_levels,
-            "grade_min": min_grade, "grade_max": max_grade,
-            "capacity_strict": cap_mode, "domain_strict": domain_mode,
-        }
-        report = validate_request(request)
-        current_health = dataset_health(resources, capacity, evidence)
-        data_errors = (
-            current_health["resources_errors"]
-            + current_health["capacity_errors"]
-            + current_health["evidence_errors"]
+def brand_bar() -> None:
+    request = st.session_state.request
+    status = "Not run yet"
+    if st.session_state.results is not None:
+        diagnostics = st.session_state.results.diagnostics
+        status = (
+            f"{diagnostics.get('fillable_slots', 0)} of "
+            f"{diagnostics.get('requested_slots', 0)} roles fillable"
         )
-        if data_errors:
-            st.error("The active dataset has blocking quality errors. No matching run was attempted.")
-            for error in data_errors[:8]:
-                st.error(error)
-        elif not report.ok:
-            st.error("The request was not accepted. No matching run was attempted.")
-            for error in report.errors:
-                st.error(error)
-        else:
-            st.session_state.request = request
+    st.markdown(
+        f"""
+        <div class="brandbar">
+            <div>
+                <div class="name">CSEC Resource Manager</div>
+                <div class="sub">Plan project staffing, check real availability and find capability.</div>
+            </div>
+            <div class="ctx">
+                <b>{request.get('request_id', 'Draft')}</b> · {request.get('project_name', 'Untitled project')}<br>
+                Match status: {status}
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def main_navigation() -> None:
+    columns = st.columns(len(PAGES), gap="small")
+    for column, page in zip(columns, PAGES):
+        is_active = st.session_state.page == page
+        if column.button(
+            NAV_LABELS[page],
+            key=f"nav_{page}",
+            help=NAV_HELP[page],
+            width="stretch",
+            type="primary" if is_active else "secondary",
+        ):
+            navigate(page)
+    st.write("")
+
+
+def page_header(title: str, description: str) -> None:
+    st.markdown(
+        f'<div class="pagehead"><h1>{title}</h1><p>{description}</p></div>',
+        unsafe_allow_html=True,
+    )
+
+
+def note(text: str) -> None:
+    st.markdown(f'<div class="note">{text}</div>', unsafe_allow_html=True)
+
+
+def card(title: str):
+    """Bordered field group; cards in the same row are kept the same height."""
+    container = st.container(border=True)
+    container.markdown(f'<div class="cardtitle">{title}</div>', unsafe_allow_html=True)
+    return container
+
+
+def _data_source_content(resources: pd.DataFrame, capacity: pd.DataFrame) -> None:
+    st.markdown("### Data")
+    with st.expander("Data source and quality", expanded=False):
+        st.caption(
+            f"Active dataset: {len(resources):,} people · {len(capacity):,} weekly capacity rows."
+        )
+        st.caption(
+            f"Availability is shown as hours from a {STANDARD_WEEK_HOURS:g}-hour PSA week. "
+            "Confirmed overlapping allocations in the register are deducted before matching."
+        )
+        uploaded = st.file_uploader(
+            "Upload your own staffing workbook (optional)",
+            type=["xlsx", "xls"],
+            key="workbook_upload",
+            help=(
+                "The workbook needs a Resources sheet and a Capacity sheet. "
+                "Capacity must contain resource_id, week_start and available_capacity_pct."
+            ),
+        )
+        if uploaded is not None and st.button("Load this workbook", key="load_workbook"):
             try:
-                match = run_matching(resources, capacity, evidence, request, weights)
-                st.session_state.results = match
-                st.success(f"Match complete: {match.diagnostics['eligible']:,} eligible of {match.diagnostics['resources_assessed']:,} assessed.")
-                for warning in report.warnings:
-                    st.warning(warning)
+                raw_resources, raw_capacity = load_workbook(uploaded)
+                if raw_resources is None or raw_capacity is None:
+                    st.error("Both a Resources sheet and a Capacity sheet are required.")
+                else:
+                    st.session_state.uploaded_data = (
+                        canonicalize_resources(raw_resources),
+                        canonicalize_capacity(raw_capacity),
+                    )
+                    st.session_state.results = None
+                    st.success("Workbook loaded. Run the match again to use it.")
             except Exception:
-                # Never expose a scary stack trace in the app. Technical detail belongs in local logs in production.
-                st.session_state.results = None
-                st.error("The dataset could not be evaluated safely. Check Audit & data for validation issues, then retry.")
+                st.error("That file could not be read. Please check the sheet names and columns.")
+        if st.session_state.uploaded_data is not None and st.button(
+            "Switch back to sample data", key="reset_workbook"
+        ):
+            st.session_state.uploaded_data = None
+            st.session_state.results = None
+            st.rerun()
+        health = dataset_health(resources, capacity)
+        problems = health["resources_errors"] + health["capacity_errors"]
+        if problems:
+            for problem in problems[:5]:
+                st.error(problem)
+        else:
+            st.success("All data quality checks passed.")
+    with st.expander("Upload schema", expanded=False):
+        st.caption("Workbook sheet: Resources (one row per person)")
+        st.code(
+            "resource_id, resource_name, team, grade, role_title, location, "
+            "time_zone, languages, skills, domains, development_interests, "
+            "years_experience, delivery_rating, profile_updated",
+            language=None,
+        )
+        st.caption("Skills use Skill:Level separated by pipes. Example:")
+        st.code("SQL:3|Python:2|Power BI:3", language=None)
+        st.caption("Workbook sheet: Capacity (one row per person per week)")
+        st.code(
+            "resource_id, week_start, available_capacity_pct",
+            language=None,
+        )
+        st.caption(
+            f"`available_capacity_pct` is converted using {STANDARD_WEEK_HOURS:g} hours = 100%."
+        )
+        st.caption("Grade codes: 130 Analyst/Associate Consultant, 140 Consultant, then +10.")
+    with st.expander("Allocation register schema", expanded=False):
+        st.caption("Output workbook: staffing_register.xlsx")
+        st.caption("Opportunities sheet")
+        st.code(", ".join(OPPORTUNITY_COLUMNS), language=None)
+        st.caption("Allocations sheet")
+        st.code(", ".join(ALLOCATION_COLUMNS), language=None)
+        try:
+            opportunities, allocations = load_register(REGISTER_PATH, resources)
+            st.caption(
+                f"Stored history: {len(opportunities)} opportunities · "
+                f"{len(allocations)} confirmed allocations"
+            )
+        except Exception:
+            st.caption("The register will be created when the app can write to the data folder.")
 
-# ---------------- Recommendations ----------------
-with TABS[2]:
-    st.subheader("Recommendations")
-    match = st.session_state.results
-    if match is None:
-        st.info("Run the structured match first, or start with a Copilot discovery question.")
-    elif match.table.empty:
-        st.error("There are no resources in the current dataset.")
-    else:
-        table = match.table
-        diagnostics = match.diagnostics
-        k1, k2, k3, k4 = st.columns(4)
-        k1.metric("Resources assessed", diagnostics.get("resources_assessed", 0))
-        k2.metric("Feasible", diagnostics.get("eligible", 0))
-        k3.metric("Excluded", diagnostics.get("excluded", 0))
-        k4.metric("Request weeks", diagnostics.get("request_window_weeks", 0))
 
-        if diagnostics.get("zero_match"):
-            st.error("No candidate satisfies every selected mandatory condition. Hard location, time-zone, language, grade, skill and capacity rules are not relaxed automatically.")
-            counts = diagnostics.get("gate_exclusion_counts", {})
-            labels = ["Location", "Time zone", "Language", "Domain", "Grade", "Mandatory skill", "Mandatory proficiency", "Capacity data", "Capacity"]
-            keys = ["location", "time_zone", "language", "domain", "grade", "mandatory_skill", "mandatory_proficiency", "capacity_data", "capacity"]
-            diag = pd.DataFrame({"Constraint": labels, "Candidates failing": [counts.get(k, 0) for k in keys]})
-            st.plotly_chart(px.bar(diag, x="Constraint", y="Candidates failing", text_auto=True), width="stretch")
-            st.caption("These counts are diagnostic only. The manager must explicitly change a constraint if business context permits it.")
-            near_matches = build_near_matches(table)
-            if near_matches:
-                st.markdown("### Near matches for explicit review")
-                st.warning("These people are not recommendations. They fail one or two hard gates and are shown only to support a documented RM decision.")
-                near_df = pd.DataFrame(near_matches)
-                near_df["exclusion_reasons"] = near_df["exclusion_reasons"].map(lambda values: " · ".join(values))
-                st.dataframe(
-                    near_df.rename(columns={
-                        "resource_name": "Candidate", "team": "Team", "grade": "Grade",
-                        "location": "Location", "potential_score": "Potential fit",
-                        "minimum_available_pct": "Min availability",
-                        "failed_gate_count": "Failed gates", "exclusion_reasons": "Why excluded",
-                    }),
-                    hide_index=True,
+def data_source_panel(resources: pd.DataFrame, capacity: pd.DataFrame) -> None:
+    with st.sidebar:
+        _data_source_content(resources, capacity)
+
+
+def rows_from_skills(skills: dict) -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {"Skill": skill, "Proficiency": PROFICIENCY_LABELS[int(level) - 1]}
+            for skill, level in skills.items()
+        ],
+        columns=["Skill", "Proficiency"],
+    )
+
+
+def skills_from_rows(rows: pd.DataFrame) -> dict[str, int]:
+    parsed: dict[str, int] = {}
+    for _, row in rows.dropna(how="all").iterrows():
+        skill = str(row.get("Skill", "")).strip()
+        proficiency = str(row.get("Proficiency", "")).strip()
+        if skill in SKILL_CATALOG and proficiency in PROFICIENCY:
+            parsed[skill] = PROFICIENCY[proficiency]
+    return parsed
+
+
+def role_rows(request: dict) -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {"Designation": row["designation"], "People required": int(row["headcount"])}
+            for row in request.get("role_mix", [])
+        ],
+        columns=["Designation", "People required"],
+    )
+
+
+def roles_from_rows(rows: pd.DataFrame) -> list[dict]:
+    roles = []
+    for _, row in rows.dropna(how="all").iterrows():
+        designation = str(row.get("Designation", "")).strip()
+        if designation not in DESIGNATION_TO_GRADE:
+            continue
+        headcount = pd.to_numeric(row.get("People required"), errors="coerce")
+        roles.append(
+            {
+                "designation": designation,
+                "grade": DESIGNATION_TO_GRADE[designation],
+                "headcount": int(headcount) if pd.notna(headcount) else 0,
+            }
+        )
+    return roles
+
+
+def shortlist_columns() -> dict:
+    return {
+        "rank": st.column_config.NumberColumn("#", help="Rank within this role."),
+        "resource_name": st.column_config.TextColumn("Person"),
+        "role_title": st.column_config.TextColumn("Designation"),
+        "grade": st.column_config.NumberColumn("Grade"),
+        "team": st.column_config.TextColumn("Team"),
+        "location": st.column_config.TextColumn("Country"),
+        "time_zone": st.column_config.TextColumn("Time zone"),
+        "total_score": st.column_config.ProgressColumn(
+            "Fit score", min_value=0, max_value=100, format="%.1f"
+        ),
+        "minimum_available_hours": st.column_config.NumberColumn(
+            "Lowest weekly free hours",
+            min_value=0,
+            max_value=STANDARD_WEEK_HOURS,
+            format="%.2f h",
+            help="Free hours in the person's tightest week after confirmed allocations.",
+        ),
+    }
+
+
+def requirement_recap(request: dict) -> None:
+    with st.expander("Requirements applied to this shortlist", expanded=False):
+        left, right = st.columns(2)
+        with left:
+            st.markdown("**Delivery constraints**")
+            st.write(
+                f"- Dates: {request['start_date']:%d %b %Y} to {request['end_date']:%d %b %Y}\n"
+                f"- Weekly allocation: {request.get('allocation_hours', request['allocation_pct'] / 100 * STANDARD_WEEK_HOURS):.2f} "
+                f"hours ({request['allocation_pct']:.1f}% of {STANDARD_WEEK_HOURS:g} hours)\n"
+                f"- Country: {', '.join(request.get('allowed_locations') or ['Any'])}\n"
+                f"- Time zone: {', '.join(request.get('time_zones') or ['Any'])}\n"
+                f"- Language: {', '.join(request.get('languages') or ['Any'])}\n"
+                f"- Specific team: {', '.join(request.get('allowed_teams') or ['Any'])}"
+            )
+        with right:
+            st.markdown("**Role-specific capability**")
+            for row in request.get("role_mix", []):
+                mandatory = row.get(
+                    "mandatory_skills", request.get("mandatory_skills", {})
                 )
+                preferred = row.get(
+                    "preferred_skills", request.get("preferred_skills", {})
+                )
+                st.write(
+                    f"- **{row['headcount']} × {row['designation']}** (grade {row['grade']}): "
+                    + (
+                        ", ".join(
+                            f"{skill} · {PROFICIENCY_LABELS[level - 1]}"
+                            for skill, level in mandatory.items()
+                        )
+                        or "No mandatory skills"
+                    )
+                    + (
+                        "; nice to have "
+                        + ", ".join(
+                            f"{skill} · {PROFICIENCY_LABELS[level - 1]}"
+                            for skill, level in preferred.items()
+                        )
+                        if preferred
+                        else ""
+                    )
+                )
+        st.caption("Change these in the project brief or team & skills, then run the match again.")
+
+
+def render_project_brief(resources: pd.DataFrame, capacity: pd.DataFrame) -> None:
+    page_header(
+        "Project brief",
+        "Delivery window, eligibility rules and the opportunity record written to the register.",
+    )
+    request = st.session_state.request
+    st.caption(r"\* required")
+
+    engagement_column, window_column = st.columns(2, gap="large")
+    with engagement_column:
+        with card("Engagement"):
+            request_id = st.text_input(
+                "Opportunity number *",
+                value=request.get("request_id", ""),
+                placeholder="OPP-2026-011",
+                help="Used as the Opportunity Number in the register.",
+            )
+            project_name = st.text_input(
+                "Project name *",
+                value=request.get("project_name", ""),
+                placeholder="India omnichannel analytics rollout",
+                help="The delivery name shown in recommendations and the allocation register.",
+            )
+            client = st.text_input(
+                "Client *",
+                value=request.get("client", ""),
+                placeholder="Axerion Pharma",
+                help="The client attached to this opportunity in the register.",
+            )
+            therapeutic_area = st.selectbox(
+                "Therapeutic area *",
+                THERAPEUTIC_AREAS,
+                index=(
+                    THERAPEUTIC_AREAS.index(request["therapeutic_area"])
+                    if request.get("therapeutic_area") in THERAPEUTIC_AREAS
+                    else 0
+                ),
+                help="Used for portfolio reporting; it does not affect candidate scoring.",
+            )
+    with window_column:
+        with card("Delivery window"):
+            start_column, end_column = st.columns(2)
+            with start_column:
+                start_date = st.date_input(
+                    "Start date *",
+                    value=request.get("start_date"),
+                    help="Weekly availability is checked from this date.",
+                )
+            with end_column:
+                end_date = st.date_input(
+                    "End date *",
+                    value=request.get("end_date"),
+                    help="The final week for which this allocation needs capacity.",
+                )
+            allocation_hours = st.number_input(
+                "Weekly hours per person *",
+                min_value=0.25,
+                max_value=STANDARD_WEEK_HOURS,
+                value=float(
+                    request.get(
+                        "allocation_hours",
+                        request.get("allocation_pct", 50) / 100 * STANDARD_WEEK_HOURS,
+                    )
+                ),
+                step=0.25,
+                format="%.2f",
+                help=(
+                    f"PSA uses a {STANDARD_WEEK_HOURS:g}-hour week (8.5 hours × 5 days). "
+                    "A person must have at least these hours free in every requested week."
+                ),
+            )
+            allocation_pct = allocation_hours / STANDARD_WEEK_HOURS * 100
+            st.caption(
+                f"{allocation_hours / 5:.2f} hours/day · "
+                f"{allocation_pct:.1f}% of a {STANDARD_WEEK_HOURS:g}-hour week"
+            )
+            client_facing = st.radio(
+                "Client facing",
+                ["Y", "N"],
+                index=0 if request.get("client_facing", "Y") == "Y" else 1,
+                horizontal=True,
+                help="Identifies whether the allocated people will work directly with the client.",
+            )
+
+    eligibility_column, record_column = st.columns(2, gap="large")
+    with eligibility_column:
+        with card("Eligibility rules"):
+            locations = st.multiselect(
+                "Work country *",
+                LOCATIONS,
+                default=[x for x in request.get("allowed_locations", []) if x in LOCATIONS],
+                placeholder="Choose one or more countries",
+                help="Where the person works. Never widened to a region.",
+            )
+            zones = st.multiselect(
+                "Time zone",
+                TIME_ZONES,
+                default=[x for x in request.get("time_zones", []) if x in TIME_ZONES],
+                placeholder="Any time zone",
+                help="If selected, a person must work in one of these time zones.",
+            )
+            languages = st.multiselect(
+                "Language",
+                LANGUAGES,
+                default=[x for x in request.get("languages", []) if x in LANGUAGES],
+                placeholder="Any language",
+                help="A person must speak every language selected.",
+            )
+            team_options = sorted(resources.team.dropna().astype(str).unique())
+            specific_teams = st.multiselect(
+                "Specific team",
+                team_options,
+                default=[x for x in request.get("allowed_teams", []) if x in team_options],
+                placeholder="All teams",
+                help="An exact eligibility filter. Team is never scored.",
+            )
+    with record_column:
+        with card("Opportunity record"):
+            kpi_focus_areas = st.multiselect(
+                "KPI focus area *",
+                KPI_FOCUS_AREAS,
+                default=[
+                    x for x in request.get("kpi_focus_areas", []) if x in KPI_FOCUS_AREAS
+                ],
+                placeholder="Choose the KPIs this work moves",
+                help="The business measures this opportunity is expected to improve.",
+            )
+            location_column, travel_column = st.columns(2)
+            with location_column:
+                client_location = st.text_input(
+                    "Client location",
+                    value=request.get("client_location", ""),
+                    placeholder="USA - New York",
+                    help="Where the client team is based; this is recorded but is not a work-country gate.",
+                )
+            with travel_column:
+                travel_requirement = st.selectbox(
+                    "Travel requirement",
+                    TRAVEL_REQUIREMENTS,
+                    index=(
+                        TRAVEL_REQUIREMENTS.index(request["travel_requirement"])
+                        if request.get("travel_requirement") in TRAVEL_REQUIREMENTS
+                        else 0
+                    ),
+                    help="Expected onsite travel for people allocated to the opportunity.",
+                )
+            project_description = st.text_area(
+                "Project description",
+                value=request.get("project_description", ""),
+                height=122,
+                placeholder="What the team will build or analyse.",
+                help="A concise delivery summary written to the opportunity register.",
+            )
+
+    note(
+        "Country, specific team, time zone, language, designation, mandatory skills and weekly "
+        "availability are strict rules. A strong score can never compensate for one of them."
+    )
+
+    problems = []
+    if not request_id.strip():
+        problems.append("Opportunity number is required.")
+    if not project_name.strip():
+        problems.append("Project name is required.")
+    if not client.strip():
+        problems.append("Client is required.")
+    if not locations:
+        problems.append("At least one work country is required.")
+    if not kpi_focus_areas:
+        problems.append("At least one KPI focus area is required.")
+    if end_date < start_date:
+        problems.append("The end date is before the start date.")
+    if (end_date - start_date).days > 730:
+        problems.append("A request cannot be longer than two years.")
+    for problem in problems:
+        st.warning(problem)
+
+    if st.button(
+        "Save and continue",
+        type="primary",
+        disabled=bool(problems),
+    ):
+        st.session_state.request = request | {
+            "request_id": request_id.strip(),
+            "project_name": project_name.strip(),
+            "start_date": start_date,
+            "end_date": end_date,
+            "allocation_hours": allocation_hours,
+            "allocation_pct": allocation_pct,
+            "allowed_locations": locations,
+            "allowed_teams": specific_teams,
+            "time_zones": zones,
+            "languages": languages,
+            "client": client.strip(),
+            "project_description": project_description.strip() or project_name.strip(),
+            "therapeutic_area": therapeutic_area,
+            "kpi_focus_areas": kpi_focus_areas,
+            "kpi_focus_area": " | ".join(kpi_focus_areas),
+            "client_facing": client_facing,
+            "client_location": client_location.strip() or "Not specified",
+            "travel_requirement": travel_requirement,
+        }
+        navigate("Team & skills")
+
+
+def render_team_and_skills(resources: pd.DataFrame, capacity: pd.DataFrame) -> None:
+    page_header(
+        "Team & skills",
+        "Headcount per designation, the skills each role must bring, and how people are ranked.",
+    )
+    request = st.session_state.request
+    version = st.session_state.editor_version
+
+    st.subheader("Roles required *")
+    st.caption("Use the last row to add another designation.")
+    edited_roles = st.data_editor(
+        role_rows(request),
+        num_rows="dynamic",
+        hide_index=True,
+        width="stretch",
+        key=f"role_editor_{version}",
+        column_config={
+            "Designation": st.column_config.SelectboxColumn(
+                "Designation",
+                options=DESIGNATIONS,
+                required=True,
+                help="Grade is set automatically: 130 Analyst and Associate Consultant, 140 Consultant, then +10 per level.",
+            ),
+            "People required": st.column_config.NumberColumn(
+                "People required",
+                min_value=1,
+                max_value=50,
+                step=1,
+                required=True,
+                help="How many people you need at this designation.",
+            ),
+        },
+    )
+    parsed_roles = roles_from_rows(edited_roles)
+    if parsed_roles:
+        st.markdown(
+            '<div class="preview">Requesting '
+            + ", ".join(
+                f"{row['headcount']} × {row['designation']} (grade {row['grade']})"
+                for row in parsed_roles
+            )
+            + "</div>",
+            unsafe_allow_html=True,
+        )
+
+    st.divider()
+    st.subheader("Skills per role")
+    st.caption("Each designation carries its own mandatory and nice-to-have skills.")
+    existing_roles = {
+        row["designation"]: row for row in request.get("role_mix", [])
+    }
+    role_skill_rows = {}
+    for role in parsed_roles:
+        designation = role["designation"]
+        existing = existing_roles.get(designation, {})
+        mandatory_default = existing.get(
+            "mandatory_skills", request.get("mandatory_skills", {})
+        )
+        preferred_default = existing.get(
+            "preferred_skills", request.get("preferred_skills", {})
+        )
+        with st.expander(
+            f"{designation} · grade {role['grade']} · {role['headcount']} needed",
+            expanded=True,
+        ):
+            mandatory_column, preferred_column = st.columns(2, gap="large")
+            with mandatory_column:
+                st.markdown("**Mandatory**")
+                mandatory_rows = st.data_editor(
+                    rows_from_skills(mandatory_default),
+                    num_rows="dynamic",
+                    hide_index=True,
+                    width="stretch",
+                    key=f"mandatory_{designation}_{version}",
+                    column_config={
+                        "Skill": st.column_config.SelectboxColumn(
+                            "Skill",
+                            options=SKILL_CATALOG,
+                            required=True,
+                            help="A capability every eligible person must have.",
+                        ),
+                        "Proficiency": st.column_config.SelectboxColumn(
+                            "Required proficiency",
+                            options=PROFICIENCY_LABELS,
+                            required=True,
+                            help="Minimum governed proficiency; candidates below it are excluded.",
+                        ),
+                    },
+                )
+            with preferred_column:
+                st.markdown("**Nice to have**")
+                preferred_rows = st.data_editor(
+                    rows_from_skills(preferred_default),
+                    num_rows="dynamic",
+                    hide_index=True,
+                    width="stretch",
+                    key=f"preferred_{designation}_{version}",
+                    column_config={
+                        "Skill": st.column_config.SelectboxColumn(
+                            "Skill",
+                            options=SKILL_CATALOG,
+                            required=True,
+                            help="A capability that improves ranking but is not mandatory.",
+                        ),
+                        "Proficiency": st.column_config.SelectboxColumn(
+                            "Preferred proficiency",
+                            options=PROFICIENCY_LABELS,
+                            required=True,
+                            help="Preferred proficiency used when ranking eligible people.",
+                        ),
+                    },
+                )
+            role_skill_rows[designation] = (mandatory_rows, preferred_rows)
+
+    st.divider()
+    st.subheader("Ranking weights")
+    weight_labels = {
+        "mandatory_skills": "Mandatory skills (%)",
+        "preferred_skills": "Nice-to-have skills (%)",
+        "proficiency": "Proficiency depth (%)",
+        "capacity": "Capacity fit (%)",
+    }
+    custom_weights = st.checkbox(
+        "Set scoring weights manually",
+        value=bool(request.get("custom_weights", False)),
+        help="Weights only order people who already passed every requirement.",
+    )
+    stored_weights = request.get("weights", DEFAULT_WEIGHTS)
+    if custom_weights:
+        weight_columns = st.columns(4)
+        entered_weights = {}
+        for column, (key, label) in zip(weight_columns, weight_labels.items()):
+            with column:
+                entered_weights[key] = st.number_input(
+                    label,
+                    min_value=0,
+                    max_value=100,
+                    value=int(round(stored_weights.get(key, DEFAULT_WEIGHTS[key]) * 100)),
+                    step=5,
+                    key=f"weight_{key}",
+                    help="Share of the 100-point fit score assigned to this component.",
+                )
+        weight_total = sum(entered_weights.values())
+        selected_weights = {key: value / 100 for key, value in entered_weights.items()}
+        gap = weight_total - 100
+        if gap > 0:
+            st.error(f"Weights total {weight_total}%. Remove {gap}% to reach exactly 100%.")
+        elif gap < 0:
+            st.error(f"Weights total {weight_total}%. Add {abs(gap)}% to reach exactly 100%.")
         else:
-            eligible = table[table.status.eq("Eligible")].copy()
-            st.markdown("### Feasible shortlist")
-            shortlist_cols = ["rank", "resource_name", "grade", "team", "location", "time_zone", "total_score", "fit_percentile", "minimum_available_pct", "weeks_below_demand", "tentative_risk_weeks", "confidence_label"]
-            if "confidence_label" not in eligible.columns:
-                eligible["confidence_label"] = eligible.profile_confidence.map(lambda x: "High" if x >= .9 else "Medium" if x >= .8 else "Verify")
-            shortlist = eligible[[c for c in shortlist_cols if c in eligible.columns]].copy()
-            st.dataframe(shortlist, width="stretch", hide_index=True, column_config={
-                "total_score": st.column_config.ProgressColumn("Fit score", min_value=0, max_value=100, format="%.1f"),
-                "fit_percentile": st.column_config.NumberColumn("Fit percentile", format="%.1f"),
-                "minimum_available_pct": st.column_config.ProgressColumn("Minimum weekly availability", min_value=0, max_value=100, format="%.0f%%"),
-            })
+            st.success("Weights total 100%.")
+    else:
+        selected_weights = DEFAULT_WEIGHTS.copy()
+        weight_total = 100
+        st.caption(
+            " · ".join(
+                f"{weight_labels[key].removesuffix(' (%)')} {value:.0%}"
+                for key, value in DEFAULT_WEIGHTS.items()
+            )
+        )
 
-            chosen = st.selectbox("Investigate candidate", eligible.resource_id.astype(str).tolist(), format_func=lambda rid: display_name(eligible, rid))
-            row = eligible[eligible.resource_id.astype(str).eq(str(chosen))].iloc[0]
-            req = st.session_state.request
-            detail_left, detail_right = st.columns([1.15, 1])
-            with detail_left:
-                st.markdown(f"## {row.resource_name}")
-                st.caption(f"{row.grade} · {row.team} · {row.location} · {row.time_zone}")
-                st.success(f"Top-line recommendation: **{row['total_score']:.1f}/100** · **{row['fit_percentile']:.0f}th percentile** among feasible candidates.")
-                st.markdown("### Why this person is a fit")
-                reasons = []
-                if row.score_components.get("mandatory_skills", 0) >= weights["mandatory_skills"] * 90:
-                    reasons.append("Meets the mandatory capability set at or above the requested proficiency.")
-                if row.score_components.get("relevant_evidence", 0) >= weights["relevant_evidence"] * 75:
-                    reasons.append("Has relevant delivery evidence and project context.")
-                if row.minimum_available_pct >= req["allocation_pct"]:
-                    reasons.append(f"Maintains at least {row.minimum_available_pct:.0f}% confirmed availability across the request window.")
-                if row.geography_expertise:
-                    reasons.append(f"Geographic expertise: {row.geography_expertise.replace('|', ', ')}")
-                if not reasons:
-                    reasons.append("Fits the hard gates and is ranked by the visible evidence-based score.")
-                for item in reasons:
-                    st.markdown("✓ " + item)
-
-                st.markdown("### Mandatory gates")
-                for gate, ok in row.gates.items():
-                    if ok:
-                        st.markdown(f"<span class='pass'>✓ {gate}</span>", unsafe_allow_html=True)
-                    else:
-                        st.markdown(f"<span class='fail'>✕ {gate}</span>", unsafe_allow_html=True)
-
-                st.markdown("### Skill comparison")
-                combined = {**req.get("mandatory_skills", {}), **req.get("preferred_skills", {})}
-                skill_rows = []
-                resource_row = resources[resources.resource_id.astype(str).eq(str(chosen))].iloc[0]
-                person_skills = parse_skill_string(resource_row.get("skills"))
-                for skill, level in combined.items():
-                    actual = person_skills.get(skill, 0)
-                    skill_rows.append({
-                        "Skill": skill, "Requirement": PROFICIENCY_LABELS[level - 1],
-                        "Candidate": PROFICIENCY_LABELS[actual - 1] if actual in PROFICIENCY.values() else "Not listed",
-                        "Gap": "None" if actual >= level else f"Needs {PROFICIENCY_LABELS[level - 1]}",
-                    })
-                st.dataframe(pd.DataFrame(skill_rows), width="stretch", hide_index=True)
-
-                if row.evidence_summary:
-                    st.markdown("### Relevant delivery evidence")
-                    for item in row.evidence_summary:
-                        st.markdown("• " + item)
-                if row.risks:
-                    st.markdown("### Verify before confirming")
-                    for risk in row.risks:
-                        st.markdown(f'<div class="warn">⚠ {risk}</div>', unsafe_allow_html=True)
-
-                st.markdown("### Contact path")
-                c1, c2 = st.columns(2)
-                c1.markdown(f"**Resource:** {row.contact_email or 'Not provided'}")
-                c2.markdown(f"**Manager:** {row.manager_name}<br>{row.manager_email or 'Not provided'}", unsafe_allow_html=True)
-
-            with detail_right:
-                st.markdown("### Score contribution")
-                comp = row.score_components
-                chart_df = pd.DataFrame({"Component": [k.replace("_", " ").title() for k in comp], "Points": [round(v, 2) for v in comp.values()]})
-                fig = px.bar(chart_df, x="Points", y="Component", orientation="h", text_auto=".1f")
-                fig.update_layout(height=380, margin=dict(l=0, r=10, t=10, b=0))
-                st.plotly_chart(fig, width="stretch")
-                st.caption("These are actual weighted points out of 100. Hard-gate eligibility is decided before scoring.")
-
-                st.markdown("### Capacity summary")
-                st.metric("Minimum available", f"{row['minimum_available_pct']:.0f}%")
-                st.metric("Weeks below demand", f"{int(row['weeks_below_demand'])}")
-                st.metric("Tentative-risk weeks", f"{int(row['tentative_risk_weeks'])}")
-                st.metric("Data confidence", f"{row.profile_confidence * 100:.0f}%")
-
-            st.markdown("### Genuine alternatives")
-            alternatives = build_alternatives(table, str(chosen), limit=3)
-            if alternatives:
-                alt_df = pd.DataFrame(alternatives)
-                alt_df["total_score"] = alt_df.total_score.round(1)
-                st.dataframe(alt_df.rename(columns={"resource_name": "Candidate", "team": "Team", "grade": "Grade", "location": "Location", "total_score": "Fit score", "fit_percentile": "Percentile", "minimum_available_pct": "Min availability", "tentative_risk_weeks": "Tentative-risk weeks"}), width="stretch", hide_index=True)
+    st.divider()
+    back_column, run_column = st.columns([1, 2])
+    with back_column:
+        if st.button("Back to project brief", width="stretch"):
+            navigate("Project brief")
+    with run_column:
+        if st.button(
+            "Find matching people",
+            type="primary",
+            width="stretch",
+            disabled=weight_total != 100,
+        ):
+            completed_roles = []
+            overlaps = []
+            for role in parsed_roles:
+                mandatory_rows, preferred_rows = role_skill_rows[role["designation"]]
+                mandatory = skills_from_rows(mandatory_rows)
+                preferred = skills_from_rows(preferred_rows)
+                overlap = set(mandatory).intersection(preferred)
+                overlaps.extend(f"{role['designation']}: {skill}" for skill in overlap)
+                completed_roles.append(
+                    role
+                    | {
+                        "mandatory_skills": mandatory,
+                        "preferred_skills": {
+                            skill: level
+                            for skill, level in preferred.items()
+                            if skill not in overlap
+                        },
+                    }
+                )
+            candidate_request = request | {
+                "role_mix": completed_roles,
+                # Empty request-level skills ensure the engine uses each role's
+                # own requirements rather than a shared fallback.
+                "mandatory_skills": {},
+                "preferred_skills": {},
+                "custom_weights": custom_weights,
+                "weights": selected_weights,
+            }
+            report = validate_request(candidate_request)
+            health = dataset_health(resources, capacity)
+            errors = health["resources_errors"] + health["capacity_errors"] + report.errors
+            if weight_total != 100:
+                errors.append("Scoring weights must total 100%.")
+            if errors:
+                st.error("Please fix the following before matching:")
+                for problem in errors[:8]:
+                    st.write(f"- {problem}")
             else:
-                st.info("No additional feasible backup is available under the same hard constraints.")
+                if overlaps:
+                    st.info(
+                        "These duplicate skills stay mandatory: "
+                        + ", ".join(overlaps)
+                    )
+                st.session_state.request = candidate_request
+                st.session_state.results = run_matching(
+                    resources, capacity, candidate_request, selected_weights
+                )
+                navigate("Recommendations")
 
-            st.markdown("### Human review")
-            dc1, dc2 = st.columns(2)
-            with dc1:
-                decision = st.selectbox("Decision", ["Not reviewed", "Shortlist", "Hold", "Reject", "Override recommendation"], key="review_decision")
-            with dc2:
-                reason = st.selectbox("Reason", ["Select reason", "Strong overall fit", "Capacity concern", "Skill gap", "Location/time-zone", "Profile verification", "Business context not captured"], key="review_reason")
-            note = st.text_area("Reviewer note", key="review_note")
-            if st.button("Record decision", type="secondary"):
-                st.session_state.decisions.append({"request_id": req["request_id"], "resource_id": row.resource_id, "resource_name": row.resource_name, "system_score": row.total_score, "decision": decision, "reason": reason, "note": note})
-                st.success("Decision recorded in this browser session.")
 
-            st.download_button("Download recommendation audit CSV", serialize_df(table), "rm_recommendation_audit.csv", "text/csv")
+def render_recommendations(
+    resources: pd.DataFrame, capacity: pd.DataFrame
+) -> None:
+    page_header(
+        "Recommendations",
+        "People who meet every requirement, combined across all requested roles.",
+    )
+    result = st.session_state.results
+    request = st.session_state.request
+    if result is None:
+        st.info("No match has been run yet. Start with the project brief and your team requirements.")
+        if st.button("Go to project brief", type="primary"):
+            navigate("Project brief")
+        return
 
-# ---------------- Selected capacity ----------------
-with TABS[3]:
-    st.subheader("Selected-resource capacity")
-    match = st.session_state.results
-    req = st.session_state.request
-    if match is None or req is None:
-        st.info("Run a structured match first.")
-    else:
-        eligible = match.table[match.table.status.eq("Eligible")]
-        if eligible.empty:
-            st.info("No selected resource exists because no one passed every mandatory gate.")
+    diagnostics = result.diagnostics
+    metrics = st.columns(4)
+    metrics[0].metric("Roles requested", diagnostics.get("requested_slots", 0))
+    metrics[1].metric("Roles you can fill", diagnostics.get("fillable_slots", 0))
+    metrics[2].metric("People assessed", diagnostics.get("resources_assessed", 0))
+    metrics[3].metric("Weeks checked", diagnostics.get("request_window_weeks", 0))
+
+    st.caption(
+        "Requirement checks: country · specific team (when selected) · time zone · language · exact designation/grade · "
+        "mandatory skill proficiency · complete weekly capacity · requested allocation."
+    )
+    requirement_recap(request)
+
+    roles = diagnostics.get("roles", [])
+    if not roles:
+        st.warning("No valid role was requested. Add a designation in team & skills.")
+        return
+
+    st.caption(
+        "Role coverage: "
+        + " | ".join(
+            f"{role['designation']}: {role['eligible']} recommended for {role['requested']} requested"
+            for role in roles
+        )
+    )
+    eligible = result.table[result.table.status.eq("Eligible")].copy()
+
+    if eligible.empty:
+        st.error("Nobody meets every requirement across the requested roles.")
+        st.caption(
+            "Nothing was relaxed automatically. The profiles below failed only one or two rules, "
+            "so you can decide whether to change a requirement."
+        )
+        near_matches = build_near_matches(result.table)
+        if near_matches:
+            near_frame = pd.DataFrame(near_matches)
+            near_frame["minimum_available_hours"] = (
+                near_frame["minimum_available_pct"] / 100 * STANDARD_WEEK_HOURS
+            )
+            near_frame["exclusion_reasons"] = near_frame.exclusion_reasons.map(", ".join)
+            st.dataframe(
+                near_frame[
+                    [
+                        "resource_name",
+                        "role_title",
+                        "location",
+                        "minimum_available_hours",
+                        "exclusion_reasons",
+                    ]
+                ],
+                hide_index=True,
+                width="stretch",
+                column_config={
+                    "resource_name": "Person",
+                    "role_title": "Designation",
+                    "location": "Country",
+                    "minimum_available_hours": st.column_config.NumberColumn(
+                        "Lowest weekly free hours", format="%.2f h"
+                    ),
+                    "exclusion_reasons": "Why they were excluded",
+                },
+            )
+        if st.button("Adjust the requirement", type="primary"):
+            navigate("Team & skills")
+        return
+
+    eligible = eligible.sort_values(["requested_designation", "rank", "resource_name"])
+    eligible["minimum_available_hours"] = (
+        eligible["minimum_available_pct"] / 100 * STANDARD_WEEK_HOURS
+    )
+    st.markdown("#### Combined recommendation list")
+    st.dataframe(
+        eligible[
+            [
+                "requested_designation",
+                "rank",
+                "resource_name",
+                "grade",
+                "team",
+                "location",
+                "time_zone",
+                "total_score",
+                "minimum_available_hours",
+            ]
+        ].sort_values("rank"),
+        hide_index=True,
+        width="stretch",
+        column_config=shortlist_columns()
+        | {
+            "requested_designation": st.column_config.TextColumn("Requested role")
+        },
+    )
+
+    st.divider()
+    eligible = eligible.copy()
+    eligible["candidate_key"] = (
+        eligible.role_key.astype(str) + "|" + eligible.resource_id.astype(str)
+    )
+    person_id = st.selectbox(
+        "Look at one person in detail",
+        eligible.candidate_key.tolist(),
+        format_func=lambda key: (
+            f"{eligible[eligible.candidate_key.eq(key)].iloc[0].resource_name} — "
+            f"{eligible[eligible.candidate_key.eq(key)].iloc[0].requested_designation}"
+        ),
+    )
+    person = eligible[eligible.candidate_key.eq(person_id)].iloc[0]
+    detail_column, score_column = st.columns([1.4, 1], gap="large")
+    with detail_column:
+        with st.container(border=True):
+            st.markdown(f"### {person.resource_name}")
+            st.caption(
+                f"{person.role_title} · grade {person.grade} · {person.team} · "
+                f"{person.location} · {person.time_zone}"
+            )
+            st.write(
+                f"**Email:** {person.contact_email or 'Not provided'}  \n"
+                f"**Manager:** {person.manager_name}"
+                + (f" ({person.manager_email})" if person.manager_email else "")
+            )
+        st.markdown("#### Skills against your request")
+        source = resources[resources.resource_id.astype(str).eq(str(person.resource_id))].iloc[0]
+        candidate_skills = parse_skill_string(source.skills)
+        mandatory_for_role = person.get(
+            "requested_mandatory_skills", request.get("mandatory_skills", {})
+        )
+        preferred_for_role = person.get(
+            "requested_preferred_skills", request.get("preferred_skills", {})
+        )
+        combined = mandatory_for_role | preferred_for_role
+        if combined:
+            comparison = pd.DataFrame(
+                [
+                    {
+                        "Skill": skill,
+                        "You asked for": PROFICIENCY_LABELS[level - 1],
+                        "This person has": (
+                            PROFICIENCY_LABELS[candidate_skills[skill] - 1]
+                            if skill in candidate_skills
+                            else "Not listed"
+                        ),
+                        "Type": (
+                            "Mandatory"
+                            if skill in mandatory_for_role
+                            else "Nice to have"
+                        ),
+                    }
+                    for skill, level in combined.items()
+                ]
+            )
+            st.dataframe(comparison, hide_index=True, width="stretch")
         else:
-            rid = st.selectbox("Resource", eligible.resource_id.astype(str).tolist(), format_func=lambda x: display_name(eligible, x), key="capacity_person")
-            cap = candidate_capacity(capacity, rid, req["start_date"], req["end_date"], req["allocation_pct"])
-            person = resources[resources.resource_id.astype(str).eq(str(rid))].iloc[0]
-            c1, c2, c3, c4 = st.columns(4)
-            c1.metric("Demand", f"{req['allocation_pct']}%")
-            c2.metric("Minimum confirmed headroom", f"{cap.available_pct.min():.0f}%")
-            c3.metric("Weeks below demand", int((cap.available_pct < req["allocation_pct"]).sum()))
-            c4.metric("Tentative-risk weeks", int((cap.net_available_after_tentative_pct < req["allocation_pct"]).sum()))
-            plot_cols = ["available_pct", "required_pct", "confirmed_allocation_pct", "tentative_allocation_pct", "leave_pct"]
-            cap_plot = cap[["week_start"] + plot_cols].melt(id_vars="week_start", var_name="Series", value_name="Percent")
-            cap_plot["Series"] = cap_plot["Series"].replace({"available_pct": "Available", "required_pct": "Requested", "confirmed_allocation_pct": "Confirmed allocation", "tentative_allocation_pct": "Tentative allocation", "leave_pct": "Leave"})
-            fig = px.line(cap_plot, x="week_start", y="Percent", color="Series", markers=True)
-            fig.update_yaxes(range=[0, 100])
-            fig.update_layout(height=430, margin=dict(l=0, r=0, t=15, b=0))
-            st.plotly_chart(fig, width="stretch")
-            st.dataframe(cap[["week_start", "working_capacity_pct", "confirmed_allocation_pct", "tentative_allocation_pct", "leave_pct", "available_pct", "required_pct", "gap_pct", "tentative_gap_pct", "status"]], width="stretch", hide_index=True)
-            st.caption(f"This view is intentionally specific to {person.resource_name}. It evaluates the complete request horizon at weekly grain rather than hiding a bad week inside an average.")
+            st.caption("No skills were requested, so ranking used available capacity only.")
+    with score_column:
+        st.metric("Overall fit", f"{person.total_score:.1f} / 100")
+        components = pd.DataFrame(
+            {
+                "Component": [
+                    name.replace("_", " ").capitalize() for name in person.score_components
+                ],
+                "Points": list(person.score_components.values()),
+            }
+        )
+        figure = px.bar(components, x="Points", y="Component", orientation="h")
+        figure.update_layout(height=280, margin=dict(l=0, r=10, t=10, b=0))
+        st.plotly_chart(figure, width="stretch")
+        st.caption("Weighted points contributing to the overall fit.")
 
-# ---------------- Capability map ----------------
-with TABS[4]:
-    st.subheader("Capability & cross-team intelligence")
-    st.caption("This view is for finding capability pools and SMEs, not merely drawing an average utilization line.")
-    q1, q2 = st.columns(2)
-    with q1:
-        skill_focus = st.selectbox("Find supply for a skill", ["All skills"] + SKILL_CATALOG, key="portfolio_skill")
-    with q2:
-        geo_focus = st.selectbox("Geography focus", ["All locations"] + LOCATIONS + ["Europe", "APAC", "North America"], key="portfolio_geo")
+    st.divider()
+    st.markdown("#### Confirm resource allocation")
+    st.caption(
+        "Select only the people approved by the manager. Confirmation appends one row to the "
+        "Opportunities sheet and one row per selected person to the Allocations sheet."
+    )
+    selected_keys = st.multiselect(
+        "Approved people",
+        eligible.candidate_key.tolist(),
+        format_func=lambda key: (
+            f"{eligible[eligible.candidate_key.eq(key)].iloc[0].resource_name} — "
+            f"{eligible[eligible.candidate_key.eq(key)].iloc[0].requested_designation}"
+        ),
+        placeholder="Select reviewed candidates",
+        help="You can select fewer people than requested and return later to confirm others.",
+    )
+    if st.button("Confirm allocation and append to workbook", type="primary"):
+        selected = eligible[eligible.candidate_key.isin(selected_keys)]
+        if selected.empty:
+            st.warning("Select at least one person.")
+        else:
+            # Recheck against the latest register-adjusted capacity on the
+            # confirmation rerun. This prevents a stale shortlist from
+            # overbooking someone who was allocated to another project.
+            fresh_result = run_matching(
+                resources,
+                capacity,
+                request,
+                request.get("weights", DEFAULT_WEIGHTS),
+            )
+            fresh_eligible = fresh_result.table[
+                fresh_result.table.status.eq("Eligible")
+            ].copy()
+            fresh_eligible["candidate_key"] = (
+                fresh_eligible.role_key.astype(str)
+                + "|"
+                + fresh_eligible.resource_id.astype(str)
+            )
+            approved_keys = set(fresh_eligible.candidate_key)
+            blocked = selected[~selected.candidate_key.isin(approved_keys)]
+            selected = selected[selected.candidate_key.isin(approved_keys)]
+            if not blocked.empty:
+                st.warning(
+                    f"{len(blocked)} selected person(s) no longer have enough free hours "
+                    "after confirmed allocations and were not allocated."
+                )
+            if selected.empty:
+                st.error("None of the selected people still have enough weekly hours.")
+                return
+            try:
+                register_result = append_confirmed_allocations(
+                    REGISTER_PATH, resources, request, selected
+                )
+                st.session_state.last_register_result = register_result
+                st.success(
+                    f"Saved {register_result['allocations_added']} allocation row(s) to "
+                    f"{REGISTER_PATH.name}."
+                )
+                if register_result["allocations_skipped"]:
+                    st.info(
+                        f"{register_result['allocations_skipped']} row(s) already existed and "
+                        "were not duplicated."
+                    )
+            except PermissionError:
+                st.error(
+                    "The register is open in Excel. Close the workbook, then confirm again."
+                )
+            except Exception:
+                st.error("The allocation register could not be updated safely.")
 
-    portfolio = resources.copy()
-    if skill_focus != "All skills":
-        portfolio = portfolio[portfolio.skills.fillna("").map(lambda x: skill_focus in parse_skill_string(x))]
-    if geo_focus != "All locations":
-        portfolio = portfolio[portfolio.geography_expertise.fillna("").map(lambda x: geo_focus in split_pipe(x)) | portfolio.location.eq(geo_focus)]
-    if portfolio.empty:
-        st.info("No people match this capability/geography slice. No error is raised and no weak substitute is invented.")
-    else:
-        m1, m2, m3, m4 = st.columns(4)
-        m1.metric("People in pool", len(portfolio))
-        m2.metric("Teams", int(portfolio.team.nunique()))
-        m3.metric("Locations", int(portfolio.location.nunique()))
-        m4.metric("Senior / SME pool", int(portfolio.grade.isin(["Engagement Manager", "Principal", "Senior Principal"]).sum()))
-        st.dataframe(portfolio[["resource_name", "role_title", "grade", "team", "location", "time_zone", "domains", "skills", "geography_expertise", "project_expertise", "contact_email", "manager_name"]].head(100), width="stretch", hide_index=True)
+    if st.session_state.last_register_result:
+        opportunities, allocations = load_register(REGISTER_PATH, resources)
+        opportunity_number = st.session_state.last_register_result["opportunity_number"]
+        st.markdown("##### Rows currently stored for this opportunity")
+        st.dataframe(
+            allocations[
+                allocations["Opportunity Number"].astype(str).eq(opportunity_number)
+            ][ALLOCATION_COLUMNS],
+            hide_index=True,
+            width="stretch",
+        )
 
-    st.markdown("### Supply by skill")
-    supply_rows = []
+
+def horizon_availability(capacity: pd.DataFrame, from_date, weeks: int):
+    """Per-person availability across a multi-week horizon.
+
+    A person is only credited with sustained capacity when every week in the
+    horizon is present in the capacity sheet, matching the matching engine.
+    """
+    frame = capacity.copy()
+    frame["week_start"] = pd.to_datetime(frame["week_start"], errors="coerce").dt.normalize()
+    first = pd.Timestamp(from_date).normalize()
+    first = first - pd.Timedelta(days=first.weekday())
+    last = first + pd.Timedelta(weeks=weeks - 1)
+    window = frame[frame.week_start.between(first, last)]
+    if window.empty:
+        return pd.DataFrame(), []
+    grid = window.pivot_table(
+        index=window.resource_id.astype(str),
+        columns="week_start",
+        values="available_capacity_pct",
+        aggfunc="min",
+    )
+    week_columns = sorted(grid.columns)
+    second_half = week_columns[len(week_columns) // 2:]
+    stats = pd.DataFrame(
+        {
+            "sustained_pct": grid.min(axis=1),
+            "typical_pct": grid.median(axis=1),
+            "weeks_present": grid.count(axis=1),
+            "first_week_pct": grid[week_columns[0]],
+            "later_pct": grid[second_half].min(axis=1),
+        }
+    )
+    incomplete = stats.weeks_present.lt(len(week_columns))
+    stats.loc[incomplete, ["sustained_pct", "later_pct"]] = 0.0
+    return stats, week_columns
+
+
+def top_skills(raw: str, limit: int = 4) -> str:
+    parsed = parse_skill_string(raw)
+    ranked = sorted(parsed.items(), key=lambda item: (-item[1], item[0]))[:limit]
+    return ", ".join(skill for skill, _ in ranked)
+
+
+def skill_holders(resources: pd.DataFrame, minimum_level: int) -> dict[str, list[str]]:
+    holders: dict[str, list[str]] = {}
+    for row in resources.itertuples(index=False):
+        for skill, level in parse_skill_string(row.skills).items():
+            if level >= minimum_level:
+                holders.setdefault(skill, []).append(str(row.resource_id))
+    return holders
+
+
+def render_bench_view(pool: pd.DataFrame, threshold_hours: float) -> None:
+    threshold_pct = threshold_hours / STANDARD_WEEK_HOURS * 100
+    available_now = pool[pool.sustained_pct.ge(threshold_pct)]
+    frees_later = pool[
+        pool.sustained_pct.lt(threshold_pct) & pool.later_pct.ge(threshold_pct)
+    ]
+
+    metrics = st.columns(4)
+    metrics[0].metric("Free all horizon", len(available_now))
+    metrics[1].metric("Freeing up later", len(frees_later))
+    metrics[2].metric(
+        "Unused weekly hours",
+        f"{available_now.sustained_pct.sum() / 100 * STANDARD_WEEK_HOURS:,.1f} h",
+        help="Sum of each person's lowest weekly free hours across the horizon.",
+    )
+    metrics[3].metric("Teams holding it", int(available_now.team.nunique()))
+
+    if available_now.empty and frees_later.empty:
+        st.info(
+            f"Nobody holds {threshold_hours:g} free hours in every week of this horizon. "
+            "Lower the threshold or move the start week."
+        )
+        return
+
+    if not available_now.empty:
+        by_team = (
+            available_now.groupby("team", as_index=False)
+            .agg(
+                Weekly_hours=(
+                    "sustained_pct",
+                    lambda values: values.sum() / 100 * STANDARD_WEEK_HOURS,
+                )
+            )
+            .sort_values("Weekly_hours", ascending=True)
+            .tail(12)
+        )
+        figure = px.bar(by_team, x="Weekly_hours", y="team", orientation="h")
+        figure.update_layout(
+            height=max(260, 28 * len(by_team)),
+            margin=dict(l=0, r=10, t=10, b=0),
+            yaxis_title="",
+            xaxis_title="Unused hours per week",
+        )
+        st.plotly_chart(figure, width="stretch")
+
+    bench = pd.concat([available_now, frees_later])
+    bench = bench.assign(
+        readiness=bench.sustained_pct.ge(threshold_pct).map(
+            {True: "Free all horizon", False: "Frees up later"}
+        ),
+        sustained_hours=bench.sustained_pct / 100 * STANDARD_WEEK_HOURS,
+        later_hours=bench.later_pct / 100 * STANDARD_WEEK_HOURS,
+        capabilities=bench.skills.map(top_skills),
+    ).sort_values(["readiness", "sustained_pct"], ascending=[True, False])
+    st.dataframe(
+        bench[
+            [
+                "readiness",
+                "resource_name",
+                "role_title",
+                "team",
+                "location",
+                "sustained_hours",
+                "later_hours",
+                "capabilities",
+                "manager_name",
+                "contact_email",
+            ]
+        ],
+        hide_index=True,
+        width="stretch",
+        column_config={
+            "readiness": "Readiness",
+            "resource_name": "Person",
+            "role_title": "Designation",
+            "team": "Team",
+            "location": "Country",
+            "sustained_hours": st.column_config.NumberColumn(
+                "Free every week", format="%.2f h"
+            ),
+            "later_hours": st.column_config.NumberColumn(
+                "Free in later weeks", format="%.2f h"
+            ),
+            "capabilities": "Strongest skills",
+            "manager_name": "Manager",
+            "contact_email": "Email",
+        },
+    )
+
+
+def render_coverage_risk_view(pool: pd.DataFrame, threshold_hours: float) -> None:
+    threshold_pct = threshold_hours / STANDARD_WEEK_HOURS * 100
+    minimum_level = PROFICIENCY["Proficient"]
+    holders = skill_holders(pool, minimum_level)
+    indexed = pool.set_index(pool.resource_id.astype(str))
+    rows = []
     for skill in SKILL_CATALOG:
-        count = int(resources.skills.fillna("").map(lambda x: skill in parse_skill_string(x)).sum())
-        if count:
-            supply_rows.append({"Skill": skill, "People": count})
-    supply = pd.DataFrame(supply_rows).sort_values("People", ascending=False).head(20)
-    st.plotly_chart(px.bar(supply, x="People", y="Skill", orientation="h"), width="stretch")
+        ids = holders.get(skill, [])
+        people = indexed.loc[[i for i in ids if i in indexed.index]] if ids else indexed.iloc[0:0]
+        deployable = people[people.sustained_pct.ge(threshold_pct)]
+        concentration = (
+            people.team.value_counts(normalize=True).max() if not people.empty else 0.0
+        )
+        if people.empty:
+            risk = "No coverage"
+        elif deployable.empty:
+            risk = "Fully committed"
+        elif len(people) <= 2:
+            risk = "Single point of failure"
+        elif len(people) <= 5 or concentration >= 0.6 or people.location.nunique() == 1:
+            risk = "Concentrated"
+        else:
+            risk = "Healthy"
+        rows.append(
+            {
+                "skill": skill,
+                "risk": risk,
+                "proficient": len(people),
+                "deployable": len(deployable),
+                "teams": int(people.team.nunique()),
+                "countries": int(people.location.nunique()),
+                "concentration": float(concentration),
+            }
+        )
+    frame = pd.DataFrame(rows)
+    severity = {
+        "No coverage": 0,
+        "Single point of failure": 1,
+        "Fully committed": 2,
+        "Concentrated": 3,
+        "Healthy": 4,
+    }
 
-    if st.session_state.results is not None:
-        eligible = st.session_state.results.table[st.session_state.results.table.status.eq("Eligible")]
-        if not eligible.empty:
-            st.markdown("### Feasible capacity by team")
-            team = eligible.groupby("team", as_index=False).agg(
-                Feasible=("resource_id", "count"), MedianScore=("total_score", "median"),
-                BestScore=("total_score", "max"), MinWeeklyAvailability=("minimum_available_pct", "min"),
-            ).sort_values("Feasible", ascending=False)
-            st.dataframe(team, width="stretch", hide_index=True)
+    metrics = st.columns(4)
+    metrics[0].metric("Skills with no cover", int(frame.risk.eq("No coverage").sum()))
+    metrics[1].metric(
+        "Single points of failure", int(frame.risk.eq("Single point of failure").sum())
+    )
+    metrics[2].metric("Nobody free", int(frame.risk.eq("Fully committed").sum()))
+    metrics[3].metric("Healthy skills", int(frame.risk.eq("Healthy").sum()))
 
-# ---------------- Audit & data ----------------
-with TABS[5]:
-    st.subheader("Audit, data quality & architecture")
-    health = dataset_health(resources, capacity, evidence)
-    a1, a2, a3, a4 = st.columns(4)
-    a1.metric("Resource rows", health["resource_count"])
-    a2.metric("Capacity rows", health["capacity_rows"])
-    a3.metric("Delivery records", health["evidence_rows"])
-    a4.metric("Skill catalogue", len(SKILL_CATALOG))
+    only_risk = st.toggle("Show only skills at risk", value=True)
+    visible = frame[frame.risk.ne("Healthy")] if only_risk else frame
+    visible = visible.assign(order=visible.risk.map(severity)).sort_values(
+        ["order", "deployable", "proficient", "skill"]
+    )
+    if visible.empty:
+        st.success("Every skill in the catalogue has healthy, deployable coverage.")
+        return
 
-    for title, key in [("Resources", "resources"), ("Capacity", "capacity"), ("Evidence", "evidence")]:
-        errs = health[key + "_errors"]
-        warns = health[key + "_warnings"]
-        with st.expander(f"{title} validation", expanded=bool(errs)):
-            if errs:
-                for e in errs:
-                    st.error(e)
-            else:
-                st.success(f"{title} schema checks passed.")
-            for w in warns[:12]:
-                st.warning(w)
+    thinnest = visible.head(12).sort_values("deployable", ascending=True)
+    figure = px.bar(thinnest, x="deployable", y="skill", orientation="h")
+    figure.update_layout(
+        height=max(260, 28 * len(thinnest)),
+        margin=dict(l=0, r=10, t=10, b=0),
+        yaxis_title="",
+        xaxis_title="People proficient and free in this horizon",
+    )
+    st.plotly_chart(figure, width="stretch")
 
-    if st.session_state.results is not None:
-        st.markdown("### Current request rule snapshot")
-        st.json({
-            "request": st.session_state.request,
-            "weights": weights,
-            "rule_version": RULE_VERSION,
-            "taxonomy_version": TAXONOMY_VERSION,
-            "data_version": DATA_VERSION,
-        })
-    if st.session_state.decisions:
-        st.download_button("Download reviewer decisions", pd.DataFrame(st.session_state.decisions).to_csv(index=False).encode("utf-8"), "rm_reviewer_decisions.csv", "text/csv")
+    st.dataframe(
+        visible.drop(columns="order"),
+        hide_index=True,
+        width="stretch",
+        column_config={
+            "skill": "Skill",
+            "risk": "Risk",
+            "proficient": st.column_config.NumberColumn("Proficient or above"),
+            "deployable": st.column_config.NumberColumn("Of those, free"),
+            "teams": st.column_config.NumberColumn("Teams"),
+            "countries": st.column_config.NumberColumn("Countries"),
+            "concentration": st.column_config.ProgressColumn(
+                "Largest team share", min_value=0, max_value=1, format="%.0f%%"
+            ),
+        },
+    )
 
-    st.markdown("### Future LLM integration contract")
-    st.code(json.dumps(mock_llm_adapter_spec(), indent=2), language="json")
-    st.caption("The future LLM should interpret language only. It should produce a structured intent, after which the deterministic validation, eligibility and scoring engine remains authoritative.")
 
-    st.markdown("### Product guardrails")
-    st.markdown("""
-    **Hard delivery constraints:** location and explicitly selected time zone are strict eligibility gates. A candidate cannot score their way around them.
+def render_capacity_trend_view(
+    pool: pd.DataFrame,
+    capacity: pd.DataFrame,
+    from_date,
+    weeks: int,
+    threshold_hours: float,
+) -> None:
+    threshold_pct = threshold_hours / STANDARD_WEEK_HOURS * 100
+    frame = capacity.copy()
+    frame["week_start"] = pd.to_datetime(frame["week_start"], errors="coerce").dt.normalize()
+    frame["resource_id"] = frame.resource_id.astype(str)
+    frame = frame[frame.resource_id.isin(set(pool.resource_id.astype(str)))]
+    first = pd.Timestamp(from_date).normalize()
+    first = first - pd.Timedelta(days=first.weekday())
+    window = frame[frame.week_start.between(first, first + pd.Timedelta(weeks=weeks - 1))]
+    if window.empty:
+        st.info("The capacity sheet holds no weeks in this horizon.")
+        return
 
-    **Grade hierarchy:** Analyst → Associate Consultant → Consultant → Senior Consultant → Engagement Manager → Principal → Senior Principal. The UI prevents an invalid minimum/maximum range.
+    weekly = (
+        window.groupby("week_start", as_index=False)
+        .agg(
+            free_hours=(
+                "available_capacity_pct",
+                lambda values: values.sum() / 100 * STANDARD_WEEK_HOURS,
+            ),
+            median_hours=(
+                "available_capacity_pct",
+                lambda values: values.median() / 100 * STANDARD_WEEK_HOURS,
+            ),
+            people_free=(
+                "available_capacity_pct",
+                lambda values: int((values >= threshold_pct).sum()),
+            ),
+        )
+        .sort_values("week_start")
+    )
 
-    **Explainability:** the shortlist shows gates, percentiles, score contributions, evidence, capacity risk, confidence and contact paths.
+    metrics = st.columns(3)
+    metrics[0].metric("Free hours now", f"{weekly.iloc[0].free_hours:,.1f} h/week")
+    metrics[1].metric(
+        "Free hours at horizon end", f"{weekly.iloc[-1].free_hours:,.1f} h/week"
+    )
+    metrics[2].metric(
+        "Tightest week",
+        f"{weekly.loc[weekly.free_hours.idxmin()].week_start:%d %b}",
+    )
 
-    **Human control:** the system recommends and explains. It never autonomously assigns a person.
+    figure = px.line(weekly, x="week_start", y="free_hours", markers=True)
+    figure.update_layout(
+        height=320,
+        margin=dict(l=0, r=10, t=10, b=0),
+        xaxis_title="Week beginning",
+        yaxis_title="Free hours per week",
+    )
+    # Anchor at zero so a stable trend does not look like a spike.
+    figure.update_yaxes(rangemode="tozero")
+    st.plotly_chart(figure, width="stretch")
 
-    **No protected-attribute scoring:** protected or sensitive personal attributes are not used in matching.
-    """)
+    st.dataframe(
+        weekly,
+        hide_index=True,
+        width="stretch",
+        column_config={
+            "week_start": st.column_config.DateColumn("Week beginning", format="DD MMM YYYY"),
+            "free_hours": st.column_config.NumberColumn(
+                "Free hours per week", format="%.1f h"
+            ),
+            "median_hours": st.column_config.NumberColumn(
+                "Median free hours", format="%.2f h"
+            ),
+            "people_free": st.column_config.NumberColumn(
+                f"People at {threshold_hours:g} hours or more"
+            ),
+        },
+    )
+
+
+def render_capacity_and_risk(resources: pd.DataFrame, capacity: pd.DataFrame) -> None:
+    page_header(
+        "Capacity & risk",
+        "Portfolio view of unused capacity, thin capability coverage and the weekly "
+        "capacity trend, before a request exists.",
+    )
+
+    controls = st.columns([1, 1, 1, 1.4], gap="medium")
+    with controls[0]:
+        from_date = st.date_input(
+            "From week",
+            value=date.today() + timedelta(days=7),
+            help="The analysis starts on the Monday containing this date.",
+        )
+    with controls[1]:
+        weeks = st.slider(
+            "Horizon",
+            min_value=4,
+            max_value=12,
+            value=8,
+            help="How many future capacity weeks to assess.",
+        )
+    with controls[2]:
+        threshold_hours = st.number_input(
+            "Minimum weekly free hours",
+            min_value=0.25,
+            max_value=STANDARD_WEEK_HOURS,
+            value=21.25,
+            step=0.25,
+            format="%.2f",
+            help=(
+                f"The hours someone must have free to count as deployable. "
+                f"A full PSA week is {STANDARD_WEEK_HOURS:g} hours."
+            ),
+        )
+    with controls[3]:
+        team_options = sorted(resources.team.dropna().astype(str).unique())
+        teams = st.multiselect(
+            "Team",
+            team_options,
+            placeholder="All teams",
+            help="Limit portfolio capacity and skill risk to selected organisational teams.",
+        )
+
+    stats, week_columns = horizon_availability(capacity, from_date, weeks)
+    if stats.empty:
+        st.info("The capacity sheet holds no weeks in this horizon. Move the start week.")
+        return
+
+    pool = resources.copy()
+    if teams:
+        pool = pool[pool.team.isin(teams)]
+    pool = (
+        pool.assign(_key=pool.resource_id.astype(str))
+        .join(stats, on="_key")
+        .drop(columns="_key")
+    )
+    for column in ["sustained_pct", "typical_pct", "later_pct", "first_week_pct"]:
+        pool[column] = pd.to_numeric(pool[column], errors="coerce").fillna(0.0)
+    if pool.empty:
+        st.info("No people match this team filter.")
+        return
+
+    st.caption(
+        f"{len(week_columns)} weeks from {week_columns[0]:%d %b %Y} to "
+        f"{week_columns[-1]:%d %b %Y} · {len(pool):,} people · a week missing from the "
+        "capacity sheet counts as unavailable."
+    )
+
+    views = ["Bench and redeployment", "Capability coverage risk", "Capacity trend"]
+    view = st.radio(
+        "View",
+        views,
+        horizontal=True,
+        label_visibility="collapsed",
+        help=(
+            "Bench identifies usable time, coverage risk identifies fragile skills, "
+            "and trend shows total free hours week by week."
+        ),
+    )
+    st.write("")
+    if view == views[0]:
+        render_bench_view(pool, threshold_hours)
+    elif view == views[1]:
+        render_coverage_risk_view(pool, threshold_hours)
+    else:
+        render_capacity_trend_view(
+            pool, capacity, from_date, weeks, threshold_hours
+        )
+
+
+def describe_filters(intent) -> list[str]:
+    chips = []
+    if intent.skills:
+        chips.append("Skills: " + ", ".join(sorted(intent.skills)))
+    if intent.designations:
+        chips.append("Designation: " + ", ".join(sorted(intent.designations)))
+    if intent.locations:
+        chips.append("Country: " + ", ".join(sorted(intent.locations)))
+    if intent.geographies:
+        chips.append("Geography: " + ", ".join(sorted(intent.geographies)))
+    if intent.domains:
+        chips.append("Domain: " + ", ".join(sorted(intent.domains)))
+    if intent.time_zones:
+        chips.append("Time zone: " + ", ".join(sorted(intent.time_zones)))
+    if intent.languages:
+        chips.append("Language: " + ", ".join(sorted(intent.languages)))
+    if intent.availability_min is not None:
+        minimum_hours = intent.availability_min / 100 * STANDARD_WEEK_HOURS
+        maximum_hours = (
+            intent.availability_max / 100 * STANDARD_WEEK_HOURS
+            if intent.availability_max is not None
+            else None
+        )
+        band = (
+            f"{minimum_hours:.2f} hours/week or more"
+            if maximum_hours is None
+            else f"{minimum_hours:.2f} to {maximum_hours:.2f} hours/week"
+        )
+        chips.append("Availability: " + band)
+    if intent.start_date:
+        chips.append(f"From: {intent.start_date:%d %b %Y}")
+    return chips
+
+
+def render_copilot(resources: pd.DataFrame, capacity: pd.DataFrame) -> None:
+    page_header(
+        "Ask Copilot",
+        "Search for people in plain language. Country means where a person works, "
+        "so asking for Germany will not return the whole of Europe.",
+    )
+    examples = [
+        "Consultants with SQL and Python in Germany",
+        "GenAI experts in India",
+        "Power BI people in India with 21-25 hours free from 2026-09-21",
+    ]
+    example_columns = st.columns(len(examples))
+    for index, example in enumerate(examples):
+        if example_columns[index].button(
+            example, key=f"example_{index}", width="stretch", help="Use this example question."
+        ):
+            st.session_state.copilot_query = example
+
+    query = st.text_input(
+        "What are you looking for?",
+        value=st.session_state.get("copilot_query", ""),
+        placeholder="For example: Tableau consultants in India with 21 hours free from 2026-09-21",
+        help=(
+            "Mention skills, country, designation, weekly free hours and a start date. "
+            "Percentage availability is also accepted for compatibility."
+        ),
+    )
+    if st.button("Search", type="primary"):
+        if not query.strip():
+            st.warning("Type a question first, or choose one of the examples above.")
+        else:
+            intent, found = discovery_search(resources, capacity, query, limit=25)
+            st.session_state.chat_history.insert(
+                0, {"query": query, "intent": intent, "rows": found}
+            )
+
+    for item in st.session_state.chat_history[:3]:
+        with st.container(border=True):
+            st.markdown(f"**You asked:** {item['query']}")
+            chips = describe_filters(item["intent"])
+            if chips:
+                st.caption("Understood as — " + " | ".join(chips))
+            found = item["rows"]
+            if found.empty:
+                st.info(
+                    "Nobody matched every part of that question. Try removing one condition, "
+                    "or check the spelling of the skill or country."
+                )
+                continue
+            found = found.copy()
+            if "minimum_available_pct" in found:
+                found["minimum_available_hours"] = (
+                    found["minimum_available_pct"] / 100 * STANDARD_WEEK_HOURS
+                )
+            st.caption(f"{len(found)} people found.")
+            st.dataframe(
+                found[
+                    [
+                        column
+                        for column in [
+                            "rank",
+                            "resource_name",
+                            "role_title",
+                            "grade",
+                            "team",
+                            "location",
+                            "minimum_available_hours",
+                            "key_skills",
+                            "contact_email",
+                            "manager_name",
+                        ]
+                        if column in found.columns
+                    ]
+                ],
+                hide_index=True,
+                width="stretch",
+                column_config={
+                    "rank": "#",
+                    "resource_name": "Person",
+                    "role_title": "Designation",
+                    "grade": "Grade",
+                    "team": "Team",
+                    "location": "Country",
+                    "minimum_available_hours": st.column_config.NumberColumn(
+                        "Free weekly hours", format="%.2f h"
+                    ),
+                    "key_skills": "Relevant skills",
+                    "contact_email": "Email",
+                    "manager_name": "Manager",
+                },
+            )
+
+    with st.expander("How this will work with an approved LLM", expanded=False):
+        st.write(
+            "Search currently runs on keywords, so no API key is needed. When an approved model "
+            "is available it plugs into the same contract at runtime: it only turns your sentence "
+            "into the governed filters shown above. Its output is checked against the catalogue, "
+            "it cannot change any eligibility rule or score, and if it fails or times out the "
+            "keyword search takes over automatically."
+        )
+
+
+apply_theme()
+init_state()
+resources, capacity = active_data()
+_, confirmed_allocations = load_register(REGISTER_PATH, resources)
+capacity = apply_confirmed_allocations(capacity, confirmed_allocations)
+data_source_panel(resources, capacity)
+
+brand_bar()
+main_navigation()
+
+page = st.session_state.page
+if page == "Project brief":
+    render_project_brief(resources, capacity)
+elif page == "Team & skills":
+    render_team_and_skills(resources, capacity)
+elif page == "Recommendations":
+    render_recommendations(resources, capacity)
+elif page == "Capacity & risk":
+    render_capacity_and_risk(resources, capacity)
+else:
+    render_copilot(resources, capacity)

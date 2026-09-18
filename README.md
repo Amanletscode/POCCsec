@@ -1,161 +1,76 @@
-# CSEC RM Copilot POC
+# CSEC Resource Manager
 
-## Documentation
+A Streamlit decision-support application for project staffing, capability discovery, and portfolio supply intelligence.
 
-- [Complete project guide](docs/PROJECT_GUIDE.md) — architecture, end-to-end flow, every tab, scoring, guardrails, limitations and glossary.
-- [Data dictionary](docs/DATA_DICTIONARY.md) — every source, request, derived, result and audit field with formats and validation.
-- [Stakeholder walkthrough](docs/STAKEHOLDER_WALKTHROUGH.md) — presentation script, demo scenario, FAQs, honest limitations and roadmap.
+## Core workflows
 
-## Purpose
+1. **Project brief** captures dates, allocation, country, optional specific team, time zone, language, and the opportunity record.
+2. **Team & skills** captures headcount, role-specific skill/proficiency requirements, and optional manual ranking weights.
+3. **Recommendations** applies fixed eligibility rules, supports deliberate manager selection, and appends confirmed rows to the allocation register.
+4. **Capacity & risk** answers portfolio questions a person search cannot: where unused capacity sits, who frees up later, which capabilities have thin or single-person coverage, and how free capacity moves week by week.
+5. **Ask Copilot** interprets governed natural-language filters without requiring an API key.
 
-A decision-support POC for CSEC capability discovery and resource matching.
+Ranking weights default to governed values. A manager may override them for a run; the four
+weights must total exactly 100% and the app states the exact amount to add or remove.
 
-The product has two user journeys over the same backend:
+## Matching policy
 
-1. **Copilot / capability discovery**: a manager can ask lightweight natural-language questions such as `I have an MMX project, who should I contact?` or `Who has expertise in price elasticity for Europe?` The current POC uses deterministic vocabulary-aware search. An approved LLM can later replace only the interpretation layer.
-2. **Structured resource matching**: when a manager has a fuller demand definition, the form captures role, dates, allocation, skills, proficiency, grade, location, time zone, language and domain. The deterministic engine validates the request, applies hard gates, ranks feasible candidates and explains the result.
+The following are hard gates when requested:
 
-## Important business rules
+- exact work country;
+- exact specific team, when selected;
+- exact time zone;
+- all required languages;
+- exact designation and numeric grade;
+- every mandatory skill and minimum proficiency;
+- complete weekly capacity data;
+- available hours greater than or equal to the requested weekly hours in every week.
 
-- Location is a **hard gate** whenever locations are selected.
-- Time zone is a **hard gate** whenever time zones are selected.
-- Every mandatory skill and proficiency requirement must be satisfied.
-- Grade range follows: **Analyst → Associate Consultant → Consultant → Senior Consultant → Engagement Manager → Principal → Senior Principal**.
-- The UI prevents a minimum grade above the selected maximum.
-- A high fit score can never compensate for a failed hard gate.
-- Weekly capacity is checked across the complete request horizon when the hard capacity gate is enabled.
-- Missing capacity data is not silently interpreted as free capacity.
-- Missing profile information is surfaced as uncertainty, not as an ability penalty.
-- Alternatives explicitly exclude the selected person.
-- Protected or sensitive attributes are not used in matching.
-- The fit score is a comparison aid, not a prediction of performance or employee value.
-- Excluded candidates retain a separate potential-fit score for audit/near-match review, but their recommendation score remains zero.
-- Near matches are explicitly labelled as excluded and require a human to change a constraint; the engine never relaxes a gate silently.
+There is no capacity tolerance. A PSA week is 42.5 hours (8.5 hours × 5 days); percentages remain an internal/source representation. Team is never scored. Eligible people use governed default weights for mandatory skills, nice-to-have skills, proficiency depth, and capacity fit; managers may replace these weights for a run as long as they total 100%.
 
-## Recommended RM guardrails
+## Numeric grades
 
-Treat these as strict when the requester explicitly supplies them:
+| Grade | Designation |
+|---|---|
+| 130 | Analyst / Associate Consultant |
+| 140 | Consultant |
+| 150 | Senior Consultant |
+| 160 | Engagement Manager |
+| 170 | Principal |
+| 180 | Senior Principal |
 
-- request dates and weekly allocation;
-- mandatory skill presence and minimum proficiency;
-- minimum/maximum grade;
-- required work location, time zone and client language;
-- complete weekly capacity data and confirmed headroom when hard-capacity mode is enabled;
-- domain only when regulation, client context or delivery policy genuinely requires prior domain experience.
+Designation distinguishes Analyst from Associate Consultant at grade 130.
 
-Treat preferred skills, development interests, additional proficiency, prior delivery evidence and tentative capacity as ranking or risk signals rather than automatic exclusions. Before production, add governed fields for work authorization, contractual entity, security clearance and local labor restrictions; the POC does not infer these from location or nationality.
+## Data
 
-The system must never score protected characteristics, infer missing skills, hide missing capacity, autonomously allocate a person, or let a high weighted score override a failed strict constraint. Profiles below the confidence threshold and tentative conflicts require verification by RM.
+Only two input datasets are used:
 
-## Score interpretation
+- `data/resources.csv`: one row per person;
+- `data/capacity.csv`: one row per person per week with direct `available_capacity_pct`.
 
-The 0–100 fit score applies only to candidates who pass every hard gate. It combines mandatory coverage, preferred capabilities, proficiency depth, relevant and recent delivery evidence, capacity resilience, domain fit, development alignment and profile confidence. It is deterministic and versioned, and should be used to compare feasible candidates—not as a probability of project success.
+The committed synthetic data contains 320 people and 9,600 weekly capacity rows. Weekly availability stays between 30% and 70%. Skills and project breadth grow with seniority while retaining hands-on foundations: junior profiles commonly include SQL, Python, Tableau and GenAI, while consultant and senior profiles add Power BI, cloud, data platforms, governance and leadership capability.
 
-## Dataset
-
-The included synthetic POC data contains:
-
-- 320 resource profiles
-- 9,600 weekly capacity records across 30 weeks
-- 1,200+ delivery-evidence records
-- 50+ governed skills
-- 7 CSEC grades
-- 11 work locations including India and Philippines
-- time zones, languages, therapeutic/domain expertise, development interests
-- manager/contact information
-- geography/country expertise
-- project/capability expertise including MMX and price elasticity examples
-
-The people and operational records are synthetic and are intended for demonstration only.
-
-## Folder structure
-
-```text
-csec_rm_copilot/
-├── app.py
-├── requirements.txt
-├── run_app.bat
-├── README.md
-├── data/
-│   ├── resources.csv
-│   ├── capacity.csv
-│   └── delivery_evidence.csv
-├── modules/
-│   ├── config.py
-│   ├── data.py
-│   ├── discovery.py
-│   ├── engine.py
-│   ├── sample_data.py
-│   └── validation.py
-└── tests/
-    ├── conftest.py
-    └── test_engine.py
-```
-
-## Windows setup
-
-From the project directory:
-
-```powershell
-python -m venv .venv
-.venv\Scripts\activate
-python -m pip install -r requirements.txt
-streamlit run app.py
-```
-
-Or use `run_app.bat` after dependencies are installed.
-
-## Testing
-
-```powershell
-.venv\\Scripts\\activate
-pytest -q
-```
-
-The current suite covers hard location/time-zone rules, grade-order validation, French/no-match handling, impossible capability combinations, missing capacity data, skill aliases, capability discovery, MMX discovery, price-elasticity discovery, canonicalization of sparse uploads and dataset round-tripping.
+Confirmed results are persisted to `data/staffing_register.xlsx`. It contains separate `Opportunities` and `Allocations` sheets, is seeded with randomized demonstration history, and is updated idempotently from Recommendations. Confirmed hours are deducted from overlapping employee-weeks before the next match, so a person can join another project only when sufficient hours remain.
 
 ## Future LLM integration
 
-The file `modules/discovery.py` exposes the intended interpretation contract through `mock_llm_adapter_spec()`.
+`modules.discovery.interpret_with_runtime()` accepts an optional runtime adapter with:
 
-The future architecture should be:
-
-```text
-Natural-language request
-        ↓
-LLM / NLP interpretation layer
-        ↓
-Structured intent contract
-        ↓
-Deterministic validation + hard eligibility gates
-        ↓
-Evidence-based scoring
-        ↓
-Capacity / alternatives / contact paths
-        ↓
-Human decision
+```python
+adapter.interpret(text, schema) -> dict
 ```
 
-The LLM should not become the system of record for eligibility or scoring. It should translate user language into the governed request/intent schema.
+The model may translate language into governed fields only. Returned skills, countries, domains, time zones, languages, and designations are validated against application catalogues. Invalid output, timeouts, or provider failures fall back to deterministic parsing. Model output cannot change hard gates or scoring.
 
-No API key is needed for the current application. When approved access arrives, the LLM adapter should read credentials from `st.secrets`, return schema-validated structured intent, preserve the original user text for audit, and reject unsupported taxonomy values. Prompt text must never be allowed to alter hard-gate policy or matching weights.
+## Run
 
-## External product-design benchmark
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\run_app.bat
+```
 
-The design intentionally follows the modern resource-management pattern of combining demand, skills, availability, cross-team visibility, bottleneck detection and scenario-oriented decision support rather than treating resource matching as a simple name search. Examples include Planview, Kantata and Runn.
+## Test
 
-## Demo scenario
-
-Use:
-
-- Role: Healthcare Data Analyst
-- Dates: 14 Sep 2026 to 30 Nov 2026
-- Allocation: 50%
-- Location: India
-- Time zone: Asia/Kolkata
-- Language: English
-- Mandatory: SQL Proficient, Python Working, Healthcare Data Working
-- Preferred: Power BI Working, Claims Data Working
-- Grade: Analyst to Consultant
-
-The deterministic demo is engineered so that **Aarav Sharma** is a strong top feasible candidate, while other resources provide genuine comparisons and cross-team context.
+```powershell
+.\.venv\Scripts\python.exe -m pytest -q
+```

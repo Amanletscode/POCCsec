@@ -3,7 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 import pandas as pd
 
-from .validation import validate_capacity, validate_evidence, validate_resources
+from .config import DESIGNATION_TO_GRADE, GRADE_LABELS
+from .validation import validate_capacity, validate_resources
 
 
 def read_table(file_or_path, **kwargs) -> pd.DataFrame:
@@ -27,8 +28,7 @@ def load_workbook(file_obj):
     book = pd.read_excel(file_obj, sheet_name=None)
     resources = _sheet(book, "Resources", "Resource", "Employees", "Employee")
     capacity = _sheet(book, "Capacity", "Weekly Capacity", "WeeklyCapacity")
-    evidence = _sheet(book, "DeliveryEvidence", "Evidence", "Project History", "ProjectHistory")
-    return resources, capacity, evidence
+    return resources, capacity
 
 
 def canonicalize_resources(df: pd.DataFrame) -> pd.DataFrame:
@@ -36,6 +36,7 @@ def canonicalize_resources(df: pd.DataFrame) -> pd.DataFrame:
     aliases = {
         "employee_id": "resource_id", "emp_id": "resource_id", "name": "resource_name",
         "employee_name": "resource_name", "timezone": "time_zone", "time zone": "time_zone",
+        "designation": "role_title", "grade_code": "grade",
         "skills_proficiency": "skills", "skill_proficiency": "skills",
         "therapeutic_areas": "domains", "therapeutic_area": "domains",
         "development_interest": "development_interests", "manager": "manager_name",
@@ -45,19 +46,28 @@ def canonicalize_resources(df: pd.DataFrame) -> pd.DataFrame:
         if old in out.columns and new not in out.columns:
             out[new] = out[old]
     defaults = {
-        "resource_id": "", "resource_name": "", "team": "Unassigned", "grade": "Analyst",
+        "resource_id": "", "resource_name": "", "team": "Unassigned", "grade": 130,
+        "role_title": "",
         "location": "Unknown", "time_zone": "Unknown", "languages": "English",
         "skills": "", "domains": "", "development_interests": "", "years_experience": 0,
-        "delivery_rating": 0, "profile_confidence": 0.5, "profile_updated": pd.Timestamp.today().date(),
+        "delivery_rating": 0, "profile_updated": pd.Timestamp.today().date(),
         "manager_name": "Not provided", "manager_email": "", "contact_email": "",
-        "geography_expertise": "", "country_expertise": "", "project_expertise": "",
-        "capability_tags": "", "expertise_summary": "",
+        "geography_expertise": "", "project_expertise": "", "expertise_summary": "",
     }
     for col, default in defaults.items():
         if col not in out.columns:
             out[col] = default
     out["resource_id"] = out["resource_id"].astype(str).str.strip()
     out["resource_name"] = out["resource_name"].fillna("").astype(str).str.strip()
+    raw_grade = out["grade"].copy()
+    out["grade"] = pd.to_numeric(raw_grade, errors="coerce")
+    text_grade = raw_grade.astype(str).map(DESIGNATION_TO_GRADE)
+    out["grade"] = out["grade"].fillna(text_grade)
+    role_from_grade = out["grade"].map(GRADE_LABELS).replace(
+        {"Analyst / Associate Consultant": "Analyst"}
+    )
+    role = out["role_title"].fillna("").astype(str).str.strip()
+    out["role_title"] = role.where(role.ne(""), role_from_grade)
     out["profile_updated"] = pd.to_datetime(out["profile_updated"], errors="coerce")
     out["time_zone"] = out["time_zone"].fillna("").astype(str).str.strip()
     return out
@@ -65,53 +75,38 @@ def canonicalize_resources(df: pd.DataFrame) -> pd.DataFrame:
 
 def canonicalize_capacity(df: pd.DataFrame | None) -> pd.DataFrame:
     if df is None:
-        return pd.DataFrame(columns=["resource_id", "week_start", "working_capacity_pct", "confirmed_allocation_pct", "tentative_allocation_pct", "leave_pct"])
+        return pd.DataFrame(columns=["resource_id", "week_start", "available_capacity_pct"])
     out = df.copy()
+    aliases = {"available_pct": "available_capacity_pct", "availability_pct": "available_capacity_pct"}
+    for old, new in aliases.items():
+        if old in out.columns and new not in out.columns:
+            out[new] = out[old]
     if "resource_id" not in out.columns:
         out["resource_id"] = ""
     if "week_start" not in out.columns:
         out["week_start"] = pd.NaT
-    for col in ["working_capacity_pct", "confirmed_allocation_pct", "tentative_allocation_pct", "leave_pct"]:
-        if col not in out.columns:
-            out[col] = 0.0
-        out[col] = pd.to_numeric(out[col], errors="coerce")
+    if "available_capacity_pct" not in out.columns:
+        working = pd.to_numeric(out.get("working_capacity_pct", 100), errors="coerce")
+        confirmed = pd.to_numeric(out.get("confirmed_allocation_pct", 0), errors="coerce")
+        leave = pd.to_numeric(out.get("leave_pct", 0), errors="coerce")
+        out["available_capacity_pct"] = (working - confirmed - leave).clip(0, 100)
+    out["available_capacity_pct"] = pd.to_numeric(out["available_capacity_pct"], errors="coerce")
     out["resource_id"] = out["resource_id"].fillna("").astype(str).str.strip()
     out["week_start"] = pd.to_datetime(out["week_start"], errors="coerce").dt.normalize()
-    return out
-
-
-def canonicalize_evidence(df: pd.DataFrame | None) -> pd.DataFrame:
-    if df is None:
-        return pd.DataFrame(columns=["resource_id", "project_name", "project_type", "domain", "role", "skills_used", "duration_months", "project_end", "outcome_score"])
-    out = df.copy()
-    defaults = {
-        "resource_id": "", "project_name": "", "project_type": "", "domain": "", "role": "",
-        "skills_used": "", "duration_months": 0, "project_end": pd.NaT, "outcome_score": 0,
-    }
-    for col, default in defaults.items():
-        if col not in out.columns:
-            out[col] = default
-    out["resource_id"] = out["resource_id"].fillna("").astype(str).str.strip()
-    out["project_end"] = pd.to_datetime(out["project_end"], errors="coerce")
-    out["duration_months"] = pd.to_numeric(out["duration_months"], errors="coerce").fillna(0)
-    out["outcome_score"] = pd.to_numeric(out["outcome_score"], errors="coerce").fillna(0)
-    return out
+    return out[["resource_id", "week_start", "available_capacity_pct"]]
 
 
 def load_demo_data(data_dir: Path):
     resources = canonicalize_resources(pd.read_csv(data_dir / "resources.csv"))
     capacity = canonicalize_capacity(pd.read_csv(data_dir / "capacity.csv"))
-    evidence = canonicalize_evidence(pd.read_csv(data_dir / "delivery_evidence.csv"))
-    return resources, capacity, evidence
+    return resources, capacity
 
 
-def dataset_health(resources, capacity, evidence) -> dict:
+def dataset_health(resources, capacity) -> dict:
     rr = validate_resources(resources)
     cr = validate_capacity(capacity, resources)
-    er = validate_evidence(evidence, resources)
     return {
         "resources_ok": rr.ok, "resources_errors": rr.errors, "resources_warnings": rr.warnings,
         "capacity_ok": cr.ok, "capacity_errors": cr.errors, "capacity_warnings": cr.warnings,
-        "evidence_ok": er.ok, "evidence_errors": er.errors, "evidence_warnings": er.warnings,
-        "resource_count": len(resources), "capacity_rows": len(capacity), "evidence_rows": len(evidence),
+        "resource_count": len(resources), "capacity_rows": len(capacity),
     }

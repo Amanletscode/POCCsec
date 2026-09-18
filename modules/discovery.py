@@ -1,10 +1,23 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
+from datetime import date
 import re
+
 import pandas as pd
 
-from .config import DOMAINS, LANGUAGES, LOCATIONS, SEARCH_ALIASES, SKILL_CATALOG, SKILL_ALIASES, TIME_ZONES
+from .config import (
+    DESIGNATIONS,
+    DOMAINS,
+    LANGUAGES,
+    LOCATIONS,
+    SEARCH_ALIASES,
+    SKILL_ALIASES,
+    SKILL_CATALOG,
+    STANDARD_WEEK_HOURS,
+    TIME_ZONES,
+)
+from .engine import candidate_capacity
 from .validation import normalize_skill_name, parse_skill_string, split_pipe
 
 
@@ -15,131 +28,346 @@ class DiscoveryIntent:
     skills: set[str] = field(default_factory=set)
     domains: set[str] = field(default_factory=set)
     locations: set[str] = field(default_factory=set)
+    geographies: set[str] = field(default_factory=set)
     time_zones: set[str] = field(default_factory=set)
     languages: set[str] = field(default_factory=set)
+    designations: set[str] = field(default_factory=set)
     terms: set[str] = field(default_factory=set)
+    availability_min: float | None = None
+    availability_max: float | None = None
+    start_date: date | None = None
     requested_contact: bool = False
+    interpreted_by: str = "deterministic"
 
 
 def _contains_phrase(text: str, phrase: str) -> bool:
     return re.search(r"\b" + re.escape(phrase.lower()) + r"\b", text.lower()) is not None
 
 
+def _parse_availability(text: str) -> tuple[float | None, float | None]:
+    hours_range = re.search(
+        r"\b(\d{1,2}(?:\.\d+)?)\s*(?:-|–|to)\s*"
+        r"(\d{1,2}(?:\.\d+)?)\s*(?:hours?|hrs?|h)\b",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if hours_range:
+        low, high = sorted(map(float, hours_range.groups()))
+        if 0 <= low <= high <= STANDARD_WEEK_HOURS:
+            return low / STANDARD_WEEK_HOURS * 100, high / STANDARD_WEEK_HOURS * 100
+        return None, None
+    hours_value = re.search(
+        r"\b(\d{1,2}(?:\.\d+)?)\s*(?:hours?|hrs?)\s*"
+        r"(?:available|availability|capacity|free)?",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if hours_value:
+        value = float(hours_value.group(1))
+        return (
+            (value / STANDARD_WEEK_HOURS * 100, None)
+            if 0 <= value <= STANDARD_WEEK_HOURS
+            else (None, None)
+        )
+    range_match = re.search(
+        r"\b(\d{1,3})\s*(?:-|–|to)\s*(\d{1,3})\s*%",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if range_match:
+        low, high = sorted(map(float, range_match.groups()))
+        return (low, high) if 0 <= low <= high <= 100 else (None, None)
+    value_match = re.search(
+        r"\b(\d{1,3})\s*%\s*(?:available|availability|capacity|allocation)?",
+        text,
+        flags=re.IGNORECASE,
+    )
+    if value_match:
+        value = float(value_match.group(1))
+        return (value, None) if 0 <= value <= 100 else (None, None)
+    return None, None
+
+
+def _parse_date(text: str) -> date | None:
+    iso = re.search(r"\b(20\d{2})-(\d{1,2})-(\d{1,2})\b", text)
+    if not iso:
+        return None
+    try:
+        return date(*map(int, iso.groups()))
+    except ValueError:
+        return None
+
+
 def interpret_query(text: str) -> DiscoveryIntent:
     raw = str(text or "").strip()
     lower = raw.lower()
-    intent = "capability_discovery"
-    if any(x in lower for x in ["who should i contact", "who do i contact", "contact for", "expert", "sme", "subject matter", "who knows", "who has"]):
-        intent = "expert_finder"
-    if any(x in lower for x in ["available", "capacity", "staff", "resource", "allocate", "allocation", "%"]):
-        intent = "resource_matching"
-    if any(x in lower for x in ["team", "capability", "expertise", "competence"]):
-        intent = "capability_discovery" if intent == "expert_finder" else intent
+    intent_name = "capability_discovery"
+    if any(
+        phrase in lower
+        for phrase in [
+            "who should i contact",
+            "who do i contact",
+            "contact for",
+            "expert",
+            "sme",
+            "who knows",
+            "who has",
+        ]
+    ):
+        intent_name = "expert_finder"
+    if any(
+        phrase in lower
+        for phrase in ["available", "capacity", "staff", "resource", "allocate", "allocation", "%"]
+    ):
+        intent_name = "resource_matching"
 
-    out = DiscoveryIntent(raw=raw, intent=intent, requested_contact=("contact" in lower or "email" in lower or "reach" in lower))
-    # Exact governed vocab first, longest terms first.
-    for skill in sorted(SKILL_CATALOG + list(SKILL_ALIASES.keys()), key=len, reverse=True):
+    output = DiscoveryIntent(
+        raw=raw,
+        intent=intent_name,
+        requested_contact=any(term in lower for term in ["contact", "email", "reach"]),
+    )
+    for skill in sorted(SKILL_CATALOG + list(SKILL_ALIASES), key=len, reverse=True):
         if _contains_phrase(raw, skill):
             canonical = normalize_skill_name(skill)
             if canonical:
-                out.skills.add(canonical)
+                output.skills.add(canonical)
     for domain in sorted(DOMAINS, key=len, reverse=True):
         if _contains_phrase(raw, domain):
-            out.domains.add(domain)
+            output.domains.add(domain)
     for location in sorted(LOCATIONS, key=len, reverse=True):
         if _contains_phrase(raw, location):
-            out.locations.add(location)
+            output.locations.add(location)
+    for designation in sorted(DESIGNATIONS, key=len, reverse=True):
+        if _contains_phrase(raw, designation):
+            output.designations.add(designation)
     for timezone in TIME_ZONES:
         if timezone.lower() in lower:
-            out.time_zones.add(timezone)
+            output.time_zones.add(timezone)
     for language in LANGUAGES:
         if _contains_phrase(raw, language):
-            out.languages.add(language)
+            output.languages.add(language)
     for phrase, payload in SEARCH_ALIASES.items():
         if _contains_phrase(raw, phrase):
-            out.terms.add(phrase.upper())
-            out.locations |= payload.get("locations", set())
-            out.skills |= payload.get("skills", set())
-            out.terms |= payload.get("tags", set())
-    # Stable free-text tokens are retained as weak search terms, not hard filters.
-    tokens = {t for t in re.findall(r"[a-zA-Z][a-zA-Z0-9&'-]{2,}", lower) if t not in {"who", "should", "have", "for", "the", "and", "with", "from", "project", "expertise", "contact"}}
-    out.terms |= tokens
-    return out
+            output.locations |= payload.get("locations", set())
+            output.geographies |= payload.get("geographies", set())
+            output.skills |= payload.get("skills", set())
+            output.terms |= payload.get("tags", set())
+    output.availability_min, output.availability_max = _parse_availability(raw)
+    output.start_date = _parse_date(raw)
+
+    ignored = {
+        "who",
+        "should",
+        "have",
+        "for",
+        "the",
+        "and",
+        "with",
+        "from",
+        "project",
+        "expertise",
+        "contact",
+        "available",
+        "availability",
+        "capacity",
+    }
+    output.terms |= {
+        token
+        for token in re.findall(r"[a-zA-Z][a-zA-Z0-9&'-]{2,}", lower)
+        if token not in ignored
+    }
+    return output
 
 
-def discovery_search(resources: pd.DataFrame, evidence: pd.DataFrame, query: str, limit: int = 10) -> tuple[DiscoveryIntent, pd.DataFrame]:
-    intent = interpret_query(query)
+def _intent_from_payload(raw: str, payload: dict) -> DiscoveryIntent:
+    """Validate an approved LLM's structured payload against governed values."""
+    deterministic = interpret_query(raw)
+    for field_name, allowed in [
+        ("skills", set(SKILL_CATALOG)),
+        ("domains", set(DOMAINS)),
+        ("locations", set(LOCATIONS)),
+        ("time_zones", set(TIME_ZONES)),
+        ("languages", set(LANGUAGES)),
+        ("designations", set(DESIGNATIONS)),
+    ]:
+        values = set(payload.get(field_name) or [])
+        setattr(deterministic, field_name, values.intersection(allowed))
+    deterministic.geographies = {
+        str(value).strip() for value in payload.get("geographies") or [] if str(value).strip()
+    }
+    deterministic.terms = {
+        str(value).strip() for value in payload.get("terms") or [] if str(value).strip()
+    }
+    minimum = pd.to_numeric(payload.get("availability_min"), errors="coerce")
+    maximum = pd.to_numeric(payload.get("availability_max"), errors="coerce")
+    deterministic.availability_min = (
+        float(minimum) if pd.notna(minimum) and 0 <= float(minimum) <= 100 else None
+    )
+    deterministic.availability_max = (
+        float(maximum) if pd.notna(maximum) and 0 <= float(maximum) <= 100 else None
+    )
+    parsed_date = pd.to_datetime(payload.get("start_date"), errors="coerce")
+    deterministic.start_date = parsed_date.date() if pd.notna(parsed_date) else None
+    deterministic.intent = str(payload.get("intent") or deterministic.intent)
+    deterministic.interpreted_by = "llm"
+    return deterministic
+
+
+def interpret_with_runtime(text: str, llm_adapter=None) -> DiscoveryIntent:
+    """Use an optional runtime LLM adapter, with a safe deterministic fallback."""
+    if llm_adapter is None:
+        return interpret_query(text)
+    try:
+        payload = llm_adapter.interpret(text, mock_llm_adapter_spec())
+        if not isinstance(payload, dict):
+            raise TypeError("LLM adapter must return a dictionary")
+        return _intent_from_payload(text, payload)
+    except Exception:
+        return interpret_query(text)
+
+
+def discovery_search(
+    resources: pd.DataFrame,
+    capacity: pd.DataFrame,
+    query: str,
+    limit: int = 10,
+    llm_adapter=None,
+) -> tuple[DiscoveryIntent, pd.DataFrame]:
+    intent = interpret_with_runtime(query, llm_adapter)
     if resources is None or resources.empty:
         return intent, pd.DataFrame()
+
     rows = []
-    evidence = evidence if evidence is not None else pd.DataFrame()
-    for _, r in resources.iterrows():
-        skill_map = parse_skill_string(r.get("skills"))
-        skill_names = set(skill_map)
-        domains = split_pipe(r.get("domains"))
-        locations = {str(r.get("location", ""))}
-        locations |= split_pipe(r.get("country_expertise"))
-        geography = split_pipe(r.get("geography_expertise"))
-        tags = split_pipe(r.get("project_expertise")) | split_pipe(r.get("capability_tags"))
-        searchable = " ".join([
-            str(r.get("resource_name", "")), str(r.get("team", "")), str(r.get("grade", "")),
-            str(r.get("domains", "")), str(r.get("development_interests", "")), str(r.get("project_expertise", "")),
-            str(r.get("capability_tags", "")), str(r.get("geography_expertise", "")), str(r.get("country_expertise", "")),
-            str(r.get("expertise_summary", "")),
-        ]).lower()
-        person_evidence = evidence[evidence.resource_id.astype(str).eq(str(r.get("resource_id")))] if not evidence.empty and "resource_id" in evidence else evidence.iloc[0:0]
-        evidence_text = " ".join(person_evidence.astype(str).fillna("").agg(" ".join, axis=1).tolist()).lower() if not person_evidence.empty else ""
-        score = 0.0
-        matched = []
-        matched_skill = intent.skills.intersection(skill_names)
-        if matched_skill:
-            score += 35 + min(15, 5 * len(matched_skill))
-            matched.extend(sorted(matched_skill))
-        domain_hits = intent.domains.intersection(domains)
-        if domain_hits:
-            score += 20
-            matched.extend(sorted(domain_hits))
-        loc_hits = intent.locations.intersection(locations | geography)
-        if loc_hits:
-            score += 20
-            matched.extend(sorted(loc_hits))
-        if intent.time_zones and r.get("time_zone") in intent.time_zones:
-            score += 15
-            matched.append(str(r.get("time_zone")))
-        if intent.languages and intent.languages.issubset(split_pipe(r.get("languages"))):
-            score += 10
-            matched.extend(sorted(intent.languages))
-        term_hits = [term for term in intent.terms if len(term) >= 3 and term.lower() in (searchable + " " + evidence_text)]
-        score += min(15, len(term_hits) * 3)
-        matched.extend(term_hits[:6])
-        if not (intent.skills or intent.domains or intent.locations or intent.time_zones or intent.languages):
-            # Pure capability discovery gets a small, transparent relevance score rather than returning arbitrary names.
-            score = min(65, 15 + 10 * ("expert" in searchable or "sme" in searchable) + 10 * ("pricing" in searchable or "analytics" in searchable))
-        if score <= 0:
+    for _, resource in resources.iterrows():
+        skill_map = parse_skill_string(resource.get("skills"))
+        skills = set(skill_map)
+        domains = split_pipe(resource.get("domains"))
+        geography = split_pipe(resource.get("geography_expertise"))
+
+        # Countries are strict work-location filters. Geography expertise is a
+        # separate contextual filter and never broadens a country request.
+        if intent.locations and str(resource.get("location")) not in intent.locations:
             continue
-        rows.append({
-            "resource_id": str(r.get("resource_id")), "resource_name": str(r.get("resource_name")),
-            "team": str(r.get("team")), "grade": str(r.get("grade")), "location": str(r.get("location")),
-            "time_zone": str(r.get("time_zone")), "languages": str(r.get("languages")),
-            "contact_email": str(r.get("contact_email", "")), "manager_name": str(r.get("manager_name", "Not provided")),
-            "manager_email": str(r.get("manager_email", "")), "score": round(score, 1),
-            "matched_context": sorted(dict.fromkeys([x for x in matched if x])),
-            "key_skills": ", ".join(sorted(skill_names.intersection(intent.skills))) if intent.skills else ", ".join(sorted(skill_names, key=lambda x: -skill_map.get(x, 0))[:6]),
-            "domain_expertise": str(r.get("domains", "")), "geography_expertise": str(r.get("geography_expertise", "")),
-            "project_expertise": str(r.get("project_expertise", "")),
-            "expertise_summary": str(r.get("expertise_summary", "")), "profile_confidence": float(r.get("profile_confidence", 0.5) or 0.5),
-        })
+        if intent.geographies and not intent.geographies.intersection(geography):
+            continue
+        if intent.skills and not intent.skills.issubset(skills):
+            continue
+        if intent.domains and not intent.domains.intersection(domains):
+            continue
+        if intent.designations and str(resource.get("role_title")) not in intent.designations:
+            continue
+        if intent.time_zones and str(resource.get("time_zone")) not in intent.time_zones:
+            continue
+        if intent.languages and not intent.languages.issubset(split_pipe(resource.get("languages"))):
+            continue
+
+        minimum_available = None
+        if intent.availability_min is not None:
+            start = intent.start_date or pd.Timestamp.today().date()
+            window = candidate_capacity(capacity, str(resource.get("resource_id")), start, start, 0)
+            values = pd.to_numeric(window["available_capacity_pct"], errors="coerce").dropna()
+            if values.empty:
+                continue
+            minimum_available = float(values.min())
+            if minimum_available < intent.availability_min:
+                continue
+            if intent.availability_max is not None and minimum_available > intent.availability_max:
+                continue
+
+        searchable = " ".join(
+            [
+                str(resource.get("resource_name", "")),
+                str(resource.get("team", "")),
+                str(resource.get("role_title", "")),
+                str(resource.get("domains", "")),
+                str(resource.get("development_interests", "")),
+                str(resource.get("project_expertise", "")),
+                str(resource.get("geography_expertise", "")),
+                str(resource.get("expertise_summary", "")),
+            ]
+        ).lower()
+        term_hits = [term for term in intent.terms if term.lower() in searchable]
+        matched_skills = intent.skills.intersection(skills)
+        score = 25.0
+        score += 40.0 if intent.skills else 0.0
+        score += 15.0 if intent.domains else 0.0
+        score += 10.0 if intent.locations or intent.geographies else 0.0
+        score += min(10.0, len(term_hits) * 2.0)
+        if intent.skills:
+            score += min(
+                10.0,
+                sum(skill_map[skill] for skill in matched_skills)
+                / max(1, 4 * len(intent.skills))
+                * 10.0,
+            )
+        rows.append(
+            {
+                "resource_id": str(resource.get("resource_id")),
+                "resource_name": str(resource.get("resource_name")),
+                "team": str(resource.get("team")),
+                "role_title": str(resource.get("role_title")),
+                "grade": int(resource.get("grade")),
+                "location": str(resource.get("location")),
+                "time_zone": str(resource.get("time_zone")),
+                "languages": str(resource.get("languages")),
+                "minimum_available_pct": minimum_available,
+                "score": round(min(score, 100.0), 1),
+                "key_skills": ", ".join(
+                    sorted(matched_skills)
+                    if intent.skills
+                    else sorted(skills, key=lambda name: -skill_map[name])[:6]
+                ),
+                "domains": str(resource.get("domains", "")),
+                "geography_expertise": str(resource.get("geography_expertise", "")),
+                "project_expertise": str(resource.get("project_expertise", "")),
+                "contact_email": str(resource.get("contact_email", "")),
+                "manager_name": str(resource.get("manager_name", "Not provided")),
+                "manager_email": str(resource.get("manager_email", "")),
+            }
+        )
+
     result = pd.DataFrame(rows)
     if not result.empty:
-        result = result.sort_values(["score", "profile_confidence"], ascending=[False, False]).head(limit).reset_index(drop=True)
+        result = (
+            result.sort_values(["score", "resource_name"], ascending=[False, True])
+            .head(limit)
+            .reset_index(drop=True)
+        )
         result["rank"] = range(1, len(result) + 1)
     return intent, result
 
 
+def intent_summary(intent: DiscoveryIntent) -> dict:
+    payload = asdict(intent)
+    return {
+        key: value
+        for key, value in payload.items()
+        if value not in (None, False, "", set()) and key not in {"raw", "terms"}
+    }
+
+
 def mock_llm_adapter_spec() -> dict:
     return {
-        "interface": "interpret_request(text: str) -> DiscoveryIntent",
-        "replace_with": "Approved LLM/API client in the future",
-        "contract": ["intent", "skills", "domains", "locations", "time_zones", "languages", "terms", "requested_contact"],
-        "guardrail": "LLM may interpret language, but deterministic validation and matching rules remain the system of record.",
+        "interface": "adapter.interpret(text, schema) -> dict",
+        "purpose": "Interpret natural language into governed filters only",
+        "fields": {
+            "intent": ["expert_finder", "capability_discovery", "resource_matching"],
+            "skills": SKILL_CATALOG,
+            "domains": DOMAINS,
+            "locations": LOCATIONS,
+            "geographies": "list[str]",
+            "time_zones": TIME_ZONES,
+            "languages": LANGUAGES,
+            "designations": DESIGNATIONS,
+            "availability_min": "number 0..100 or null",
+            "availability_max": "number 0..100 or null",
+            "start_date": "YYYY-MM-DD or null",
+            "terms": "list[str]",
+        },
+        "runtime_guardrails": [
+            "Validate every returned value against governed catalogues",
+            "Fall back to deterministic parsing on timeout or invalid output",
+            "Never allow model output to change hard gates or scoring policy",
+            "Do not send unnecessary employee fields to the model",
+        ],
     }
